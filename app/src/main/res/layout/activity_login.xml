@@ -19,8 +19,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="48dp"
                 android:layout_weight="1"
-                android:src="@tools:sample/avatars"
-                app:srcCompat="@drawable/logo_news" />
+                android:src="@drawable/logo_news"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,30 +51,29 @@
                 android:id="@+id/userEdt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Email address"
-                android:textAlignment="center"
-                android:textColorHint="@color/black"
-                android:textSize="16dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
-                android:inputType="text" />
+                android:hint="Email address"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+
             <EditText
                 android:id="@+id/passwordEdt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Password"
-                android:textAlignment="center"
-                android:textColorHint="@color/black"
-                android:textSize="16dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/forgetpassword"
