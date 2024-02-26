@@ -6,13 +6,13 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/news"
         android:id="@+id/news"
-        android:title="News" />
+        android:title="Tin tức" />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/play_round_icon"
-        android:id="@+id/video"
-        android:title="Video" />
+        android:icon="@drawable/gift_icon"
+        android:id="@+id/gif"
+        android:title="Đổi thưởng" />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
