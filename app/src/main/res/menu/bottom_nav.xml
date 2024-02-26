@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <item android:id="@+id/bottom_trangchu"
+        android:title="Home"
+        android:icon="@drawable/home_icon"/>
+    <item android:id="@+id/bottom_xuhuong"
+        android:title="Trend"
+        android:icon="@drawable/trending_icon"/>
+    <item android:id="@+id/bottom_doithuong"
+        android:title="Award"
+        android:icon="@drawable/gift_icon"/>
+    <item android:id="@+id/bottom_nguoidung"
+        android:title="User"
+        android:icon="@drawable/user_profile_icon"/>
 </menu>
