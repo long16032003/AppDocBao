@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/news"
+        android:id="@+id/news"
+        android:title="News" />
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/play_round_icon"
+        android:id="@+id/video"
+        android:title="Video" />
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/online_research_icon"
+        android:id="@+id/trend"
+        android:title="Xu hướng" />
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/person_244"
+        android:id="@+id/profile"
+        android:title="Cá nhân" />
+</menu>
