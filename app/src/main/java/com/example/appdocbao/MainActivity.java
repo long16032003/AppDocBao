@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.news) {
                 replaceFragement(new NewsFragment());
-            } else if (itemId == R.id.video) {
-                replaceFragement(new VideoFragment());
+            } else if (itemId == R.id.gif) {
+                replaceFragement(new GifFragment());
             } else if (itemId == R.id.trend) {
                 replaceFragement(new TrendFragment());
             } else if (itemId == R.id.profile) {
