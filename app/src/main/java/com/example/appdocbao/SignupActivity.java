@@ -28,7 +28,7 @@ public class SignupActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         emailedit = (EditText) findViewById(R.id.signupUsername);
-        emailedit = (EditText) findViewById(R.id.signupPassword);
+        passedit = (EditText) findViewById(R.id.signupPassword);
         btnregis = (Button) findViewById(R.id.signupBtn);
 
         btnregis.setOnClickListener(new View.OnClickListener() {
