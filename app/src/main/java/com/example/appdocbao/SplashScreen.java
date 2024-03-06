@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appdocbao.Activity.LoginActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     public static int SPLASH_TIMER = 2000;
