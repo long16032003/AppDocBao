@@ -13,9 +13,6 @@
         android:theme="@style/Theme.AppDocBao"
         tools:targetApi="31">
         <activity
-            android:name=".UserLogin"
-            android:exported="false" />
-        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
@@ -25,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".Activity.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:exported="false" />
     </application>
 
