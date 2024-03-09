@@ -1,91 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_grey"
-    tools:context=".Fragment.ProfileFragment">
+    tools:context=".Activity.UserActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="77dp">
 
-        <ImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@drawable/user_profile_icon"/>
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Username"
-            android:layout_margin="8dp"
-            android:textColor="@color/white"
-            android:textSize="26sp" />
-
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:layout_margin="8dp"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/button3"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="30dp"
-            android:background="@drawable/button_blue"
-            android:text="Tạo bài viết" />
+            android:orientation="vertical">
 
-        <TextView
-            android:drawableLeft="@drawable/certificate_medal_quality_icon"
-            android:id="@+id/textView9"
-            android:background="@drawable/border_rectangle_orange"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="Điểm tích lũy"
-            android:textSize="30dp" />
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/user_profile_icon"
+                />
 
-        <TextView
-            android:drawableLeft="@drawable/clock_icon"
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:background="@drawable/border_rectangle_red"
-            android:textColor="@color/white"
-            android:padding="4dp"
-            android:text="Tin gần đây"
-            android:textSize="30dp" />
+            <LinearLayout
 
-        <TextView
-            android:textColor="@color/white"
-            android:drawableLeft="@drawable/saved_bookmark_icon"
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:background="@drawable/border_rectangle_blue"
-            android:text="Tin đã lưu"
-            android:textSize="30dp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/btnLogin_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_blue"
+                    android:text="Đăng nhập" />
 
-</FrameLayout>
+                <Button
+                    android:id="@+id/btnRegister_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_blue"
+                    android:text="Đăng ký" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:drawableLeft="@drawable/certificate_medal_quality_icon"
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border_rectangle_orange"
+                    android:gravity="center"
+                    android:text="Điểm tích lũy"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:drawableLeft="@drawable/clock_icon"
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:background="@drawable/border_rectangle_red"
+                    android:text="Tin gần đây"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:drawableLeft="@drawable/saved_bookmark_icon"
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:background="@drawable/border_rectangle_blue"
+                    android:text="Tin đã lưu"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
