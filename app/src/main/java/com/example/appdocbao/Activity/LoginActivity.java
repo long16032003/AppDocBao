@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtEmail, txtPassword;
     AppCompatButton btnLogin;
     Button loginBtn;
+    ImageView imgIconGoogle;
     TextView lableSignUp;
     FirebaseAuth mAuth;
     @Override
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = (Button) findViewById(R.id.loginBtn);
         lableSignUp = (TextView) findViewById(R.id.textSignUp);
 
+        imgIconGoogle = (ImageView) findViewById(R.id.imgIconGoogle);
         lableSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,5 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void buttonGoogleSignIn(View view){
+
     }
 }
