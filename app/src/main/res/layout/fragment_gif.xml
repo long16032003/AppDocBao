@@ -62,7 +62,7 @@
             android:text="Điều kiện áp dụng: Khách hàng có số điểm lớn hơn 100 trở lên." />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -71,7 +71,7 @@
             android:text="Mức điểm tối thiểu: 100 điểm." />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
