@@ -24,12 +24,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleview_items"
+            <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:id="@+id/progress_bar"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="650dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleview_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </FrameLayout>
 
 

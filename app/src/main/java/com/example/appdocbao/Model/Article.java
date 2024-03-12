@@ -1,5 +1,7 @@
 package com.example.appdocbao.Model;
 
+import androidx.annotation.NonNull;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -8,8 +10,8 @@ public class Article {
      private int categoryId;
      private String content;
      private String title;
-     private int img;
-     private Timestamp date;
+     private String img;
+     private long timestamp;
      //https://www.javatpoint.com/java-date-to-timestamp
      private int likes;
      private int dislikes;
@@ -17,19 +19,19 @@ public class Article {
      public Article() {
      }
 
-     public Article(String title, int img) {
+     public Article(String title, String img) {
           this.title = title;
           this.img = img;
      }
-     public Article(String author, int categoryId, String content, String title, int img, Timestamp date, int likes, int dislikes) {
+     public Article(String author, int categoryId, String content, String title, String img, long timestamp) {
           this.author = author;
           this.categoryId = categoryId;
           this.content = content;
           this.title = title;
           this.img = img;
-          this.date = date;
-          this.likes = likes;
-          this.dislikes = dislikes;
+          this.timestamp = timestamp;
+          this.likes = 0;
+          this.dislikes = 0;
      }
 
      public String getAuthor() {
@@ -64,20 +66,20 @@ public class Article {
           this.title = title;
      }
 
-     public int getImg() {
+     public long getTimestamp() {
+          return timestamp;
+     }
+
+     public void setTimestamp(long timestamp) {
+          this.timestamp = timestamp;
+     }
+
+     public String getImg() {
           return img;
      }
 
-     public void setImg(int img) {
+     public void setImg(String img) {
           this.img = img;
-     }
-
-     public Timestamp getDate() {
-          return date;
-     }
-
-     public void setDate(Timestamp date) {
-          this.date = date;
      }
 
      public int getLikes() {
@@ -94,5 +96,13 @@ public class Article {
 
      public void setDislikes(int dislikes) {
           this.dislikes = dislikes;
+     }
+
+     @NonNull
+     @Override
+     public String toString() {
+          return "Article{" +
+                  "title: " + title +
+                  "catrgory: " + categoryId + "}";
      }
 }

@@ -1,6 +1,7 @@
 package com.example.appdocbao.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.appdocbao.Activity.DetailArticleActivity;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 
@@ -42,10 +48,20 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         if(article == null){
             return;
         }
-        holder.imgArticle.setImageResource(article.getImg());
         holder.titleArticle.setText(article.getTitle());
-//        holder.authorArticle.setText(article.getAuthor());
-//        holder.dateArticle.setText(article.getDate());
+        Glide.with(mContext)
+                .load(article.getImg())
+                .into(holder.imgArticle);
+        holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DetailArticleActivity.class);
+                intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
+                intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
+                intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,6 +72,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgArticle;
         private TextView titleArticle;
+        private CardView cardViewArticle;
 //        private TextView authorArticle;
 //        private TextView dateArticle;
 
@@ -63,6 +80,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             super(itemView);
             imgArticle = itemView.findViewById(R.id.imgArticle);
             titleArticle = itemView.findViewById(R.id.titleArticle);
+            cardViewArticle = itemView.findViewById(R.id.cardViewArticle);
 //            authorArticle = itemView.findViewById(R.id.authorArticle);
 //            dateArticle = itemView.findViewById(R.id.dateArticle);
         }

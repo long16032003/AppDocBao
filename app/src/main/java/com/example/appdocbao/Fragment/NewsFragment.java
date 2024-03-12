@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.appdocbao.Adapter.RecyclerDataAdapter;
@@ -24,34 +26,71 @@ import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class NewsFragment extends Fragment {
     DrawerLayout drawerLayout;
+    LinearProgressIndicator progressIndicator;
     private RecyclerView rcvArticle;
     private RecyclerDataAdapter articleAdapter;
     private ArrayList<Article> listArticle;
+    DatabaseReference databaseReference;
+    ValueEventListener eventListener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_news, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listArticle = new ArrayList<>();
-        createArticleList();
         rcvArticle = view.findViewById(R.id.recycleview_items);
-        rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
-        rcvArticle.setHasFixedSize(true);
-        articleAdapter = new RecyclerDataAdapter(getContext(),listArticle);
-        rcvArticle.setAdapter(articleAdapter);
+        progressIndicator = view.findViewById(R.id.progress_bar);
+        setupRecycleView();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+//        builder.setView(R.layout.progress_layout);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        listArticle = new ArrayList<>();
+        RecyclerDataAdapter adapter = new RecyclerDataAdapter(getContext(),listArticle);
+        rcvArticle.setAdapter(adapter);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("articles");
+        dialog.show();
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listArticle.clear();
+                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
+                    Article article = itemSnapShot.getValue(Article.class);
+                    listArticle.add(article);
+                }
+                adapter.notifyDataSetChanged();
+                changeInProgress(false);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                dialog.dismiss();
+            }
+        });
+
 
         Toolbar toolbar =(Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -79,19 +118,18 @@ public class NewsFragment extends Fragment {
                 return true;
             }
         });
-
-
     }
-    private void createArticleList() {
-        listArticle.add(new Article("Thor",R.drawable.logo_news));
-        listArticle.add(new Article("IronMan",R.drawable.logo_news));
-        listArticle.add(new Article("Hulk",R.drawable.logo_news));
-        listArticle.add(new Article("SpiderMan",R.drawable.logo_news));
-        listArticle.add(new Article("Thor",R.drawable.logo_news));
-        listArticle.add(new Article("IronMan",R.drawable.logo_news));
-        listArticle.add(new Article("Hulk",R.drawable.logo_news));
-        listArticle.add(new Article("SpiderMan",R.drawable.logo_news));
-        listArticle.add(new Article("Thor",R.drawable.logo_news));
-        listArticle.add(new Article("IronMan",R.drawable.logo_news));
+    void changeInProgress(boolean show){
+        if(show){
+            progressIndicator.setVisibility(View.VISIBLE);
+        }else{
+            progressIndicator.setVisibility(View.INVISIBLE);
+        }
+    }
+    void setupRecycleView(){
+        rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcvArticle.setHasFixedSize(true);
+        articleAdapter = new RecyclerDataAdapter(getContext(),listArticle);
+        rcvArticle.setAdapter(articleAdapter);
     }
 }
