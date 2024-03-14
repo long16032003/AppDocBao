@@ -52,6 +52,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         Glide.with(mContext)
                 .load(article.getImg())
                 .into(holder.imgArticle);
+        holder.authorArticle.setText(article.getAuthor());
         holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +60,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
+                intent.putExtra("Author", mListArticle.get(holder.getAdapterPosition()).getAuthor());
                 mContext.startActivity(intent);
             }
         });
@@ -73,7 +75,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         private ImageView imgArticle;
         private TextView titleArticle;
         private CardView cardViewArticle;
-//        private TextView authorArticle;
+        private TextView authorArticle;
 //        private TextView dateArticle;
 
         public ArticleViewHolder(@NonNull View itemView) {
@@ -81,7 +83,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             imgArticle = itemView.findViewById(R.id.imgArticle);
             titleArticle = itemView.findViewById(R.id.titleArticle);
             cardViewArticle = itemView.findViewById(R.id.cardViewArticle);
-//            authorArticle = itemView.findViewById(R.id.authorArticle);
+            authorArticle = itemView.findViewById(R.id.authorArticle);
 //            dateArticle = itemView.findViewById(R.id.dateArticle);
         }
     }

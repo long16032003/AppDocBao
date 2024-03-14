@@ -19,76 +19,127 @@
                 android:id="@+id/toolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
+                android:background="@color/blue_green"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/logo_news" />
-
-            <TextView
-                android:id="@+id/tvData"
+            
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="TextView" />
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="20dp"
+                    android:background="@drawable/border_rectangle_blue">
 
-            <EditText
-                android:id="@+id/inputTitle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:hint="Tiêu đề"
-                android:inputType="text"
-                android:text="" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Upload Picture"
+                        android:textSize="25dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue_green"/>
+                    <ImageView
+                        android:id="@+id/imageUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        app:srcCompat="@drawable/image_upload_icon" />
+                    <EditText
+                        android:id="@+id/titleUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:hint="Tiêu đề"
+                        android:background="@drawable/border_rectangle_blue"
+                        android:inputType="text"
+                        android:text="" />
 
-            <EditText
-                android:id="@+id/inputContent"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Nội dung"
-                android:text="" />
+                    <EditText
+                        android:id="@+id/contentUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_rectangle_blue"
+                        android:hint="Nội dung"
+                        android:text="" />
 
-            <EditText
-                android:id="@+id/inputLoaiBao"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Loai báo"
-                android:text="" />
+                    <Spinner
+                        android:id="@+id/spinnerCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/border_rectangle_blue"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        />
 
-            <EditText
-                android:id="@+id/inputDate"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Ngày đăng báo"
-                android:text="" />
+                    <EditText
+                        android:id="@+id/categoryUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_rectangle_blue"
+                        android:hint="Loai báo"
+                        android:text="" />
 
-            <EditText
-                android:id="@+id/editTextText2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Tác giả"
-                android:text="" />
+                    <EditText
+                        android:id="@+id/dateUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:hint="Ngày đăng báo"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_rectangle_blue"
+                        android:text="" />
 
-            <Button
-                android:id="@+id/btnDangBao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng báo"
-                android:layout_gravity="center"/>
+                    <EditText
+                        android:id="@+id/authorUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:hint="Tác giả"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/border_rectangle_blue"
+                        android:text="" />
+
+                    <Button
+                        android:id="@+id/btnDangBao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Đăng báo"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
         </LinearLayout>
     </ScrollView>
 

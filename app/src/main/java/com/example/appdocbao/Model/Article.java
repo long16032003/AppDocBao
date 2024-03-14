@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Article {
+     private String id;
      private String author;
      private int categoryId;
      private String content;
@@ -23,7 +24,8 @@ public class Article {
           this.title = title;
           this.img = img;
      }
-     public Article(String author, int categoryId, String content, String title, String img, long timestamp) {
+     public Article(String id, String title, String content, int categoryId, String author, String img, long timestamp) {
+          this.id = id;
           this.author = author;
           this.categoryId = categoryId;
           this.content = content;
@@ -32,6 +34,14 @@ public class Article {
           this.timestamp = timestamp;
           this.likes = 0;
           this.dislikes = 0;
+     }
+
+     public String getId() {
+          return id;
+     }
+
+     public void setId(String id) {
+          this.id = id;
      }
 
      public String getAuthor() {
