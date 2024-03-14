@@ -11,8 +11,9 @@ import com.example.appdocbao.R;
 
 public class DetailArticleActivity extends AppCompatActivity {
 
-    TextView detailTitle, detailContent;
+    TextView detailTitle, detailContent, detailAuthor;
     ImageView detailImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +22,13 @@ public class DetailArticleActivity extends AppCompatActivity {
         detailTitle = findViewById(R.id.detailTitle);
         detailContent = findViewById(R.id.detailContent);
         detailImage = findViewById(R.id.detailImage);
+        detailAuthor = findViewById(R.id.detailAuthor);
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             detailTitle.setText(bundle.getString("Title"));
             detailContent.setText(bundle.getString("Content"));
+            detailAuthor.setText(bundle.getString("Author"));
             Glide.with(this).load(bundle.getString("Image")).into(detailImage);
         }
     }
