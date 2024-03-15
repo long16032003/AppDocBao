@@ -35,7 +35,8 @@
                 android:layout_gravity="bottom"
                 app:labelVisibilityMode="labeled"
                 android:background="@color/bottom_nav"
-                app:itemIconTint="@color/black" />
+                app:itemTextColor="@color/custom_color"
+                app:itemIconTint="@color/custom_color" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
