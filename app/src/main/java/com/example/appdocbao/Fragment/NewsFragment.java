@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -102,20 +103,26 @@ public class NewsFragment extends Fragment {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.close_nav, R.string.open_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.setting){
+                if(item.getItemId()==R.id.news){
                     Toast.makeText(getActivity(),"Cài đặt",Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
+                    replaceFragement(new NewsFragment());
+                }else if(item.getItemId()==R.id.setting) {
+                    Toast.makeText(getActivity(),"Cài đặt",Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    replaceFragement(new SettingFragment());
                 }else if(item.getItemId()==R.id.contact) {
                     Toast.makeText(getActivity(), "Liên hệ", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
-
-                }else if(item.getItemId()==R.id.share) {
+                    replaceFragement(new ContactFragment());
+                } else if(item.getItemId()==R.id.share) {
                     Toast.makeText(getActivity(), "Chia sẻ", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
-
+                    replaceFragement(new ShareFragment());
                 }
                 return true;
             }
@@ -147,6 +154,10 @@ public class NewsFragment extends Fragment {
             Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
         }
         articleAdapter.setData(filteredList);
+    }
+    private void replaceFragement(Fragment fragment) {
+        FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+        fm.replace(R.id.frame_layout,fragment).commit();
     }
     void changeInProgress(boolean show){
         if(show){

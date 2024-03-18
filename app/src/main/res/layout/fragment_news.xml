@@ -57,10 +57,17 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/frame2"
+            android:layout_below="@id/frame1">
+
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_layout_new"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/frame1">
+            android:layout_below="@+id/frame2">
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,6 +75,7 @@
                 android:id="@+id/progress_bar"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="100dp">
@@ -80,6 +88,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>
