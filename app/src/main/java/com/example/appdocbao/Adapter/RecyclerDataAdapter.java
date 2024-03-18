@@ -19,7 +19,9 @@ import com.example.appdocbao.Activity.DetailArticleActivity;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.text.SimpleDateFormat;
+
 
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.ArticleViewHolder> {
     private Context mContext;
@@ -53,6 +55,11 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
                 .load(article.getImg())
                 .into(holder.imgArticle);
         holder.authorArticle.setText(article.getAuthor());
+        long timestamp = article.getTimestamp();
+        Date dateTime = new Date(timestamp);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDateTime = dateFormat.format(dateTime);
+        holder.dateArticle.setText(formattedDateTime);
         holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +68,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
                 intent.putExtra("Author", mListArticle.get(holder.getAdapterPosition()).getAuthor());
+                intent.putExtra("Date", mListArticle.get(holder.getAdapterPosition()).getTimestamp());
                 mContext.startActivity(intent);
             }
         });
@@ -76,7 +84,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         private TextView titleArticle;
         private CardView cardViewArticle;
         private TextView authorArticle;
-//        private TextView dateArticle;
+        private TextView dateArticle;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,7 +92,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             titleArticle = itemView.findViewById(R.id.titleArticle);
             cardViewArticle = itemView.findViewById(R.id.cardViewArticle);
             authorArticle = itemView.findViewById(R.id.authorArticle);
-//            dateArticle = itemView.findViewById(R.id.dateArticle);
+            dateArticle = itemView.findViewById(R.id.dateArticle);
         }
     }
 }
