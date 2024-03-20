@@ -19,7 +19,7 @@ import com.example.appdocbao.R;
 
 
 public class ProfileFragment extends Fragment {
-    Button btnLogin, btnRegister,btnActivityPostArticle;
+    Button btnLogin, btnRegister;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class ProfileFragment extends Fragment {
 
         btnLogin = view.findViewById(R.id.btnLogin_user);
         btnRegister = view.findViewById(R.id.btnRegister_user);
-        btnActivityPostArticle = view.findViewById(R.id.btnActivityPostArticle);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,13 +47,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SignupActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnActivityPostArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewspaperPostingActivity.class);
                 startActivity(intent);
             }
         });

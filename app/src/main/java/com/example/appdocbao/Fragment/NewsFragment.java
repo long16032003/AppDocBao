@@ -23,7 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocbao.Adapter.RecyclerDataAdapter;
+import com.example.appdocbao.Adapter.RecyclerArticleAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 import com.google.android.material.navigation.NavigationView;
@@ -41,7 +41,7 @@ public class NewsFragment extends Fragment {
     DrawerLayout drawerLayout;
     LinearProgressIndicator progressIndicator;
     private RecyclerView rcvArticle;
-    private RecyclerDataAdapter articleAdapter;
+    private RecyclerArticleAdapter articleAdapter;
     private ArrayList<Article> listArticle;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -70,11 +70,11 @@ public class NewsFragment extends Fragment {
         dialog.show();
 
         listArticle = new ArrayList<>();
-        articleAdapter= new RecyclerDataAdapter(getContext(),listArticle);
+        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("articles");
-        dialog.show();
+//        dialog.show();
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -169,7 +169,7 @@ public class NewsFragment extends Fragment {
     void setupRecycleView(){
         rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
         rcvArticle.setHasFixedSize(true);
-        articleAdapter = new RecyclerDataAdapter(getContext(),listArticle);
+        articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
     }
 }

@@ -40,7 +40,7 @@ tools:context=".Fragment.ProfileFragment">
         android:layout_gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnActivityPostArticle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -86,7 +86,16 @@ tools:context=".Fragment.ProfileFragment">
         android:background="@drawable/border_rectangle_blue"
         android:text="Tin đã lưu"
         android:textSize="30dp" />
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogOut"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_blue"
+        android:text="Đăng xuất" />
 </LinearLayout>
 
 </FrameLayout>

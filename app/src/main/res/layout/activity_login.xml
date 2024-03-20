@@ -79,13 +79,14 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/forgetpassword"
-                android:layout_width="match_parent"
+                android:id="@+id/forgotPassword"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forget password ?"
-                android:textAlignment="center"
+                android:textColor="@color/orange"
+                android:textSize="17dp"
                 android:layout_marginTop="32dp"
-                android:textSize="16dp"/>
+                android:layout_gravity="center"
+                android:text="Forgot password ?" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginBtn"

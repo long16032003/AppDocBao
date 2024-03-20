@@ -19,5 +19,4 @@
         android:textSize="18sp"
         android:textColor="@color/blue_grey"
         android:gravity="start|center_vertical"/>
-    
 </LinearLayout>
