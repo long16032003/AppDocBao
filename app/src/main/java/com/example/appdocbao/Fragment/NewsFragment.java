@@ -1,6 +1,14 @@
 package com.example.appdocbao.Fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,20 +19,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.appdocbao.Adapter.RecyclerDataAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class NewsFragment extends Fragment {
@@ -45,6 +45,8 @@ public class NewsFragment extends Fragment {
     private ArrayList<Article> listArticle;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
+    EditText search_edit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         rcvArticle = view.findViewById(R.id.recycleview_items);
         progressIndicator = view.findViewById(R.id.progress_bar);
@@ -67,8 +70,8 @@ public class NewsFragment extends Fragment {
         dialog.show();
 
         listArticle = new ArrayList<>();
-        RecyclerDataAdapter adapter = new RecyclerDataAdapter(getContext(),listArticle);
-        rcvArticle.setAdapter(adapter);
+        articleAdapter= new RecyclerDataAdapter(getContext(),listArticle);
+        rcvArticle.setAdapter(articleAdapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("articles");
         dialog.show();
@@ -80,7 +83,7 @@ public class NewsFragment extends Fragment {
                     Article article = itemSnapShot.getValue(Article.class);
                     listArticle.add(article);
                 }
-                adapter.notifyDataSetChanged();
+                articleAdapter.notifyDataSetChanged();
                 changeInProgress(false);
                 dialog.dismiss();
             }
@@ -100,24 +103,61 @@ public class NewsFragment extends Fragment {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.close_nav, R.string.open_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.setting){
+                if(item.getItemId()==R.id.news){
                     Toast.makeText(getActivity(),"Cài đặt",Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
+                    replaceFragement(new NewsFragment());
+                }else if(item.getItemId()==R.id.setting) {
+                    Toast.makeText(getActivity(),"Cài đặt",Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    replaceFragement(new SettingFragment());
                 }else if(item.getItemId()==R.id.contact) {
                     Toast.makeText(getActivity(), "Liên hệ", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
-
-                }else if(item.getItemId()==R.id.share) {
+                    replaceFragement(new ContactFragment());
+                } else if(item.getItemId()==R.id.share) {
                     Toast.makeText(getActivity(), "Chia sẻ", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
-
+                    replaceFragement(new ShareFragment());
                 }
                 return true;
             }
         });
+        EditText searchEditText = view.findViewById(R.id.search_edit);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterList(s.toString());
+            }
+        });
+    }
+    private void filterList(String searchText) {
+        ArrayList<Article> filteredList = new ArrayList<>();
+        for (Article item : listArticle) {
+            if (item.getTitle().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+        }
+        articleAdapter.setData(filteredList);
+    }
+    private void replaceFragement(Fragment fragment) {
+        FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+        fm.replace(R.id.frame_layout,fragment).commit();
     }
     void changeInProgress(boolean show){
         if(show){

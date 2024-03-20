@@ -13,17 +13,61 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blue_cy"
-            app:popupTheme="@style/Theme.DrawerCheck.PopupOverlay" />
+
         <FrameLayout
-            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/frame1">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue_cy"
+                app:popupTheme="@style/Theme.DrawerCheck.PopupOverlay" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="50dp">
+
+<!--                <SearchView-->
+<!--                    android:id="@+id/search_view"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:background="@drawable/edittext"-->
+<!--                    android:queryHint="Search Here..."-->
+<!--                    android:iconifiedByDefault="false"/>-->
+                <EditText
+                    android:id="@+id/search_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:drawablePadding="8dp"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:textColor="@color/black"
+                    android:inputType="text"
+                    android:drawableStart="@drawable/search_icon"
+                    android:background="@drawable/edittext"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/frame2"
+            android:layout_below="@id/frame1">
+
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_layout_new"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/frame2">
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,8 +75,10 @@
                 android:id="@+id/progress_bar"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons1"
                 android:layout_width="match_parent"
-                android:layout_height="650dp">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="100dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_items"
@@ -42,6 +88,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>
