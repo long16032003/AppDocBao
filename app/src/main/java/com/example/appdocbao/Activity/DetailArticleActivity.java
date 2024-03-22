@@ -18,10 +18,12 @@ import com.example.appdocbao.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class DetailArticleActivity extends AppCompatActivity {
+import java.util.*;
+import java.text.SimpleDateFormat;
 
+public class DetailArticleActivity extends AppCompatActivity {
     ImageView img;
-    TextView detailTitle, detailContent, detailAuthor;
+    TextView detailTitle, detailContent, detailAuthor, detailDate;
     ImageView detailImage;
     public boolean click;
     @Override
@@ -41,12 +43,21 @@ public class DetailArticleActivity extends AppCompatActivity {
         detailContent = findViewById(R.id.detailContent);
         detailImage = findViewById(R.id.detailImage);
         detailAuthor = findViewById(R.id.detailAuthor);
+        detailDate = findViewById(R.id.detailDate);
+
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             detailTitle.setText(bundle.getString("Title"));
             detailContent.setText(bundle.getString("Content"));
             detailAuthor.setText(bundle.getString("Author"));
+
+            long timestamp = bundle.getLong("Date");
+            Date date = new Date(timestamp);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
+            String formattedDateTime = dateFormat.format(date);
+            detailDate.setText(formattedDateTime);
+
             Glide.with(this).load(bundle.getString("Image")).into(detailImage);
         }
         BottomNavigationView navigationView = findViewById(R.id.bottom_nav);

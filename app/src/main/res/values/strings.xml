@@ -9,5 +9,6 @@
     <string name="action_dislike">Dislike</string>
     <string name="action_saved">Saved</string>
     <string name="action_share">Share</string>
+    <string name="search">Search</string>
 
 </resources>
