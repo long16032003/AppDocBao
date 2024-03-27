@@ -9,6 +9,8 @@
     <color name="orange">#F05B30</color>
     <color name="blue_cy">#2fa1b3</color>
     <color name="bottom_nav">#F3EDF7</color>
-    <color name="color_selected_bottom_nav">#009688</color>
+    <color name="colorStateEnabled">#009688</color>
+    <color name="colorStateNotEnabled">#615A5A</color>
+    <color name="colorStatePressed">#F44336</color>
     <color name="grey">#EFEFEF</color>
 </resources>

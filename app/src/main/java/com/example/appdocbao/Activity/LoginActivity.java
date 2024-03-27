@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     AppCompatButton btnLogin;
     Button loginBtn;
     ImageView imgIconGoogle;
-    TextView lableSignUp;
+    TextView lableSignUp, forgotPassword;
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,18 @@ public class LoginActivity extends AppCompatActivity {
 
         txtEmail = (EditText) findViewById(R.id.usernameEdt);
         txtPassword = (EditText) findViewById(R.id.passwordEdt);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         lableSignUp = (TextView) findViewById(R.id.textSignUp);
 
         imgIconGoogle = (ImageView) findViewById(R.id.imgIconGoogle);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickForgotPassword();
+            }
+        });
         lableSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +62,26 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
+    }
+
+    private void onClickForgotPassword() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String emailAddress = txtEmail.getText().toString().trim();
+        if(emailAddress == null || emailAddress.toString().trim().isEmpty())
+            Toast.makeText(LoginActivity.this, "Vui long nhap email!", Toast.LENGTH_SHORT).show();
+        else{
+            auth.sendPasswordResetEmail(emailAddress)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Email sent!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(LoginActivity.this, "Email sent fail!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
     }
     private void login(){
         String email, password;

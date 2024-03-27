@@ -32,6 +32,10 @@
             android:exported="false">
         </activity>
         <activity
+            android:name=".Activity.UserActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity

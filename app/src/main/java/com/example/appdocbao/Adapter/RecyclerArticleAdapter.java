@@ -13,8 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.appdocbao.Activity.DetailArticleActivity;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
@@ -23,11 +21,11 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 
-public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.ArticleViewHolder> {
+public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticleAdapter.ArticleViewHolder> {
     private Context mContext;
     private ArrayList<Article> mListArticle;
 
-    public RecyclerDataAdapter(Context mContext, ArrayList<Article> mListArticle) {
+    public RecyclerArticleAdapter(Context mContext, ArrayList<Article> mListArticle) {
         this.mContext = mContext;
         this.mListArticle = mListArticle;
     }

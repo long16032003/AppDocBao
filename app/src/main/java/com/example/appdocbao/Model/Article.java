@@ -20,10 +20,6 @@ public class Article {
      public Article() {
      }
 
-     public Article(String title, String img) {
-          this.title = title;
-          this.img = img;
-     }
      public Article(String id, String title, String content, int categoryId, String author, String img, long timestamp) {
           this.id = id;
           this.author = author;

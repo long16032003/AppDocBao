@@ -1,5 +1,6 @@
 package com.example.appdocbao.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,50 +12,28 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.appdocbao.BroadcastReceiver.Internet;
 import com.example.appdocbao.Fragment.GifFragment;
 import com.example.appdocbao.Fragment.NewsFragment;
 import com.example.appdocbao.Fragment.ProfileFragment;
 import com.example.appdocbao.Fragment.TrendFragment;
 import com.example.appdocbao.R;
 import com.example.appdocbao.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     DrawerLayout drawerLayout;
+    private Internet internetBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        drawerLayout = findViewById(R.id.drawerlayout);
-//        NavigationView navigationView = findViewById(R.id.navigation_view);
-//
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, toolbar, R.string.close_nav, R.string.open_nav);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                if(item.getItemId()==R.id.setting){
-//                    Toast.makeText(MainActivity.this,"Setting",Toast.LENGTH_SHORT).show();
-//                    drawerLayout.closeDrawer(GravityCompat.START);
-//                }else if(item.getItemId()==R.id.setting) {
-//                    Toast.makeText(MainActivity.this, "Setting", Toast.LENGTH_SHORT).show();
-//                    drawerLayout.closeDrawer(GravityCompat.START);
-//
-//                }else if(item.getItemId()==R.id.setting) {
-//                    Toast.makeText(MainActivity.this, "Setting", Toast.LENGTH_SHORT).show();
-//                    drawerLayout.closeDrawer(GravityCompat.START);
-//
-//                }
-//                return true;
-//            }
-//        });
-
+        internetBroadcastReceiver = new Internet();
 
         replaceFragement(new NewsFragment());
         binding.bottomNavigationView.setBackground(null);
@@ -67,7 +46,13 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.trend) {
                 replaceFragement(new TrendFragment());
             } else if (itemId == R.id.profile) {
-                replaceFragement(new ProfileFragment());
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                    startActivity(intent);
+                }else{
+                    replaceFragement(new ProfileFragment());
+                }
             }
             return true;
         });

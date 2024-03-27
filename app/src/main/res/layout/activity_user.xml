@@ -40,7 +40,7 @@ tools:context=".Fragment.ProfileFragment">
         android:layout_gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnActivityPostArticle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -56,6 +56,9 @@ tools:context=".Fragment.ProfileFragment">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
         android:textColor="@color/black"
         android:gravity="center"
         android:text="Điểm tích lũy"
@@ -70,23 +73,36 @@ tools:context=".Fragment.ProfileFragment">
         android:gravity="center"
         android:background="@drawable/border_rectangle_red"
         android:textColor="@color/black"
-        android:padding="4dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
         android:text="Tin gần đây"
         android:textSize="30dp" />
 
     <TextView
         android:textColor="@color/black"
-        android:drawableLeft="@drawable/saved_bookmark_icon"
+        android:drawableLeft="@drawable/blue_green_saved_bookmark"
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:padding="4dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
         android:background="@drawable/border_rectangle_blue"
         android:text="Tin đã lưu"
         android:textSize="30dp" />
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogOut"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_blue"
+        android:text="Đăng xuất" />
 </LinearLayout>
 
 </FrameLayout>
