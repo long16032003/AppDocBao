@@ -18,21 +18,22 @@ import java.text.SimpleDateFormat;
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.R;
 
+
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+
 public class DetailArticleActivity extends AppCompatActivity {
 
-    ImageView img;
+    ImageView backMainActivity;
     TextView detailTitle, detailContent, detailAuthor, detailDate;
     ImageView detailImage;
-    public boolean click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_article);
-        img = findViewById(R.id.imageView6);
-        img.setOnClickListener(new View.OnClickListener() {
+        backMainActivity = findViewById(R.id.imageView6);
+        backMainActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailArticleActivity.this,MainActivity.class);

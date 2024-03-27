@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,8 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.Activity.DetailArticleActivity;
+import com.example.appdocbao.Activity.SignupActivity;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -24,6 +37,7 @@ import java.text.SimpleDateFormat;
 public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticleAdapter.ArticleViewHolder> {
     private Context mContext;
     private ArrayList<Article> mListArticle;
+    Article articleRecently;
 
     public RecyclerArticleAdapter(Context mContext, ArrayList<Article> mListArticle) {
         this.mContext = mContext;
@@ -61,7 +75,52 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
         holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //======== Chức năng thêm bài báo đọc gần đây ==========
+                FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
+                String id_User = mAuth.getUid();
+                String id_Article = mListArticle.get(holder.getAdapterPosition()).getId();
+
+                articleRecently = mListArticle.get(holder.getAdapterPosition());
+
+                DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // Lấy dữ liệu hiện có từ Firebase
+                        ArrayList<Article> recently_read = (ArrayList<Article>) dataSnapshot.getValue();
+
+                        if (recently_read == null) {
+                            recently_read = new ArrayList<>();
+                        }else if (recently_read.size() >= 5) {
+                            // Xóa bài báo đầu tiên
+                            recently_read.remove(0);
+                        }
+                        // Thêm article mới vào recently_read
+                        recently_read.add(articleRecently);
+
+                        // Đẩy recently_read lên Firebase
+                        databaseReference.setValue(recently_read)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // Đã đẩy thành công Map vào database
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Xảy ra lỗi khi đẩy Map vào database
+                                    }
+                                });
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Xảy ra lỗi khi truy cập Firebase
+                    }
+                });
+                //======================================================
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
+                intent.putExtra("Id", mListArticle.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());

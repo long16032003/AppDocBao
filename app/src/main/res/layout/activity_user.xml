@@ -47,11 +47,12 @@ tools:context=".Fragment.ProfileFragment">
         android:textSize="30dp"
         android:textColor="@color/white"
         android:background="@drawable/button_blue"
+        style="@android:style/Widget.Button"
         android:text="Tạo bài viết" />
 
     <TextView
         android:drawableLeft="@drawable/certificate_medal_quality_icon"
-        android:id="@+id/textView9"
+        android:id="@+id/pointUser"
         android:background="@drawable/border_rectangle_orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,7 +67,7 @@ tools:context=".Fragment.ProfileFragment">
 
     <TextView
         android:drawableLeft="@drawable/clock_icon"
-        android:id="@+id/textView6"
+        android:id="@+id/tinganday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -82,7 +83,7 @@ tools:context=".Fragment.ProfileFragment">
     <TextView
         android:textColor="@color/black"
         android:drawableLeft="@drawable/blue_green_saved_bookmark"
-        android:id="@+id/textView4"
+        android:id="@+id/tindaluu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -102,6 +103,7 @@ tools:context=".Fragment.ProfileFragment">
         android:textSize="25dp"
         android:textColor="@color/white"
         android:background="@drawable/button_blue"
+        style="@android:style/Widget.Button"
         android:text="Đăng xuất" />
 </LinearLayout>
 

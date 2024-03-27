@@ -35,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class NewsFragment extends Fragment {
@@ -83,6 +85,13 @@ public class NewsFragment extends Fragment {
                     Article article = itemSnapShot.getValue(Article.class);
                     listArticle.add(article);
                 }
+                Collections.sort(listArticle, new Comparator<Article>() {
+                    @Override
+                    public int compare(Article article1, Article article2) {
+                        // So sánh thời gian giữa hai bài báo
+                        return Long.compare(article2.getTimestamp(), article1.getTimestamp());
+                    }
+                });
                 articleAdapter.notifyDataSetChanged();
                 changeInProgress(false);
                 dialog.dismiss();
