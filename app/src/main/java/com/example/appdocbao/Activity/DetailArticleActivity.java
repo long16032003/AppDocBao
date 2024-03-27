@@ -17,8 +17,9 @@ import java.text.SimpleDateFormat;
 
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 public class DetailArticleActivity extends AppCompatActivity {
 
@@ -60,22 +61,5 @@ public class DetailArticleActivity extends AppCompatActivity {
 
             Glide.with(this).load(bundle.getString("Image")).into(detailImage);
         }
-        BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
-        navigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.action_like) {
-                    Toast.makeText(DetailArticleActivity.this, "Like", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.action_dislike) {
-                    Toast.makeText(DetailArticleActivity.this, "Dislike", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.action_saved) {
-                    Toast.makeText(DetailArticleActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.action_share) {
-                    Toast.makeText(DetailArticleActivity.this, "Share", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }
