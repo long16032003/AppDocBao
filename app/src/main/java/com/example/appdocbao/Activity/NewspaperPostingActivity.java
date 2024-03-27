@@ -48,7 +48,7 @@ import com.google.firebase.storage.UploadTask;
 public class NewspaperPostingActivity extends AppCompatActivity {
     Button btnDangBao;
     Spinner spinnerCategory;
-    EditText titleUpload, contentUpload, authorUpload, categoryUpload;
+    EditText titleUpload, contentUpload, authorUpload;
     ImageView imageUpload;
     DatabaseReference spinnerRef;
     ArrayList<String> spinnerList;
@@ -170,10 +170,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         int id_category = getCategoryIdByName(categoryName);
 
 
-
         Date currentDateTime = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//        String date = dateFormat.format(currentDateTime);
         long timestamp = currentDateTime.getTime();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

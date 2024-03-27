@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserActivity extends AppCompatActivity {
     Button btnActivityPostArticle, btnLogOut;
-    TextView userName, email;
+    TextView userName, email, pointUser, tinganday, tindaluu;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Override
@@ -33,8 +33,11 @@ public class UserActivity extends AppCompatActivity {
 
         userName = findViewById(R.id.userName);
         email = findViewById(R.id.email);
+        pointUser = findViewById(R.id.pointUser);
         btnActivityPostArticle = findViewById(R.id.btnActivityPostArticle);
         btnLogOut = findViewById(R.id.btnLogOut);
+        tinganday = findViewById(R.id.tinganday);
+        tindaluu = findViewById(R.id.tindaluu);
 
         FirebaseUser user = mAuth.getCurrentUser();
         String idUser = user.getUid();
@@ -47,8 +50,10 @@ public class UserActivity extends AppCompatActivity {
                     // Lấy dữ liệu người dùng từ dataSnapshot
                     String name = dataSnapshot.child("name").getValue(String.class);
                     String emailSnapshot = dataSnapshot.child("email").getValue(String.class);
+                    int point = dataSnapshot.child("points").getValue(Integer.class);
                     userName.setText(name);
                     email.setText(emailSnapshot);
+                    pointUser.setText("Điểm tích lũy: " + point);
 //                }
             }
 
@@ -64,6 +69,20 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }) ;
+        tindaluu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, SavedArticlesActivity.class);
+                startActivity(intent);
+            }
+        });
+        tinganday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, RecentlyReadActivity.class);
+                startActivity(intent);
+            }
+        });
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
