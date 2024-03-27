@@ -17,15 +17,11 @@ import java.text.SimpleDateFormat;
 
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+
+import java.util.*;
+import java.text.SimpleDateFormat;
+
 
 public class DetailArticleActivity extends AppCompatActivity {
 
@@ -66,49 +62,5 @@ public class DetailArticleActivity extends AppCompatActivity {
 
             Glide.with(this).load(bundle.getString("Image")).into(detailImage);
         }
-        BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
-        navigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.action_like) {
-                    //============================= Event khi click vào nút Like =====================
-//                    String id_Article = bundle.getString("Id");
-//                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("articles").child(id_Article);
-//                    databaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            int count_like = dataSnapshot.child("likes").getValue(Integer.class) + 1;
-//                            databaseReference.child("likes").setValue(count_like)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-//                                            // Đã cập nhật thành công lượt like vào Firebase
-//                                            Toast.makeText(DetailArticleActivity.this, "Like", Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            // Xảy ra lỗi khi cập nhật lượt like vào Firebase
-//                                        }
-//                                    });
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//                            //Xử lí lỗi
-//                        }
-//                    });
-                } else if (itemId == R.id.action_dislike) {
-                    Toast.makeText(DetailArticleActivity.this, "Dislike", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.action_saved) {
-                    Toast.makeText(DetailArticleActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.action_share) {
-                    Toast.makeText(DetailArticleActivity.this, "Share", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

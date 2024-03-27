@@ -35,33 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         internetBroadcastReceiver = new Internet();
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        drawerLayout = findViewById(R.id.drawerlayout);
-//        NavigationView navigationView = findViewById(R.id.navigation_view);
-//
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, toolbar, R.string.close_nav, R.string.open_nav);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                if(item.getItemId()==R.id.setting){
-//                    Toast.makeText(MainActivity.this,"Setting",Toast.LENGTH_SHORT).show();
-//                    drawerLayout.closeDrawer(GravityCompat.START);
-//                }else if(item.getItemId()==R.id.setting) {
-//                    Toast.makeText(MainActivity.this, "Setting", Toast.LENGTH_SHORT).show();
-//                    drawerLayout.closeDrawer(GravityCompat.START);
-//
-//                }else if(item.getItemId()==R.id.setting) {
-//                    Toast.makeText(MainActivity.this, "Setting", Toast.LENGTH_SHORT).show();
-//                    drawerLayout.closeDrawer(GravityCompat.START);
-//
-//                }
-//                return true;
-//            }
-//        });
-
         replaceFragement(new NewsFragment());
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {

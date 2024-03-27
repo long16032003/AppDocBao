@@ -60,7 +60,5 @@
                 android:id="@+id/rcvRecentlyRead"
                 />
         </com.google.android.material.appbar.AppBarLayout>
-
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
