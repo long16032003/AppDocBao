@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.*;
@@ -40,11 +41,12 @@ import java.text.SimpleDateFormat;
 public class DetailArticleActivity extends AppCompatActivity {
 
     ImageView backMainActivity;
-    TextView detailTitle, detailContent, detailAuthor, detailDate;
+    TextView detailTitle, detailContent, detailAuthor, detailDate, countLike;
     ImageView detailImage, likeArticle ,dislikeArticle, saveArticle, shareArticle;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-    boolean canLike = true, canDislike = true, isSaved = false; // ban đầu chưa active
+    FirebaseUser user = mAuth.getCurrentUser();
+    DatabaseReference likeReference = FirebaseDatabase.getInstance().getReference("likes");;
+    boolean isLike = false, canDislike = true, isSaved = false; // ban đầu chưa active
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,28 +56,14 @@ public class DetailArticleActivity extends AppCompatActivity {
         likeArticle = findViewById(R.id.likeArticle);
         dislikeArticle = findViewById(R.id.dislikeArticle);
         saveArticle = findViewById(R.id.saveArticle);
+        countLike = findViewById(R.id.countLike);
         // Check status like, dislike, save
-
-        backMainActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = getIntent().getExtras();
-                Intent intent = null;
-                if(bundle.getBoolean("NewsFragment")){
-                    intent = new Intent(DetailArticleActivity.this,MainActivity.class);
-                }else if(bundle.getBoolean("RecentlyRead")){
-                    intent = new Intent(DetailArticleActivity.this,RecentlyReadActivity.class);
-                }
-                startActivity(intent);
-            }
-        });
 
         detailTitle = findViewById(R.id.detailTitle);
         detailContent = findViewById(R.id.detailContent);
         detailImage = findViewById(R.id.detailImage);
         detailAuthor = findViewById(R.id.detailAuthor);
         detailDate = findViewById(R.id.detailDate);
-
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
@@ -90,11 +78,57 @@ public class DetailArticleActivity extends AppCompatActivity {
             detailDate.setText(formattedDateTime);
             // Sử dụng Glide để tải hình ảnh
 //            if (!isDestroyed()) {
-                Glide.with(this)
-                        .load(bundle.getString("Image"))
-                        .into(detailImage);
+            Glide.with(this)
+                    .load(bundle.getString("Image"))
+                    .into(detailImage);
 //            }
+            String id_Article = bundle.getString("Id");
+            getLikebuttonStatus(id_Article);
+            likeArticle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkLogined()){
+                        isLike = true;
+                        likeReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(isLike == true){
+                                    if(snapshot.child(id_Article).hasChild(user.getUid())){
+                                        likeReference.child(id_Article).removeValue();
+                                        isLike = false;
+                                    }else{
+                                        likeReference.child(id_Article).child(user.getUid()).setValue(true);
+                                        isLike = false;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }else{
+                        AlertDialog(DetailArticleActivity.this);
+                    }
+                }
+            });
         }
+        backMainActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = getIntent().getExtras();
+                Intent intent = null;
+                if(bundle.getBoolean("NewsFragment")){
+                    intent = new Intent(DetailArticleActivity.this,MainActivity.class);
+                }else if(bundle.getBoolean("RecentlyRead")){
+                    intent = new Intent(DetailArticleActivity.this,RecentlyReadActivity.class);
+                }
+                startActivity(intent);
+            }
+        });
+
         shareArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,40 +143,21 @@ public class DetailArticleActivity extends AppCompatActivity {
             }
         });
 
-        likeArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checkLogined()){
-                    if (canLike) {
-                        ChangeImageLike(canLike);
-                        IncreaseLikeArticle();
-                        AddIdArticleToLikeUser();
-                        canLike = false;
-                    } else {
-                        ChangeImageLike(canLike);
-                         DecreaseLikeArticle();
-                         DeleteIdArticleToLikeUser();
-                        canLike = true;
-                    }
-                }else{
-                    AlertDialog(DetailArticleActivity.this);
-                }
-            }
-        });
+
         dislikeArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkLogined()){
                     if (canDislike) {
-                        ChangeImageDisLike(canDislike);
-                        IncreaseDisLikeArticle();
-                        AddIdArticleToDisLikeUser();
-                        canDislike = false;
-                    } else {
-                        ChangeImageDisLike(canDislike);
-                        DecreaseDisLikeArticle();
-                        DeleteIdArticleToDisLikeUser();
-                        canDislike = true;
+//                        ChangeImageDisLike(canDislike);
+//                        IncreaseDisLikeArticle();
+//                        AddIdArticleToDisLikeUser();
+//                        canDislike = false;
+//                    } else {
+//                        ChangeImageDisLike(canDislike);
+//                        DecreaseDisLikeArticle();
+//                        DeleteIdArticleToDisLikeUser();
+//                        canDislike = true;
                     }
                 }else{
                     AlertDialog(DetailArticleActivity.this);
@@ -154,13 +169,13 @@ public class DetailArticleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isSaved = !isSaved;
                 if(checkLogined()){
-                    if (isSaved) {
-                        ChangeImageSave(isSaved);
-                        AddIdArticleToSaveUser();
-                    } else {
-                        ChangeImageSave(isSaved);
-                        DeleteIdArticleToSaveUser();
-                    }
+//                    if (isSaved) {
+//                        ChangeImageSave(isSaved);
+//                        AddIdArticleToSaveUser();
+//                    } else {
+//                        ChangeImageSave(isSaved);
+//                        DeleteIdArticleToSaveUser();
+//                    }
                 }else{
                     AlertDialog(DetailArticleActivity.this);
                 }
@@ -168,101 +183,29 @@ public class DetailArticleActivity extends AppCompatActivity {
         });
     }
 
+    private void getLikebuttonStatus(String id_Article){
 
-
-    private void ChangeImageLike(boolean canLike) {
-        likeArticle.setImageResource(canLike ? R.drawable.like_active : R.drawable.thumbs_up_line_icon);
-    }
-    private void ChangeImageDisLike(boolean canDislike) {
-        dislikeArticle.setImageResource(canDislike ? R.drawable.dislike_active : R.drawable.thumbs_down_line_icon);
-    }
-    private void ChangeImageSave(boolean isSaved) {
-        saveArticle.setImageResource(isSaved ? R.drawable.saved_active : R.drawable.saved_bookmark_icon);
-    }
-    //Truy cập đến firebase của like
-    private void IncreaseLikeArticle() {
-        Bundle bundle = getIntent().getExtras();
-        String id_Article = bundle.getString("Id");
-        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("articles/"+ id_Article);
-        likeRef.runTransaction(new Transaction.Handler() {
-            @NonNull
+        likeReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                // Lấy giá trị hiện tại của like
-                Integer currentLikes = mutableData.child("like").getValue(Integer.class);
-
-                if (currentLikes != null) {
-                    // Tăng giá trị like lên 1
-                    mutableData.child("like").setValue(currentLikes + 1);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(checkLogined()){
+                    if(snapshot.child(id_Article).hasChild(user.getUid())){
+                        int likeCount = (int) snapshot.child(id_Article).getChildrenCount();
+                        countLike.setText(""+likeCount);
+                        likeArticle.setImageResource(R.drawable.like_active);
+                    }
+                }else{
+                    int likeCount = (int) snapshot.child(id_Article).getChildrenCount();
+                    countLike.setText(""+likeCount);
+                    likeArticle.setImageResource(R.drawable.thumbs_up_line_icon);
                 }
-
-                // Trả về giá trị mới của like
-                return Transaction.success(mutableData);
             }
 
             @Override
-            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot dataSnapshot) {
-                if (committed) {
-                    // Tăng giá trị like thành công
-                    // Thực hiện các hành động phụ thuộc vào việc tăng like ở đây
-                } else {
-                    // Tăng giá trị like thất bại
-                    // Xử lý lỗi nếu cần
-                }
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-
-    }
-    private void DecreaseLikeArticle() {
-    }
-    private void AddIdArticleToLikeUser() {
-    }
-    private void DeleteIdArticleToLikeUser(){
-    }
-    //Truy cập đến firebase của dislike
-    private void IncreaseDisLikeArticle() {
-//        Bundle bundle = getIntent().getExtras();
-//        String id_Article = bundle.getString("Id");
-//        DatabaseReference likeRef = FirebaseDatabase.getInstance().getReference("articles/"+ id_Article);
-//        likeRef.runTransaction(new Transaction.Handler() {
-//            @NonNull
-//            @Override
-//            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-//                // Lấy giá trị hiện tại của like
-//                Integer currentLikes = mutableData.child("like").getValue(Integer.class);
-//
-//                if (currentLikes != null) {
-//                    // Tăng giá trị like lên 1
-//                    mutableData.child("like").setValue(currentLikes + 1);
-//                }
-//
-//                // Trả về giá trị mới của like
-//                return Transaction.success(mutableData);
-//            }
-//
-//            @Override
-//            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot dataSnapshot) {
-//                if (committed) {
-//                    // Tăng giá trị like thành công
-//                    // Thực hiện các hành động phụ thuộc vào việc tăng like ở đây
-//                } else {
-//                    // Tăng giá trị like thất bại
-//                    // Xử lý lỗi nếu cần
-//                }
-//            }
-//        });
-
-    }
-    private void DecreaseDisLikeArticle() {
-    }
-    private void AddIdArticleToDisLikeUser() {
-    }
-    private void DeleteIdArticleToDisLikeUser(){
-    }
-    // Truy cập đến firebase của save
-    private void AddIdArticleToSaveUser() {
-    }
-    private void DeleteIdArticleToSaveUser(){
     }
 
     private void AlertDialog(Context context){
