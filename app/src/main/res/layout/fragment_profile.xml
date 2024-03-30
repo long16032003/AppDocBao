@@ -70,6 +70,7 @@
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
                     android:background="@drawable/border_rectangle_orange"
+                    android:padding="8dp"
                     android:gravity="center"
                     android:text="Điểm tích lũy"
                     android:textSize="30dp" />

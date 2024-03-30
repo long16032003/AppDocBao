@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocbao.Adapter.RecyclerDataAdapter;
+import com.example.appdocbao.Adapter.RecyclerArticleAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +28,7 @@ import java.util.Comparator;
 
 public class TrendFragment extends Fragment {
     private RecyclerView rcvArticle;
-    private RecyclerDataAdapter articleAdapter;
+    private RecyclerArticleAdapter articleAdapter;
     private ArrayList<Article> listArticle;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -50,48 +50,48 @@ public class TrendFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("articles");
 
         listArticle = new ArrayList<>();
-        articleAdapter = new RecyclerDataAdapter(getContext(),listArticle);
+        articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
         rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listArticle.clear();
-                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-                    Article article = itemSnapShot.getValue(Article.class);
-                    listArticle.add(article);
-                }
-                ArrayList<Article> sortedArticles = getSortedArticlesByLikes(listArticle);
-
-                // Kiểm tra nếu danh sách không rỗng và bài viết đầu tiên có tỉ lệ like nhỏ hơn bài viết cuối cùng
-                if (!sortedArticles.isEmpty() && sortedArticles.get(0).getLikes() < sortedArticles.get(sortedArticles.size() - 1).getLikes()) {
-                    Collections.reverse(sortedArticles); // Đảo ngược danh sách nếu cần
-                }
-
-                articleAdapter.setData(sortedArticles);
-                articleAdapter.notifyDataSetChanged();
-                isListLoaded = true;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        if (isListLoaded) {
-            progressbar.setVisibility(View.GONE);
-        }
-    }
-    private ArrayList<Article> getSortedArticlesByLikes(ArrayList<Article> articles) {
-        // Sắp xếp danh sách bài viết theo tỉ lệ like
-        Collections.sort(articles, new Comparator<Article>() {
-            @Override
-            public int compare(Article a1, Article a2) {
-                return Integer.compare(a2.getLikes(), a1.getLikes());
-            }
-        });
-
-        return articles;
+//        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                listArticle.clear();
+//                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
+//                    Article article = itemSnapShot.getValue(Article.class);
+//                    listArticle.add(article);
+//                }
+//                ArrayList<Article> sortedArticles = getSortedArticlesByLikes(listArticle);
+//
+//                // Kiểm tra nếu danh sách không rỗng và bài viết đầu tiên có tỉ lệ like nhỏ hơn bài viết cuối cùng
+//                if (!sortedArticles.isEmpty() && sortedArticles.get(0).getLikes() < sortedArticles.get(sortedArticles.size() - 1).getLikes()) {
+//                    Collections.reverse(sortedArticles); // Đảo ngược danh sách nếu cần
+//                }
+//
+//                articleAdapter.setData(sortedArticles);
+//                articleAdapter.notifyDataSetChanged();
+//                isListLoaded = true;
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        if (isListLoaded) {
+//            progressbar.setVisibility(View.GONE);
+//        }
+//    }
+//    private ArrayList<Article> getSortedArticlesByLikes(ArrayList<Article> articles) {
+//        // Sắp xếp danh sách bài viết theo tỉ lệ like
+//        Collections.sort(articles, new Comparator<Article>() {
+//            @Override
+//            public int compare(Article a1, Article a2) {
+//                return Integer.compare(a2.getLikes(), a1.getLikes());
+//            }
+//        });
+//
+//        return articles;
     }
 }
