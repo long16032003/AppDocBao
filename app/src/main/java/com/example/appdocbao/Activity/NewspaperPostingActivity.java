@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 import com.example.appdocbao.Model.Article;
+import com.example.appdocbao.Model.Category;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,8 +48,12 @@ import com.google.firebase.storage.UploadTask;
 public class NewspaperPostingActivity extends AppCompatActivity {
     Button btnDangBao;
     Spinner spinnerCategory;
-    EditText titleUpload, contentUpload, authorUpload, dateUpload, categoryUpload;
+    EditText titleUpload, contentUpload, authorUpload;
     ImageView imageUpload;
+    DatabaseReference spinnerRef;
+    ArrayList<String> spinnerList;
+    ArrayAdapter<String> adapter;
+    List<Category> categoryList = new ArrayList<>();
     String imageUrl;
     Uri uri;
 
@@ -59,13 +66,17 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         titleUpload = (EditText) findViewById(R.id.titleUpload);
         contentUpload = (EditText) findViewById(R.id.contentUpload);
         authorUpload = (EditText) findViewById(R.id.authorUpload);
-            Date currentDateTime = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            dateUpload = (EditText) findViewById(R.id.dateUpload);
-            dateUpload.setText(dateFormat.format(currentDateTime));
-        categoryUpload = (EditText) findViewById(R.id.categoryUpload);
 
         btnDangBao = (Button) findViewById(R.id.btnDangBao);
+
+        spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
+        spinnerRef = FirebaseDatabase.getInstance().getReference("category");
+
+        spinnerList = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(NewspaperPostingActivity.this, android.R.layout.simple_spinner_item, spinnerList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+        Showdata();
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -98,8 +109,29 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         });
     }
 
-    private void onClickPushData(){
+    private void Showdata(){
+        spinnerRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryList.clear(); // Xóa danh sách category hiện tại để cập nhật lại từ Firebase
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    int categoryId = dataSnapshot.child("id").getValue(Integer.class);
+                    String categoryName = dataSnapshot.child("name").getValue(String.class);
+                    Category category = new Category(categoryId, categoryName);
+                    categoryList.add(category);
+                    spinnerList.add(categoryName);
+                }
+                adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void onClickPushData(){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child("Image Article")
                 .child(uri.getLastPathSegment());
@@ -132,10 +164,13 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         String title = titleUpload.getText().toString();
         String content = contentUpload.getText().toString();
         String author = authorUpload.getText().toString();
-        int id_category = Integer.parseInt(categoryUpload.getText().toString());
+//        int id_category = Integer.parseInt(categoryUpload.getText().toString());
+
+        String categoryName = spinnerCategory.getSelectedItem().toString();
+        int id_category = getCategoryIdByName(categoryName);
+
+
         Date currentDateTime = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//        String date = dateFormat.format(currentDateTime);
         long timestamp = currentDateTime.getTime();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -159,5 +194,13 @@ public class NewspaperPostingActivity extends AppCompatActivity {
                         Toast.makeText(NewspaperPostingActivity.this, e.getMessage().toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    private int getCategoryIdByName(String categoryName) {
+        for (Category category : categoryList) {
+            if (category.getName().equals(categoryName)) {
+                return category.getId();
+            }
+        }
+        return -1; // Trả về -1 nếu không tìm thấy category
     }
 }

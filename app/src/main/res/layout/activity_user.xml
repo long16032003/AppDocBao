@@ -40,22 +40,26 @@ tools:context=".Fragment.ProfileFragment">
         android:layout_gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnActivityPostArticle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textSize="30dp"
         android:textColor="@color/white"
         android:background="@drawable/button_blue"
+        style="@android:style/Widget.Button"
         android:text="Tạo bài viết" />
 
     <TextView
         android:drawableLeft="@drawable/certificate_medal_quality_icon"
-        android:id="@+id/textView9"
+        android:id="@+id/pointUser"
         android:background="@drawable/border_rectangle_orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
         android:textColor="@color/black"
         android:gravity="center"
         android:text="Điểm tích lũy"
@@ -63,30 +67,44 @@ tools:context=".Fragment.ProfileFragment">
 
     <TextView
         android:drawableLeft="@drawable/clock_icon"
-        android:id="@+id/textView6"
+        android:id="@+id/tinganday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
         android:background="@drawable/border_rectangle_red"
         android:textColor="@color/black"
-        android:padding="4dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
         android:text="Tin gần đây"
         android:textSize="30dp" />
 
     <TextView
         android:textColor="@color/black"
-        android:drawableLeft="@drawable/saved_bookmark_icon"
-        android:id="@+id/textView4"
+        android:drawableLeft="@drawable/blue_green_saved_bookmark"
+        android:id="@+id/tindaluu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:padding="4dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
         android:background="@drawable/border_rectangle_blue"
         android:text="Tin đã lưu"
         android:textSize="30dp" />
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogOut"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_blue"
+        style="@android:style/Widget.Button"
+        android:text="Đăng xuất" />
 </LinearLayout>
 
 </FrameLayout>

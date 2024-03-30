@@ -66,6 +66,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
                     android:background="@drawable/border_rectangle_orange"
                     android:gravity="center"
                     android:text="Điểm tích lũy"
@@ -78,28 +81,26 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:gravity="center"
-                    android:padding="4dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
                     android:background="@drawable/border_rectangle_red"
                     android:text="Tin gần đây"
                     android:textSize="30dp" />
 
                 <TextView
-                    android:drawableLeft="@drawable/saved_bookmark_icon"
+                    android:drawableLeft="@drawable/blue_green_saved_bookmark"
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:gravity="center"
-                    android:padding="4dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
                     android:background="@drawable/border_rectangle_blue"
                     android:text="Tin đã lưu"
                     android:textSize="30dp" />
-
-                <Button
-                    android:id="@+id/btnActivityPostArticle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Đăng báo" />
             </LinearLayout>
 
         </LinearLayout>

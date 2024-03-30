@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#009688" /> <!-- Màu bạn muốn áp dụng khi ImageView được nhấn -->
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#636161" /> <!-- Màu mặc định của ImageView -->
+        </shape>
+    </item>
+</selector>
