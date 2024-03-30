@@ -55,6 +55,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     List<Category> categoryList = new ArrayList<>();
     String imageUrl;
+    boolean isUploadImage = false;
     Uri uri;
 
     @Override
@@ -84,6 +85,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
+                            isUploadImage = true;
                             Intent data = result.getData();
                             uri = data.getData();
                             imageUpload.setImageURI(uri);
@@ -104,7 +106,10 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         btnDangBao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickPushData();
+                if(isUploadImage) onClickPushData();
+                else{
+                    Toast.makeText(NewspaperPostingActivity.this,"Vui lòng chọn ảnh !",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
