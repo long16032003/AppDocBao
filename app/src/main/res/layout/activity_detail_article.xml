@@ -92,6 +92,14 @@
                 android:layout_weight="1"
                 android:src="@drawable/thumbs_up_line_icon" />
 
+            <TextView
+                android:id="@+id/countLike"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="100"
+                android:textSize="18dp"/>
+
             <ImageView
                 android:id="@+id/dislikeArticle"
                 android:layout_width="10dp"
@@ -99,6 +107,13 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:src="@drawable/thumbs_down_line_icon" />
+
+            <TextView
+                android:id="@+id/spacer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="" />
 
             <ImageView
                 android:id="@+id/saveArticle"

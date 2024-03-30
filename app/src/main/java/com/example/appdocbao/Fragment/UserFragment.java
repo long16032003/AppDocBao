@@ -68,9 +68,9 @@ public class UserFragment extends Fragment {
                 int point = dataSnapshot.child("points").getValue(Integer.class);
                 String imageSnapshot = dataSnapshot.child("img").getValue(String.class);
 
-//                if (!isDestroyed() && !isFinishing()) {
-                    Glide.with(getContext()).load(imageSnapshot).into(profilePicture);
-//                }
+                if (isAdded()) {
+                    Glide.with(requireContext()).load(imageSnapshot).into(profilePicture);
+                }
                 userName.setText(name);
                 email.setText(emailSnapshot);
                 pointUser.setText("Điểm tích lũy: " + point);
