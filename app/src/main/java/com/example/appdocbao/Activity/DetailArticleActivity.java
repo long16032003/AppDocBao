@@ -118,14 +118,7 @@ public class DetailArticleActivity extends AppCompatActivity {
         backMainActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = getIntent().getExtras();
-                Intent intent = null;
-                if(bundle.getBoolean("NewsFragment")){
-                    intent = new Intent(DetailArticleActivity.this,MainActivity.class);
-                }else if(bundle.getBoolean("RecentlyRead")){
-                    intent = new Intent(DetailArticleActivity.this,RecentlyReadActivity.class);
-                }
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -189,12 +182,16 @@ public class DetailArticleActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(checkLogined()){
-                    if(snapshot.child(id_Article).hasChild(user.getUid())){
+                    if(snapshot.child(id_Article).hasChild(user.getUid())){ // User đã like
                         int likeCount = (int) snapshot.child(id_Article).getChildrenCount();
                         countLike.setText(""+likeCount);
                         likeArticle.setImageResource(R.drawable.like_active);
+                    } else {    // User chưa like
+                        int likeCount = (int) snapshot.child(id_Article).getChildrenCount();
+                        countLike.setText(""+likeCount);
+                        likeArticle.setImageResource(R.drawable.thumbs_up_line_icon);
                     }
-                }else{
+                }else{ // Chưa đăng nhập
                     int likeCount = (int) snapshot.child(id_Article).getChildrenCount();
                     countLike.setText(""+likeCount);
                     likeArticle.setImageResource(R.drawable.thumbs_up_line_icon);

@@ -62,7 +62,6 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
-                intent.putExtra("RecentlyRead", true);
                 intent.putExtra("Id", mListArticle.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
