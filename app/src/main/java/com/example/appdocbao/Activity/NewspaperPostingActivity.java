@@ -48,13 +48,14 @@ import com.google.firebase.storage.UploadTask;
 public class NewspaperPostingActivity extends AppCompatActivity {
     Button btnDangBao;
     Spinner spinnerCategory;
-    EditText titleUpload, contentUpload, authorUpload, categoryUpload;
+    EditText titleUpload, contentUpload, authorUpload;
     ImageView imageUpload;
     DatabaseReference spinnerRef;
     ArrayList<String> spinnerList;
     ArrayAdapter<String> adapter;
     List<Category> categoryList = new ArrayList<>();
     String imageUrl;
+    boolean isUploadImage = false;
     Uri uri;
 
     @Override
@@ -84,6 +85,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
+                            isUploadImage = true;
                             Intent data = result.getData();
                             uri = data.getData();
                             imageUpload.setImageURI(uri);
@@ -104,7 +106,10 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         btnDangBao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickPushData();
+                if(isUploadImage) onClickPushData();
+                else{
+                    Toast.makeText(NewspaperPostingActivity.this,"Vui lòng chọn ảnh !",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -170,10 +175,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         int id_category = getCategoryIdByName(categoryName);
 
 
-
         Date currentDateTime = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//        String date = dateFormat.format(currentDateTime);
         long timestamp = currentDateTime.getTime();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

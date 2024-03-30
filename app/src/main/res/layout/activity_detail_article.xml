@@ -5,20 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.DetailArticleActivity">
+    <include layout="@layout/toolbar"/>
     <RelativeLayout
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_nav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/menu_detail_article"
-            app:labelVisibilityMode="labeled"
-            android:background="@color/bottom_nav"
-            app:itemIconTint="@color/custom_color_bottom_nav"
-            app:itemTextColor="@color/custom_color_bottom_nav"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,28 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Báo net"
-                    android:textColor="@color/red"
-                    android:textSize="24dp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/back_arrow" />
 
                 <TextView
                     android:id="@+id/detailTitle"
@@ -99,10 +68,53 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="20dp"
+                    android:layout_marginBottom="30dp"
                     android:text="Content Article"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
         </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/grey"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/likeArticle"
+                android:layout_width="10dp"
+                android:padding="8dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/thumbs_up_line_icon" />
+
+            <ImageView
+                android:id="@+id/dislikeArticle"
+                android:layout_width="10dp"
+                android:padding="8dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/thumbs_down_line_icon" />
+
+            <ImageView
+                android:id="@+id/saveArticle"
+                android:layout_width="10dp"
+                android:padding="8dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/saved_bookmark_icon" />
+
+            <ImageView
+                android:id="@+id/shareArticle"
+                android:layout_width="10dp"
+                android:padding="8dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/curved_arrow_right_icon" />
+        </LinearLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
