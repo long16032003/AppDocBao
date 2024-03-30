@@ -17,6 +17,7 @@ import com.example.appdocbao.Fragment.GifFragment;
 import com.example.appdocbao.Fragment.NewsFragment;
 import com.example.appdocbao.Fragment.ProfileFragment;
 import com.example.appdocbao.Fragment.TrendFragment;
+import com.example.appdocbao.Fragment.UserFragment;
 import com.example.appdocbao.R;
 import com.example.appdocbao.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,8 +76,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.profile) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                    startActivity(intent);
+                    replaceFragement(new UserFragment());
                 }else{
                     replaceFragement(new ProfileFragment());
                 }

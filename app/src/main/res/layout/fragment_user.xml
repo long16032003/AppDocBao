@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+s
+        <ImageView
+            android:layout_margin="20dp"
+            android:id="@+id/profilePicture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/user_profile_icon"/>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Username"
+            android:layout_margin="8dp"
+            android:textColor="@color/black"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_margin="8dp"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:layout_gravity="center"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnActivityPostArticle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="30dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_blue"
+            android:text="Tạo bài viết" />
+
+        <TextView
+            android:drawableLeft="@drawable/certificate_medal_quality_icon"
+            android:id="@+id/textView9"
+            android:background="@drawable/border_rectangle_orange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="Điểm tích lũy"
+            android:textSize="30dp" />
+
+        <TextView
+            android:drawableLeft="@drawable/clock_icon"
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:background="@drawable/border_rectangle_red"
+            android:textColor="@color/black"
+            android:padding="4dp"
+            android:text="Tin gần đây"
+            android:textSize="30dp" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:drawableLeft="@drawable/saved_bookmark_icon"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:padding="4dp"
+            android:background="@drawable/border_rectangle_blue"
+            android:text="Tin đã lưu"
+            android:textSize="30dp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogOut"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_blue"
+            android:text="Đăng xuất" />
+    </LinearLayout>
+
+</FrameLayout>
