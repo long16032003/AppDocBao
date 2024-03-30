@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.appdocbao.Fragment.TrendFragment;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
@@ -22,9 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserActivity extends AppCompatActivity {
     Button btnActivityPostArticle, btnLogOut;
     TextView userName, email, pointUser, tinganday, tindaluu;
+    CircleImageView profilePicture;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Override
@@ -39,6 +43,7 @@ public class UserActivity extends AppCompatActivity {
         btnLogOut = findViewById(R.id.btnLogOut);
         tinganday = findViewById(R.id.tinganday);
         tindaluu = findViewById(R.id.tindaluu);
+        profilePicture = findViewById(R.id.profilePicture);
 
         FirebaseUser user = mAuth.getCurrentUser();
         String idUser = user.getUid();
@@ -52,6 +57,11 @@ public class UserActivity extends AppCompatActivity {
                     String name = dataSnapshot.child("name").getValue(String.class);
                     String emailSnapshot = dataSnapshot.child("email").getValue(String.class);
                     int point = dataSnapshot.child("points").getValue(Integer.class);
+                    String imageSnapshot = dataSnapshot.child("img").getValue(String.class);
+
+                    if (!isDestroyed() && !isFinishing()) {
+                        Glide.with(UserActivity.this).load(imageSnapshot).into(profilePicture);
+                    }
                     userName.setText(name);
                     email.setText(emailSnapshot);
                     pointUser.setText("Điểm tích lũy: " + point);
@@ -94,4 +104,9 @@ public class UserActivity extends AppCompatActivity {
             }
         });
     }
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        // Hủy tất cả yêu cầu tải hình ảnh của Glide khi hoạt động bị hủy
+//        Glide.with(this).clear(profilePicture);
+//    }
 }
