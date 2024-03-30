@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocbao.Adapter.RecyclerDataAdapter;
+
+import com.example.appdocbao.Adapter.RecyclerArticleAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +29,7 @@ import java.util.Comparator;
 
 public class TrendFragment extends Fragment {
     private RecyclerView rcvArticle;
-    private RecyclerDataAdapter articleAdapter;
+    private RecyclerArticleAdapter articleAdapter;
     private ArrayList<Article> listArticle;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -50,7 +51,7 @@ public class TrendFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("articles");
 
         listArticle = new ArrayList<>();
-        articleAdapter = new RecyclerDataAdapter(getContext(),listArticle);
+        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
         rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
