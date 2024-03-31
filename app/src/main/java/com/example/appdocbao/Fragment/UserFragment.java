@@ -73,7 +73,7 @@ public class UserFragment extends Fragment {
                 }
                 userName.setText(name);
                 email.setText(emailSnapshot);
-                pointUser.setText("Điểm tích lũy: " + point);
+                pointUser.setText("Quản lý bài đăng");
 //                }
             }
 

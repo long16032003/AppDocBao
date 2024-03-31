@@ -55,7 +55,7 @@
             android:text="Tạo bài viết" />
 
         <TextView
-            android:drawableLeft="@drawable/certificate_medal_quality_icon"
+            android:drawableLeft="@drawable/management_icon"
             android:id="@+id/pointUser"
             android:background="@drawable/border_rectangle_orange"
             android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             android:paddingLeft="20dp"
             android:textColor="@color/black"
             android:gravity="center"
-            android:text="Điểm tích lũy"
+            android:text="Quản lý bài đăng"
             android:textSize="30dp" />
 
         <TextView
