@@ -13,4 +13,5 @@
     <color name="colorStateNotEnabled">#615A5A</color>
     <color name="colorStatePressed">#F44336</color>
     <color name="grey">#EFEFEF</color>
+    <color name="yellow">#FF9800</color>
 </resources>
