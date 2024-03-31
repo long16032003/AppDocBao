@@ -12,51 +12,52 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="60dp"
         android:background="?attr/colorPrimary">
 
-            <TextView
-                android:id="@+id/gif_toolbar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:text="Đổi điểm"
-                android:textColor="@color/white"
-                android:textSize="28dp"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/gif_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginEnd="16dp"
+            android:text="Đổi điểm"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="220dp"/>
+        android:layout_height="220dp"
+        android:layout_below="@id/toolbar" />
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/cicle_indicator"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentEnd="true"
-        app:ci_drawable="@drawable/bg_indicator"
-        android:layout_gravity="center_horizontal">
-    </me.relex.circleindicator.CircleIndicator>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-4dp"
+        app:ci_drawable="@drawable/bg_indicator"/>
 
     <TextView
         android:id="@+id/pointuser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_pager"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/border_rectangle_orange"
         android:drawableLeft="@drawable/certificate_medal_quality_icon"
         android:gravity="center"
@@ -65,16 +66,15 @@
         android:paddingBottom="15dp"
         android:text="Điểm tích lũy"
         android:textColor="@color/black"
-        android:textSize="30dp" />
+        android:textStyle="bold"
+        android:textSize="24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvVoucher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rcvVoucher"
+        android:layout_below="@id/pointuser"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="40dp"
-        android:layout_below="@id/pointuser" />
+        android:layout_marginBottom="40dp" />
 
 </RelativeLayout>

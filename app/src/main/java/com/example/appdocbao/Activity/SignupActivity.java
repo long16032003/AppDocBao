@@ -148,8 +148,12 @@ public class SignupActivity extends AppCompatActivity {
 
         FirebaseUser userFirebase = firebaseAuth.getCurrentUser();
         String id = userFirebase.getUid();
-
-        User user = new User(id, name,email,0,phone,imageUrl);
+        User user;
+        if(imageUrl == null){
+            user = new User(id, name,email,0,phone,"https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9");
+        }else{
+            user = new User(id, name,email,0,phone,imageUrl);
+        }
 
         FirebaseDatabase.getInstance().getReference("users").child(id)
                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

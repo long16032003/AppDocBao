@@ -103,23 +103,25 @@ public class GifFragment extends Fragment {
 
         voucherReference = FirebaseDatabase.getInstance().getReference("voucher");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String idUser = user.getUid();
+        if(user != null){
+            String idUser = user.getUid();
 
-        userReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
-        userReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Lấy dữ liệu người dùng từ dataSnapshot
-                int point = dataSnapshot.child("points").getValue(Integer.class);
+            userReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Lấy dữ liệu người dùng từ dataSnapshot
+                    int point = dataSnapshot.child("points").getValue(Integer.class);
 
-                pointUser.setText("Điểm tích lũy: " + point);
-            }
+                    pointUser.setText("Điểm tích lũy: " + point);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //Xử lí lỗi
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    //Xử lí lỗi
+                }
+            });
+        }
 
 
         eventListener = voucherReference.addValueEventListener(new ValueEventListener() {
