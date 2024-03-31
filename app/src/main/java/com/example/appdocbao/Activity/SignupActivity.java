@@ -148,10 +148,8 @@ public class SignupActivity extends AppCompatActivity {
 
         FirebaseUser userFirebase = firebaseAuth.getCurrentUser();
         String id = userFirebase.getUid();
-        Map<String,Article> recently_read = new HashMap<>();
-        Article article = new Article();
-        recently_read.put("test",article);
-        User user = new User(id, name,email,0,phone,imageUrl,recently_read, recently_read, recently_read);
+
+        User user = new User(id, name,email,0,phone,imageUrl);
 
         FirebaseDatabase.getInstance().getReference("users").child(id)
                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

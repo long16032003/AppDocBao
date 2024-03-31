@@ -13,8 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.appdocbao.Activity.MainActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
+import com.example.appdocbao.Activity.RecentlyReadActivity;
+import com.example.appdocbao.Activity.SavedArticlesActivity;
 import com.example.appdocbao.Activity.UserActivity;
 import com.example.appdocbao.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,93 +28,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class UserFragment extends Fragment {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+public class UserFragment extends Fragment {
     Button btnActivityPostArticle, btnLogOut;
-    TextView userName, email;
+    TextView userName, email, pointUser, tinganday, tindaluu;
+    CircleImageView profilePicture;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public UserFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserFragment newInstance(String param1, String param2) {
-        UserFragment fragment = new UserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FirebaseUser user = mAuth.getCurrentUser();
-        String idUser = user.getUid();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        setContentView(R.layout.activity_user);
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-
-//        userName = getView().findViewById(R.id.userName);
-//        email = getView().findViewById(R.id.email);
-//        btnActivityPostArticle = getView().findViewById(R.id.btnActivityPostArticle);
-//        btnLogOut = getView().findViewById(R.id.btnLogOut);
-
-        userName = view.findViewById(R.id.userName);
-        email = view.findViewById(R.id.email);
-        btnActivityPostArticle = view.findViewById(R.id.btnActivityPostArticle);
-        btnLogOut = view.findViewById(R.id.btnLogOut);
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        String idUser = user.getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
         // Inflate the layout for this fragment
         return view;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Phân giải các phần tử giao diện người dùng
         userName = view.findViewById(R.id.userName);
         email = view.findViewById(R.id.email);
+        pointUser = view.findViewById(R.id.pointUser);
         btnActivityPostArticle = view.findViewById(R.id.btnActivityPostArticle);
         btnLogOut = view.findViewById(R.id.btnLogOut);
+        tinganday = view.findViewById(R.id.tinganday);
+        tindaluu = view.findViewById(R.id.tindaluu);
+        profilePicture = view.findViewById(R.id.profilePicture);
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        String idUser = user.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -119,8 +65,15 @@ public class UserFragment extends Fragment {
                 // Lấy dữ liệu người dùng từ dataSnapshot
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String emailSnapshot = dataSnapshot.child("email").getValue(String.class);
+                int point = dataSnapshot.child("points").getValue(Integer.class);
+                String imageSnapshot = dataSnapshot.child("img").getValue(String.class);
+
+                if (isAdded()) {
+                    Glide.with(requireContext()).load(imageSnapshot).into(profilePicture);
+                }
                 userName.setText(name);
                 email.setText(emailSnapshot);
+                pointUser.setText("Điểm tích lũy: " + point);
 //                }
             }
 
@@ -129,36 +82,33 @@ public class UserFragment extends Fragment {
                 //Xử lí lỗi
             }
         });
-//        btnActivityPostArticle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(UserActivity.this, NewspaperPostingActivity.class);
-//                startActivity(intent);
-//            }
-//        }) ;
-//        btnLogOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut(); // Đăng xuất, sau sẽ chuyển vào sự kiện của nút đăng xuất
-//                Toast.makeText(UserActivity.this,"Đã đăng xuất",Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(UserActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
         btnActivityPostArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewspaperPostingActivity.class);
+                Intent intent = new Intent(getContext(), NewspaperPostingActivity.class);
                 startActivity(intent);
             }
         });
-
+        tindaluu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SavedArticlesActivity.class);
+                startActivity(intent);
+            }
+        });
+        tinganday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RecentlyReadActivity.class);
+                startActivity(intent);
+            }
+        });
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut(); // Đăng xuất, sau sẽ chuyển vào sự kiện của nút đăng xuất
-                Toast.makeText(getActivity(), "Đã đăng xuất", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Toast.makeText(getContext(), "Đã đăng xuất", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

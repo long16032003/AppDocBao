@@ -160,7 +160,7 @@ public class NewsFragment extends Fragment {
             }
         }
         if (filteredList.isEmpty()) {
-            Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
         }
         articleAdapter.setData(filteredList);
     }

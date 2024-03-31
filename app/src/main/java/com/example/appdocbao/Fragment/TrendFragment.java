@@ -54,35 +54,35 @@ public class TrendFragment extends Fragment {
         rcvArticle.setAdapter(articleAdapter);
         rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                listArticle.clear();
-//                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-//                    Article article = itemSnapShot.getValue(Article.class);
-//                    listArticle.add(article);
-//                }
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listArticle.clear();
+                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
+                    Article article = itemSnapShot.getValue(Article.class);
+                    listArticle.add(article);
+                }
 //                ArrayList<Article> sortedArticles = getSortedArticlesByLikes(listArticle);
 //
 //                // Kiểm tra nếu danh sách không rỗng và bài viết đầu tiên có tỉ lệ like nhỏ hơn bài viết cuối cùng
 //                if (!sortedArticles.isEmpty() && sortedArticles.get(0).getLikes() < sortedArticles.get(sortedArticles.size() - 1).getLikes()) {
 //                    Collections.reverse(sortedArticles); // Đảo ngược danh sách nếu cần
 //                }
-//
+
 //                articleAdapter.setData(sortedArticles);
-//                articleAdapter.notifyDataSetChanged();
-//                isListLoaded = true;
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//        if (isListLoaded) {
-//            progressbar.setVisibility(View.GONE);
-//        }
-//    }
+                articleAdapter.notifyDataSetChanged();
+                isListLoaded = true;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if (isListLoaded) {
+            progressbar.setVisibility(View.GONE);
+        }
+    }
 //    private ArrayList<Article> getSortedArticlesByLikes(ArrayList<Article> articles) {
 //        // Sắp xếp danh sách bài viết theo tỉ lệ like
 //        Collections.sort(articles, new Comparator<Article>() {
@@ -91,7 +91,7 @@ public class TrendFragment extends Fragment {
 //                return Integer.compare(a2.getLikes(), a1.getLikes());
 //            }
 //        });
-//
+
 //        return articles;
-    }
+//    }
 }
