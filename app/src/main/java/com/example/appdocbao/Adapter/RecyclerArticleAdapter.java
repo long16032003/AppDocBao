@@ -91,6 +91,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
                 intent.putExtra("Id", mListArticle.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
+                intent.putExtra("idCategory", mListArticle.get(holder.getAdapterPosition()).getCategoryId());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
                 intent.putExtra("Author", mListArticle.get(holder.getAdapterPosition()).getAuthor());
