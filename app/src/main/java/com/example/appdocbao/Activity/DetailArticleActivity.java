@@ -73,12 +73,13 @@ public class DetailArticleActivity extends AppCompatActivity {
             String titleArticle = bundle.getString("Title");
             String contentArticle = bundle.getString("Content");
             String authorArticle = bundle.getString("Author");
+            String idUserPost = bundle.getString("IdUserPost");
             int idCategoryArticle = bundle.getInt("idCategory");
             long timestampArticle = bundle.getLong("Date");
 
             detailTitle.setText(titleArticle);
             detailContent.setText(contentArticle);
-            detailAuthor.setText(authorArticle);
+            detailAuthor.setText("Nguồn: "+authorArticle);
 
             Date date = new Date(timestampArticle);
             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
@@ -92,7 +93,8 @@ public class DetailArticleActivity extends AppCompatActivity {
                     .into(detailImage);
 //            }
             String id_Article = bundle.getString("Id");
-            Article article = new Article(id_Article,titleArticle,contentArticle,idCategoryArticle,authorArticle,bundle.getString("Image"),timestampArticle);
+
+            Article article = new Article(id_Article,titleArticle,contentArticle,idCategoryArticle,authorArticle,bundle.getString("Image"),timestampArticle,idUserPost);
             getLikebuttonStatus(id_Article);
             getDislikebuttonStatus(id_Article);
             getSavebuttonStatus(id_Article);
@@ -119,7 +121,6 @@ public class DetailArticleActivity extends AppCompatActivity {
                     }
                 }
             });
-
             dislikeArticle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 public class Article {
      private String id;
      private String author;
+     private String idUserPost;
      private int categoryId;
      private String content;
      private String title;
@@ -15,7 +16,7 @@ public class Article {
      public Article() {
      }
 
-     public Article(String id, String title, String content, int categoryId, String author, String img, long timestamp) {
+     public Article(String id, String title, String content, int categoryId, String author, String img, long timestamp, String idUserPost) {
           this.id = id;
           this.author = author;
           this.categoryId = categoryId;
@@ -23,6 +24,7 @@ public class Article {
           this.title = title;
           this.img = img;
           this.timestamp = timestamp;
+          this.idUserPost = idUserPost;
      }
 
      public String getId() {
@@ -79,6 +81,14 @@ public class Article {
 
      public void setImg(String img) {
           this.img = img;
+     }
+
+     public String getIdUserPost() {
+          return idUserPost;
+     }
+
+     public void setIdUserPost(String idUserPost) {
+          this.idUserPost = idUserPost;
      }
 
      @NonNull

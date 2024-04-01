@@ -63,8 +63,7 @@
                 android:id="@+id/detailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_margin="20dp"
                 android:text="Title"
                 android:textAlignment="center"
                 android:textColor="@color/red"
@@ -74,7 +73,7 @@
             <ImageView
                 android:id="@+id/detailImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="225dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/logo_news" />
@@ -89,14 +88,17 @@
                     android:id="@+id/detailAuthor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/detailDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.4"
+                    android:textSize="15dp"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -109,7 +111,7 @@
                 android:padding="20dp"
                 android:text="Content Article"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 

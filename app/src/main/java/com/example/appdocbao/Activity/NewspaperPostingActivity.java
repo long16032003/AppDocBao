@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +50,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
     Button btnDangBao;
     Spinner spinnerCategory;
     EditText titleUpload, contentUpload, authorUpload;
-    ImageView imageUpload;
+    ImageView imageUpload, backMain;
     DatabaseReference spinnerRef;
     ArrayList<String> spinnerList;
     ArrayAdapter<String> adapter;
@@ -69,6 +70,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         authorUpload = (EditText) findViewById(R.id.authorUpload);
 
         btnDangBao = (Button) findViewById(R.id.btnDangBao);
+        backMain = (ImageView) findViewById(R.id.backMain);
 
         spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
         spinnerRef = FirebaseDatabase.getInstance().getReference("category");
@@ -95,6 +97,12 @@ public class NewspaperPostingActivity extends AppCompatActivity {
                     }
                 }
         );
+        backMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         imageUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +190,9 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("articles");
 
         String id = myRef.push().getKey();
-        Article article = new Article(id, title,content,id_category,author,imageUrl, timestamp);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String idUserPost = user.getUid();
+        Article article = new Article(id, title,content,id_category,author,imageUrl, timestamp, idUserPost);
 
         FirebaseDatabase.getInstance().getReference("articles").child(id)
                 .setValue(article).addOnCompleteListener(new OnCompleteListener<Void>() {

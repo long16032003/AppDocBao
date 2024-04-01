@@ -55,6 +55,7 @@
                     android:ems="10"
                     android:inputType="text"
                     android:padding="8dp"
+                    android:paddingStart="15dp"
                     android:textColor="@color/black" />
             </LinearLayout>
         </FrameLayout>
