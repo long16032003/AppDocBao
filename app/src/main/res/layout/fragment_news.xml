@@ -15,9 +15,10 @@
         android:layout_height="match_parent">
 
         <FrameLayout
+            android:id="@+id/frame1"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:id="@+id/frame1">
+            android:layout_height="wrap_content">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -29,89 +30,106 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="50dp">
+                android:layout_marginLeft="50dp"
+                android:orientation="horizontal">
 
-<!--                <SearchView-->
-<!--                    android:id="@+id/search_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:background="@drawable/edittext"-->
-<!--                    android:queryHint="Search Here..."-->
-<!--                    android:iconifiedByDefault="false"/>-->
+                <!--                <SearchView-->
+                <!--                    android:id="@+id/search_view"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_margin="8dp"-->
+                <!--                    android:background="@drawable/edittext"-->
+                <!--                    android:queryHint="Search Here..."-->
+                <!--                    android:iconifiedByDefault="false"/>-->
                 <EditText
                     android:id="@+id/search_edit"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="7dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="10dp"
-                    android:drawablePadding="8dp"
-                    android:padding="8dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="text"
+                    android:background="@drawable/edittext"
                     android:drawableStart="@drawable/search_icon"
-                    android:background="@drawable/edittext"/>
+                    android:drawablePadding="8dp"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
             android:id="@+id/frame2"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
             android:layout_below="@id/frame1">
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp">
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp">
+
                     <Button
                         android:id="@+id/btn0"
-                        android:text="Pháp luật"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="5dp"
+                        android:text="Pháp luật"
+                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/btn1"
-                        android:text="Kịnh tế"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Kịnh tế"
+                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/btn2"
-                        android:text="Xã hội"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Xã hội"
+                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/btn3"
-                        android:text="Thể thao"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Thể thao"
+                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/btn4"
-                        android:text="Du lịch"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Du lịch"
+                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/btn5"
-                        android:text="Công nghệ"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Công nghệ"
+                        android:textSize="12sp" />
+
                     <Button
                         android:id="@+id/btn6"
-                        android:text="Sức khoẻ"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="Sức khoẻ"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </HorizontalScrollView>
 
