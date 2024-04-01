@@ -91,6 +91,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
                 intent.putExtra("Id", mListArticle.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
+                intent.putExtra("IdUserPost", mListArticle.get(holder.getAdapterPosition()).getIdUserPost());
                 intent.putExtra("idCategory", mListArticle.get(holder.getAdapterPosition()).getCategoryId());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
@@ -165,7 +166,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
 
                 if (recently_read == null) {
                     recently_read = new ArrayList<>();
-                }else if (recently_read.size() >= 5) {
+                }else if (recently_read.size() >= 6) {
                     // Xóa bài báo đầu tiên
                     recently_read.remove(0);
                 }

@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="Đăng báo"
+                android:text="Chỉnh sửa bài báo"
                 android:textColor="@color/white"
                 android:textSize="24dp"
                 android:textStyle="bold"
@@ -75,6 +75,7 @@
                     android:background="@drawable/border_rectangle_blue">
 
                     <TextView
+                        android:id="@+id/editImage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Upload Picture"
@@ -113,17 +114,6 @@
                         android:background="@drawable/border_rectangle_blue"
                         android:hint="Nội dung"
                         android:text="" />
-
-                    <Spinner
-                        android:id="@+id/spinnerCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/border_rectangle_blue"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:layout_marginBottom="20dp"
-                        />
-
                     <EditText
                         android:id="@+id/authorUpload"
                         android:layout_width="match_parent"
@@ -141,7 +131,7 @@
                         android:id="@+id/btnDangBao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Đăng báo"
+                        android:text="Cập nhật"
                         android:layout_gravity="center"/>
                 </LinearLayout>
 

@@ -64,6 +64,7 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
                 intent.putExtra("Id", mListArticle.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
+                intent.putExtra("IdUserPost", mListArticle.get(holder.getAdapterPosition()).getIdUserPost());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
                 intent.putExtra("Author", mListArticle.get(holder.getAdapterPosition()).getAuthor());
