@@ -61,47 +61,76 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:drawableLeft="@drawable/certificate_medal_quality_icon"
-                    android:id="@+id/textView9"
+                    android:drawableLeft="@drawable/management_icon"
+                    android:id="@+id/pointUser"
+                    android:background="@drawable/border_rectangle_orange"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
-                    android:background="@drawable/border_rectangle_orange"
-                    android:padding="8dp"
+                    android:textColor="@color/black"
                     android:gravity="center"
-                    android:text="Điểm tích lũy"
-                    android:textSize="30dp" />
+                    android:text="Quản lý bài đăng"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:drawableLeft="@drawable/sale_icon"
+                    android:id="@+id/userVoucher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_rectangle_yellow"
+                    android:textColor="@color/black"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
+                    android:text="Voucher của bạn"
+                    android:textSize="24dp" />
 
                 <TextView
                     android:drawableLeft="@drawable/clock_icon"
-                    android:id="@+id/textView6"
+                    android:id="@+id/tinganday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    android:background="@drawable/border_rectangle_red"
+                    android:textColor="@color/black"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
-                    android:background="@drawable/border_rectangle_red"
                     android:text="Tin gần đây"
-                    android:textSize="30dp" />
+                    android:textSize="24dp" />
 
                 <TextView
+                    android:textColor="@color/black"
                     android:drawableLeft="@drawable/blue_green_saved_bookmark"
-                    android:id="@+id/textView4"
+                    android:id="@+id/tindaluu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
                     android:background="@drawable/border_rectangle_blue"
                     android:text="Tin đã lưu"
-                    android:textSize="30dp" />
+                    android:textSize="24dp" />
             </LinearLayout>
 
         </LinearLayout>

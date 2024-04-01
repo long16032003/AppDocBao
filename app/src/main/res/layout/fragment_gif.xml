@@ -75,6 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/pointuser"
         android:layout_marginTop="8dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:layout_marginBottom="40dp" />
 
 </RelativeLayout>
