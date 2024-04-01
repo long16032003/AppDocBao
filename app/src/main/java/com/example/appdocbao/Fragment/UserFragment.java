@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.Activity.MainActivity;
+import com.example.appdocbao.Activity.ManageArticleActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
 import com.example.appdocbao.Activity.RecentlyReadActivity;
 import com.example.appdocbao.Activity.SavedArticlesActivity;
@@ -32,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserFragment extends Fragment {
     Button btnActivityPostArticle, btnLogOut;
-    TextView userName, email, pointUser, tinganday, tindaluu;
+    TextView userName, email, manageArticle, tinganday, tindaluu;
     CircleImageView profilePicture;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -48,7 +49,7 @@ public class UserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         userName = view.findViewById(R.id.userName);
         email = view.findViewById(R.id.email);
-        pointUser = view.findViewById(R.id.pointUser);
+        manageArticle = view.findViewById(R.id.manageArticle);
         btnActivityPostArticle = view.findViewById(R.id.btnActivityPostArticle);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         tinganday = view.findViewById(R.id.tinganday);
@@ -65,7 +66,6 @@ public class UserFragment extends Fragment {
                 // Lấy dữ liệu người dùng từ dataSnapshot
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String emailSnapshot = dataSnapshot.child("email").getValue(String.class);
-                int point = dataSnapshot.child("points").getValue(Integer.class);
                 String imageSnapshot = dataSnapshot.child("img").getValue(String.class);
 
                 if (isAdded()) {
@@ -73,7 +73,6 @@ public class UserFragment extends Fragment {
                 }
                 userName.setText(name);
                 email.setText(emailSnapshot);
-                pointUser.setText("Quản lý bài đăng");
 //                }
             }
 
@@ -86,6 +85,13 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), NewspaperPostingActivity.class);
+                startActivity(intent);
+            }
+        });
+        manageArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ManageArticleActivity.class);
                 startActivity(intent);
             }
         });

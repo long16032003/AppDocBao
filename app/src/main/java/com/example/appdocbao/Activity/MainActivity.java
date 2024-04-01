@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     DrawerLayout drawerLayout;
     private Internet internetBroadcastReceiver;
+    private boolean isReceiverRegistered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +60,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     @Override
-    protected void onStart() {
-        super.onStart();
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(internetBroadcastReceiver, intentFilter);
+    protected void onResume() {
+        super.onResume();
+
+        // Đăng ký BroadcastReceiver khi Activity được hiển thị
+        if (!isReceiverRegistered) {
+            registerReceiver(internetBroadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            isReceiverRegistered = true;
+        }
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(internetBroadcastReceiver);
-    }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        // Hủy đăng ký BroadcastReceiver khi Activity không còn hiển thị
+//        if (isReceiverRegistered) {
+//            unregisterReceiver(internetBroadcastReceiver);
+//            isReceiverRegistered = false;
+//        }
+//    }
     private void replaceFragement(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

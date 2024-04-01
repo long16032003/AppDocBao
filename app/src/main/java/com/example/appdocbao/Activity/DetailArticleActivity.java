@@ -54,7 +54,7 @@ public class DetailArticleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_article);
-        backMainActivity = findViewById(R.id.imageView6);
+        backMainActivity = findViewById(R.id.backMain);
         shareArticle = findViewById(R.id.shareArticle);
         likeArticle = findViewById(R.id.likeArticle);
         dislikeArticle = findViewById(R.id.dislikeArticle);

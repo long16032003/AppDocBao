@@ -37,7 +37,7 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
     @Override
     public RecentlyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View articleView = inflater.inflate(R.layout.item_recentlyread, parent, false);
+        View articleView = inflater.inflate(R.layout.item_articles, parent, false);
         RecentlyViewHolder viewHolder = new RecentlyViewHolder(articleView);
         return viewHolder;
     }
@@ -48,17 +48,17 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
         if(article == null){
             return;
         }
-        holder.titleArticleRecently.setText(article.getTitle());
+        holder.titleArticle.setText(article.getTitle());
         Glide.with(mContext)
                 .load(article.getImg())
-                .into(holder.imgArticleRecently);
-        holder.authorArticleRecently.setText(article.getAuthor());
+                .into(holder.imgArticle);
+        holder.authorArticle.setText(article.getAuthor());
         long timestamp = article.getTimestamp();
         Date dateTime = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDateTime = dateFormat.format(dateTime);
-        holder.dateArticleRecently.setText(formattedDateTime);
-        holder.cardViewArticleRecently.setOnClickListener(new View.OnClickListener() {
+        holder.dateArticle.setText(formattedDateTime);
+        holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
@@ -80,19 +80,19 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
 
     public class RecentlyViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView imgArticleRecently;
-        private TextView titleArticleRecently;
-        private CardView cardViewArticleRecently;
-        private TextView authorArticleRecently;
-        private TextView dateArticleRecently;
+        private ImageView imgArticle;
+        private TextView titleArticle;
+        private CardView cardViewArticle;
+        private TextView authorArticle;
+        private TextView dateArticle;
 
         public RecentlyViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgArticleRecently = itemView.findViewById(R.id.imgArticleRecently);
-            titleArticleRecently = itemView.findViewById(R.id.titleArticleRecently);
-            cardViewArticleRecently = itemView.findViewById(R.id.cardViewArticleRecently);
-            authorArticleRecently = itemView.findViewById(R.id.authorArticleRecently);
-            dateArticleRecently = itemView.findViewById(R.id.dateArticleRecently);
+            imgArticle = itemView.findViewById(R.id.imgArticle);
+            titleArticle = itemView.findViewById(R.id.titleArticle);
+            cardViewArticle = itemView.findViewById(R.id.cardViewArticle);
+            authorArticle = itemView.findViewById(R.id.authorArticle);
+            dateArticle = itemView.findViewById(R.id.dateArticle);
         }
     }
 }

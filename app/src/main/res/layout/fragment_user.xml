@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -62,7 +63,7 @@
 
         <TextView
             android:drawableLeft="@drawable/management_icon"
-            android:id="@+id/pointUser"
+            android:id="@+id/manageArticle"
             android:background="@drawable/border_rectangle_orange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
