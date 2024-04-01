@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class NewsFragment extends Fragment {
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
     EditText search_edit;
+    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +61,63 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        btn0=view.findViewById(R.id.btn0);
+        btn1=view.findViewById(R.id.btn1);
+        btn2=view.findViewById(R.id.btn2);
+        btn3=view.findViewById(R.id.btn3);
+        btn4=view.findViewById(R.id.btn4);
+        btn5=view.findViewById(R.id.btn5);
+        btn6=view.findViewById(R.id.btn6);
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(0);
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(1);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(2);
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(3);
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(4);
+            }
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(5);
+            }
+        });
+
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterArticles(6);
+            }
+        });
+
 
 
         rcvArticle = view.findViewById(R.id.recycleview_items);
@@ -181,4 +240,14 @@ public class NewsFragment extends Fragment {
         articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
     }
+    private void filterArticles(int categoryId) {
+        ArrayList<Article> filteredList = new ArrayList<>();
+        for (Article item : listArticle) {
+            if (item.getCategoryId() == categoryId) {
+                filteredList.add(item);
+            }
+        }
+        articleAdapter.setData(filteredList);
+    }
+
 }
