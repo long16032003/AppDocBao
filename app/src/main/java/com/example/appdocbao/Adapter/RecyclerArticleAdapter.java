@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.*;
@@ -75,53 +78,20 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
         holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //======== Chức năng thêm bài báo đọc gần đây ==========
+
                 FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-                String id_User = mAuth.getUid();
-                String id_Article = mListArticle.get(holder.getAdapterPosition()).getId();
-
-                articleRecently = mListArticle.get(holder.getAdapterPosition());
-
-                DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        // Lấy dữ liệu hiện có từ Firebase
-                        ArrayList<Article> recently_read = (ArrayList<Article>) dataSnapshot.getValue();
-
-                        if (recently_read == null) {
-                            recently_read = new ArrayList<>();
-                        }else if (recently_read.size() >= 5) {
-                            // Xóa bài báo đầu tiên
-                            recently_read.remove(0);
-                        }
-                        // Thêm article mới vào recently_read
-                        recently_read.add(articleRecently);
-
-                        // Đẩy recently_read lên Firebase
-                        databaseReference.setValue(recently_read)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        // Đã đẩy thành công Map vào database
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Xảy ra lỗi khi đẩy Map vào database
-                                    }
-                                });
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Xảy ra lỗi khi truy cập Firebase
-                    }
-                });
+                if(mAuth != null){
+                    String id_User = mAuth.getUid();
+                    //======== Chức năng thêm bài báo đọc gần đây ==========
+                    RecentlyReadArticle(id_User,holder);
+                    // ======================= Tích điểm ====================
+                    TichDiem(id_User);
+                }
                 //======================================================
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
                 intent.putExtra("Id", mListArticle.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("Image", mListArticle.get(holder.getAdapterPosition()).getImg());
+                intent.putExtra("idCategory", mListArticle.get(holder.getAdapterPosition()).getCategoryId());
                 intent.putExtra("Title", mListArticle.get(holder.getAdapterPosition()).getTitle());
                 intent.putExtra("Content", mListArticle.get(holder.getAdapterPosition()).getContent());
                 intent.putExtra("Author", mListArticle.get(holder.getAdapterPosition()).getAuthor());
@@ -151,5 +121,76 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
             authorArticle = itemView.findViewById(R.id.authorArticle);
             dateArticle = itemView.findViewById(R.id.dateArticle);
         }
+    }
+    private void TichDiem(String id_User){
+        DatabaseReference pointReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/points");
+        pointReference.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                // Lấy giá trị hiện tại của points
+                Integer currentPoints = mutableData.getValue(Integer.class);
+
+                if (currentPoints != null) {
+                    // Tăng giá trị points lên 1
+                    mutableData.setValue(currentPoints + 1);
+                }
+
+                // Trả về giá trị mới của points
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot dataSnapshot) {
+                if (committed) {
+                    // Tăng giá trị points thành công
+                    // Thực hiện các hành động phụ thuộc vào việc tăng points ở đây
+                } else {
+                    // Tăng giá trị points thất bại
+                    // Xử lý lỗi nếu cần
+                }
+            }
+        });
+    }
+    private void RecentlyReadArticle(String id_User, ArticleViewHolder holder){
+
+        articleRecently = mListArticle.get(holder.getAdapterPosition());
+
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Lấy dữ liệu hiện có từ Firebase
+                ArrayList<Article> recently_read = (ArrayList<Article>) dataSnapshot.getValue();
+
+                if (recently_read == null) {
+                    recently_read = new ArrayList<>();
+                }else if (recently_read.size() >= 5) {
+                    // Xóa bài báo đầu tiên
+                    recently_read.remove(0);
+                }
+                // Thêm article mới vào recently_read
+                recently_read.add(articleRecently);
+
+                // Đẩy recently_read lên Firebase
+                databaseReference.setValue(recently_read)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Đã đẩy thành công Map vào database
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Xảy ra lỗi khi đẩy Map vào database
+                            }
+                        });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xảy ra lỗi khi truy cập Firebase
+            }
+        });
     }
 }

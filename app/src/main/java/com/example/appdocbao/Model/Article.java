@@ -2,9 +2,6 @@ package com.example.appdocbao.Model;
 
 import androidx.annotation.NonNull;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class Article {
      private String id;
      private String author;
@@ -14,8 +11,6 @@ public class Article {
      private String img;
      private long timestamp;
      //https://www.javatpoint.com/java-date-to-timestamp
-     private int likes;
-     private int dislikes;
 
      public Article() {
      }
@@ -28,8 +23,6 @@ public class Article {
           this.title = title;
           this.img = img;
           this.timestamp = timestamp;
-          this.likes = 0;
-          this.dislikes = 0;
      }
 
      public String getId() {
@@ -86,22 +79,6 @@ public class Article {
 
      public void setImg(String img) {
           this.img = img;
-     }
-
-     public int getLikes() {
-          return likes;
-     }
-
-     public void setLikes(int likes) {
-          this.likes = likes;
-     }
-
-     public int getDislikes() {
-          return dislikes;
-     }
-
-     public void setDislikes(int dislikes) {
-          this.dislikes = dislikes;
      }
 
      @NonNull

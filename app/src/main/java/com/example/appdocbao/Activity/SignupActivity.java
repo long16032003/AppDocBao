@@ -50,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
     Uri uri;
     String imageUrl;
     ImageView imageUserUpload;
+    boolean isUploadImage = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +72,13 @@ public class SignupActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
-        btnregis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickPushData();
-                register();
-            }
-        });
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
+                            isUploadImage = true;
                             Intent data = result.getData();
                             uri = data.getData();
                             imageUserUpload.setImageURI(uri);
@@ -93,6 +88,17 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
         );
+        btnregis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isUploadImage) {
+                    onClickPushData();
+                    register();
+                }else{
+                    Toast.makeText(SignupActivity.this,"Vui lòng chọn ảnh !",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         imageUserUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,10 +148,12 @@ public class SignupActivity extends AppCompatActivity {
 
         FirebaseUser userFirebase = firebaseAuth.getCurrentUser();
         String id = userFirebase.getUid();
-        Map<String,Article> recently_read = new HashMap<>();
-        Article article = new Article();
-        recently_read.put("test",article);
-        User user = new User(id, name,email,0,phone,imageUrl,recently_read, recently_read, recently_read);
+        User user;
+        if(imageUrl == null){
+            user = new User(id, name,email,0,phone,"https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9");
+        }else{
+            user = new User(id, name,email,0,phone,imageUrl);
+        }
 
         FirebaseDatabase.getInstance().getReference("users").child(id)
                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

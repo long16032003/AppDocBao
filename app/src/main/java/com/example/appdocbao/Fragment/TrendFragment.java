@@ -51,7 +51,7 @@ public class TrendFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("articles");
 
         listArticle = new ArrayList<>();
-        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle);
+        articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
         rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -63,14 +63,14 @@ public class TrendFragment extends Fragment {
                     Article article = itemSnapShot.getValue(Article.class);
                     listArticle.add(article);
                 }
-                ArrayList<Article> sortedArticles = getSortedArticlesByLikes(listArticle);
+//                ArrayList<Article> sortedArticles = getSortedArticlesByLikes(listArticle);
+//
+//                // Kiểm tra nếu danh sách không rỗng và bài viết đầu tiên có tỉ lệ like nhỏ hơn bài viết cuối cùng
+//                if (!sortedArticles.isEmpty() && sortedArticles.get(0).getLikes() < sortedArticles.get(sortedArticles.size() - 1).getLikes()) {
+//                    Collections.reverse(sortedArticles); // Đảo ngược danh sách nếu cần
+//                }
 
-                // Kiểm tra nếu danh sách không rỗng và bài viết đầu tiên có tỉ lệ like nhỏ hơn bài viết cuối cùng
-                if (!sortedArticles.isEmpty() && sortedArticles.get(0).getLikes() < sortedArticles.get(sortedArticles.size() - 1).getLikes()) {
-                    Collections.reverse(sortedArticles); // Đảo ngược danh sách nếu cần
-                }
-
-                articleAdapter.setData(sortedArticles);
+//                articleAdapter.setData(sortedArticles);
                 articleAdapter.notifyDataSetChanged();
                 isListLoaded = true;
             }
@@ -84,15 +84,15 @@ public class TrendFragment extends Fragment {
             progressbar.setVisibility(View.GONE);
         }
     }
-    private ArrayList<Article> getSortedArticlesByLikes(ArrayList<Article> articles) {
-        // Sắp xếp danh sách bài viết theo tỉ lệ like
-        Collections.sort(articles, new Comparator<Article>() {
-            @Override
-            public int compare(Article a1, Article a2) {
-                return Integer.compare(a2.getLikes(), a1.getLikes());
-            }
-        });
+//    private ArrayList<Article> getSortedArticlesByLikes(ArrayList<Article> articles) {
+//        // Sắp xếp danh sách bài viết theo tỉ lệ like
+//        Collections.sort(articles, new Comparator<Article>() {
+//            @Override
+//            public int compare(Article a1, Article a2) {
+//                return Integer.compare(a2.getLikes(), a1.getLikes());
+//            }
+//        });
 
-        return articles;
-    }
+//        return articles;
+//    }
 }

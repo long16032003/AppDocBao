@@ -67,8 +67,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="40dp"
                     android:padding="20dp"
-                    android:layout_marginBottom="30dp"
                     android:text="Content Article"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -79,28 +79,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:background="@color/grey"
             android:layout_alignParentBottom="true">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/likeArticle"
                 android:layout_width="10dp"
                 android:padding="8dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:src="@drawable/thumbs_up_line_icon" />
 
+            <TextView
+                android:id="@+id/countLike"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="100"
+                android:textSize="18dp"/>
+
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/dislikeArticle"
                 android:layout_width="10dp"
                 android:padding="8dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:src="@drawable/thumbs_down_line_icon" />
 
+            <TextView
+                android:id="@+id/spacer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="" />
+
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/saveArticle"
                 android:layout_width="10dp"
                 android:padding="8dp"
                 android:layout_height="40dp"
@@ -108,7 +124,7 @@
                 android:src="@drawable/saved_bookmark_icon" />
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/shareArticle"
                 android:layout_width="10dp"
                 android:padding="8dp"
                 android:layout_height="40dp"

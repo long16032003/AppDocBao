@@ -44,7 +44,9 @@
                     android:id="@+id/search_edit"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:drawablePadding="8dp"
                     android:padding="8dp"
                     android:layout_weight="1"
@@ -61,6 +63,57 @@
             android:layout_height="50dp"
             android:id="@+id/frame2"
             android:layout_below="@id/frame1">
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn0"
+                        android:text="Pháp luật"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn1"
+                        android:text="Kịnh tế"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn2"
+                        android:text="Xã hội"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn3"
+                        android:text="Thể thao"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn4"
+                        android:text="Du lịch"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn5"
+                        android:text="Công nghệ"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:id="@+id/btn6"
+                        android:text="Sức khoẻ"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </HorizontalScrollView>
 
         </FrameLayout>
         <FrameLayout
@@ -78,7 +131,7 @@
                 android:id="@+id/cons1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="100dp">
+                android:layout_marginBottom="80dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_items"

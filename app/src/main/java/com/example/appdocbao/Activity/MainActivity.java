@@ -1,6 +1,8 @@
 package com.example.appdocbao.Activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,12 +13,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.appdocbao.BroadcastReceiver.Internet;
 import com.example.appdocbao.Fragment.GifFragment;
 import com.example.appdocbao.Fragment.NewsFragment;
 import com.example.appdocbao.Fragment.ProfileFragment;
 import com.example.appdocbao.Fragment.TrendFragment;
+import com.example.appdocbao.Fragment.UserFragment;
 import com.example.appdocbao.R;
 import com.example.appdocbao.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.profile) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                    startActivity(intent);
+                    replaceFragement(new UserFragment());
                 }else{
                     replaceFragement(new ProfileFragment());
                 }
@@ -57,7 +58,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetBroadcastReceiver, intentFilter);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(internetBroadcastReceiver);
+    }
     private void replaceFragement(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

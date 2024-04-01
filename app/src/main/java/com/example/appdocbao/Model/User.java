@@ -12,22 +12,16 @@ public class User {
 
     private String phone;
     private String img;
-    private Map<String,Article> saved_articles;
-    private Map<String,Article> recently_read;
-    private Map<String,Article> user_articles;
     public User() {
     }
 
-    public User(String id, String name, String email, int points, String phone, String img, Map<String,Article> saved_articles, Map<String,Article> recently_read, Map<String,Article> user_articles) {
+    public User(String id, String name, String email, int points, String phone, String img) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.points = points;
         this.phone = phone;
         this.img = img;
-        this.saved_articles = saved_articles;
-        this.recently_read = recently_read;
-        this.user_articles = user_articles;
     }
 
     public String getId() {
@@ -78,27 +72,4 @@ public class User {
         this.img = img;
     }
 
-    public Map<String,Article> getSaved_articles() {
-        return saved_articles;
-    }
-
-    public void setSaved_articles(Map<String,Article> saved_articles) {
-        this.saved_articles = saved_articles;
-    }
-
-    public Map<String,Article> getRecently_read() {
-        return recently_read;
-    }
-
-    public void setRecently_read(Map<String,Article> recently_read) {
-        this.recently_read = recently_read;
-    }
-
-    public Map<String,Article> getUser_articles() {
-        return user_articles;
-    }
-
-    public void setUser_articles(Map<String,Article> user_articles) {
-        this.user_articles = user_articles;
-    }
 }
