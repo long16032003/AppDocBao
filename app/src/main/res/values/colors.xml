@@ -14,4 +14,6 @@
     <color name="colorStatePressed">#F44336</color>
     <color name="grey">#EFEFEF</color>
     <color name="yellow">#FF9800</color>
+    <color name="custom_color_pressed">#00E1FD</color>
+    <color name="custom_color_default">#2fa1b3</color>
 </resources>

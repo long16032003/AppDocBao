@@ -7,8 +7,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:layout_gravity="start"
     tools:openDrawer="end"
     tools:context=".Activity.MainActivity">
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navigation_view"
+        android:background="@color/white"
+        android:layout_gravity="start"
+        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/black"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu">
+
+    </com.google.android.material.navigation.NavigationView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,15 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:orientation="horizontal">
-
-                <!--                <SearchView-->
-                <!--                    android:id="@+id/search_view"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_margin="8dp"-->
-                <!--                    android:background="@drawable/edittext"-->
-                <!--                    android:queryHint="Search Here..."-->
-                <!--                    android:iconifiedByDefault="false"/>-->
                 <EditText
                     android:id="@+id/search_edit"
                     android:layout_width="match_parent"
@@ -83,6 +87,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="5dp"
                         android:text="Pháp luật"
+
                         android:textSize="12sp" />
 
                     <Button
@@ -168,16 +173,5 @@
 
 
     </RelativeLayout>
-        <com.google.android.material.navigation.NavigationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/navigation_view"
-            android:background="@color/white"
-            android:layout_gravity="start"
-            app:itemTextColor="@color/black"
-            app:itemIconTint="@color/black"
-            app:headerLayout="@layout/nav_header"
-            app:menu="@menu/drawer_menu">
 
-        </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

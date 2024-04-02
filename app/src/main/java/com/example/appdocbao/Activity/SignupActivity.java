@@ -1,13 +1,5 @@
 package com.example.appdocbao.Activity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.appdocbao.Model.Article;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.appdocbao.Model.User;
 import com.example.appdocbao.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,11 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText signupName, signupPhoneNumber, signupUsername, signupPassword;
@@ -109,33 +103,50 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void onClickPushData(){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference()
-                .child("Image User")
-                .child(uri.getLastPathSegment());
-        AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private void onClickPushData() {
+        if (uri != null) {
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                    .child("Image User")
+                    .child(uri.getLastPathSegment());
 
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                imageUrl = urlImage.toString();
-                uploadData();
-                dialog.dismiss();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+            builder.setCancelable(false);
+            builder.setView(R.layout.progress_layout);
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
-            }
-        });
+            storageReference.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageReference.getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            imageUrl = uri.toString();
+                                            uploadData();
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            dialog.dismiss();
+                                            // Xử lý lỗi khi không thể lấy URL tải xuống
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            dialog.dismiss();
+                            // Xử lý lỗi khi không thể tải lên hình ảnh
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Không thể tạo đối tượng StorageReference với giá trị URI null", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void uploadData(){
