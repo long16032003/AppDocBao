@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +47,7 @@ public class DetailArticleActivity extends AppCompatActivity {
     TextView detailTitle, detailContent, detailAuthor, detailDate, countLike;
     ImageView detailImage, likeArticle ,dislikeArticle, saveArticle, shareArticle;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser user = mAuth.getCurrentUser();
+    GoogleSignInAccount googleSignInAccount ;
     DatabaseReference likeReference = FirebaseDatabase.getInstance().getReference("likes");
     DatabaseReference dislikeReference = FirebaseDatabase.getInstance().getReference("dislike");
     DatabaseReference saveReference = FirebaseDatabase.getInstance().getReference("saved_articles");
@@ -67,6 +69,7 @@ public class DetailArticleActivity extends AppCompatActivity {
         detailImage = findViewById(R.id.detailImage);
         detailAuthor = findViewById(R.id.detailAuthor);
         detailDate = findViewById(R.id.detailDate);
+
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
@@ -105,11 +108,11 @@ public class DetailArticleActivity extends AppCompatActivity {
                         likeReference.addListenerForSingleValueEvent(new ValueEventListener() { //lắng nghe dữ liệu chỉ một lần
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.child(id_Article).hasChild(user.getUid())) {
-                                    likeReference.child(id_Article).child(user.getUid()).removeValue();
+                                if (snapshot.child(id_Article).hasChild(getIdUserCurrent())) {
+                                    likeReference.child(id_Article).child(getIdUserCurrent()).removeValue();
                                 } else {
-                                    dislikeReference.child(id_Article).child(user.getUid()).removeValue();
-                                    likeReference.child(id_Article).child(user.getUid()).setValue(true);
+                                    dislikeReference.child(id_Article).child(getIdUserCurrent()).removeValue();
+                                    likeReference.child(id_Article).child(getIdUserCurrent()).setValue(true);
                                 }
                             }
                             @Override
@@ -128,11 +131,11 @@ public class DetailArticleActivity extends AppCompatActivity {
                         dislikeReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.child(id_Article).hasChild(user.getUid())) {
-                                    dislikeReference.child(id_Article).child(user.getUid()).removeValue();
+                                if (snapshot.child(id_Article).hasChild(getIdUserCurrent())) {
+                                    dislikeReference.child(id_Article).child(getIdUserCurrent()).removeValue();
                                 } else {
-                                    likeReference.child(id_Article).child(user.getUid()).removeValue();
-                                    dislikeReference.child(id_Article).child(user.getUid()).setValue(true);
+                                    likeReference.child(id_Article).child(getIdUserCurrent()).removeValue();
+                                    dislikeReference.child(id_Article).child(getIdUserCurrent()).setValue(true);
                                 }
                             }
                             @Override
@@ -153,11 +156,11 @@ public class DetailArticleActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(isSave == true){
-                                    if(snapshot.child(user.getUid()).hasChild(id_Article)){
-                                        saveReference.child(user.getUid()).child(id_Article).removeValue();
+                                    if(snapshot.child(getIdUserCurrent()).hasChild(id_Article)){
+                                        saveReference.child(getIdUserCurrent()).child(id_Article).removeValue();
                                         isSave = false;
                                     }else{
-                                        saveReference.child(user.getUid()).child(id_Article).setValue(article);
+                                        saveReference.child(getIdUserCurrent()).child(id_Article).setValue(article);
                                         isSave = false;
                                     }
                                 }
@@ -182,14 +185,10 @@ public class DetailArticleActivity extends AppCompatActivity {
         shareArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkLogined()){
-                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                    sendIntent.setType("text/plain");
-                    startActivity(sendIntent);
-                }else{
-                    AlertDialog(DetailArticleActivity.this);
-                }
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
             }
         });
     }
@@ -201,7 +200,7 @@ public class DetailArticleActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(checkLogined()){
-                    if(snapshot.child(id_Article).hasChild(user.getUid())){ // User đã like
+                    if(snapshot.child(id_Article).hasChild(getIdUserCurrent())){ // User đã like
                         int likeCount = (int) snapshot.child(id_Article).getChildrenCount();
                         countLike.setText(""+likeCount);
                         likeArticle.setImageResource(R.drawable.like_active);
@@ -226,7 +225,7 @@ public class DetailArticleActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(checkLogined()){
-                    if(snapshot.child(id_Article).hasChild(user.getUid())){ // User đã like
+                    if(snapshot.child(id_Article).hasChild(getIdUserCurrent())){ // User đã like
                         dislikeArticle.setImageResource(R.drawable.dislike_active);
                     } else {    // User chưa like
                         dislikeArticle.setImageResource(R.drawable.thumbs_down_line_icon);
@@ -245,7 +244,7 @@ public class DetailArticleActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(checkLogined()){
-                    if(snapshot.child(user.getUid()).hasChild(id_Article)){ // bài báo đã được user save
+                    if(snapshot.child(getIdUserCurrent()).hasChild(id_Article)){ // bài báo đã được user save
                         saveArticle.setImageResource(R.drawable.saved_active);
                     } else {    // User chưa save
                         saveArticle.setImageResource(R.drawable.saved_bookmark_icon);
@@ -283,10 +282,22 @@ public class DetailArticleActivity extends AppCompatActivity {
 
     public boolean checkLogined(){
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null){
+        googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(user != null || googleSignInAccount != null){
             return true;
         }else{
             return false;
         }
+    }
+    public String getIdUserCurrent(){
+        String id_User = "";
+        FirebaseUser user = mAuth.getCurrentUser();
+        googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(user != null ){
+            id_User = user.getUid();
+        }else if(googleSignInAccount != null){
+            id_User = googleSignInAccount.getId();
+        }
+        return id_User;
     }
 }

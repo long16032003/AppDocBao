@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.appdocbao.Adapter.RecentlyReadAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,7 +61,13 @@ public class SavedArticlesActivity extends AppCompatActivity {
         rcvRecentlyRead.setAdapter(recentlyReadAdapter);
 
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-        String id_User = mAuth.getUid();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        String id_User= "";
+        if(mAuth!=null){
+            id_User = mAuth.getUid();
+        }else if(googleSignInAccount!=null){
+            id_User = googleSignInAccount.getId().toString();
+        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("saved_articles/"+id_User);
 //        dialog.show();
