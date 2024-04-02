@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="70dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -71,8 +71,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="5dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:textColor="@color/black"
             android:gravity="center"
@@ -91,8 +91,8 @@
             android:gravity="center"
             android:background="@drawable/border_rectangle_yellow"
             android:textColor="@color/black"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:text="Voucher của bạn"
             android:textSize="24dp" />
@@ -109,8 +109,8 @@
             android:gravity="center"
             android:background="@drawable/border_rectangle_red"
             android:textColor="@color/black"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:text="Tin gần đây"
             android:textSize="24dp" />
@@ -126,8 +126,8 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:background="@drawable/border_rectangle_blue"
             android:text="Tin đã lưu"
@@ -137,7 +137,7 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="5dp"

@@ -19,6 +19,8 @@ import com.example.appdocbao.Activity.DetailArticleActivity;
 import com.example.appdocbao.Activity.SignupActivity;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 
 public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticleAdapter.ArticleViewHolder> {
@@ -72,16 +75,46 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
         holder.authorArticle.setText(article.getAuthor());
         long timestamp = article.getTimestamp();
         Date dateTime = new Date(timestamp);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String formattedDateTime = dateFormat.format(dateTime);
+        String formattedDateTime;
+
+        // Thời gian hiện tại
+        Date now = new Date();
+        //Tính toán xem thời gian đăng báo cách thời gian hiện tại bao lâu
+        long diffInMillis = now.getTime() - timestamp;
+
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+        long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
+        long days = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+
+        if (days < 1) {
+            if (hours < 1) {
+                // Hiển thị số phút
+                formattedDateTime = minutes + " phút trước";
+            } else {
+                // Hiển thị số giờ
+                formattedDateTime = hours + " giờ trước";
+            }
+        } else {
+            // Hiển thị ngày, tháng, năm
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            formattedDateTime = dateFormat.format(dateTime);
+        }
         holder.dateArticle.setText(formattedDateTime);
         holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
+                GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
                 if(mAuth != null){
                     String id_User = mAuth.getUid();
+                    //======== Chức năng thêm bài báo đọc gần đây ==========
+                    RecentlyReadArticle(id_User,holder);
+                    // ======================= Tích điểm ====================
+                    TichDiem(id_User);
+                }
+                else if(googleSignInAccount!=null){
+                    String id_User = googleSignInAccount.getId();
                     //======== Chức năng thêm bài báo đọc gần đây ==========
                     RecentlyReadArticle(id_User,holder);
                     // ======================= Tích điểm ====================

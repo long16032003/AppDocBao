@@ -55,8 +55,7 @@ public class ManageArticleAdapter extends RecyclerView.Adapter<ManageArticleAdap
     @Override
     public void onBindViewHolder(@NonNull ManageArticleAdapter.ManageArticleViewHolder holder, int position) {
         Article article = mListArticle.get(position);
-        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-        String id_User = mAuth.getUid();
+
         if(article == null){
             return;
         }

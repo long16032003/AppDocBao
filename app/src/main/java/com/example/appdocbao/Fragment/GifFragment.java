@@ -25,6 +25,8 @@ import com.example.appdocbao.Adapter.VoucherAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -103,26 +105,14 @@ public class GifFragment extends Fragment {
 
         voucherReference = FirebaseDatabase.getInstance().getReference("voucher");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
         if(user != null){
             String idUser = user.getUid();
-
-            userReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
-            userReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Lấy dữ liệu người dùng từ dataSnapshot
-                    int point = dataSnapshot.child("points").getValue(Integer.class);
-
-                    pointUser.setText("Điểm tích lũy: " + point);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    //Xử lí lỗi
-                }
-            });
+            ShowDiemTichLuy(idUser);
+        }else if(googleSignInAccount!=null){
+            String idUser = googleSignInAccount.getId();
+            ShowDiemTichLuy(idUser);
         }
-
 
         eventListener = voucherReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -167,6 +157,23 @@ public class GifFragment extends Fragment {
         list.add(new ViewPagerPhoto(R.drawable.tron_viet_name));
 
         return list;
+    }
+    private void ShowDiemTichLuy(String idUser){
+        userReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Lấy dữ liệu người dùng từ dataSnapshot
+                int point = dataSnapshot.child("points").getValue(Integer.class);
+
+                pointUser.setText("Điểm tích lũy: " + point);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //Xử lí lỗi
+            }
+        });
     }
 
     @Override

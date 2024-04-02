@@ -21,6 +21,10 @@ import com.example.appdocbao.Fragment.TrendFragment;
 import com.example.appdocbao.Fragment.UserFragment;
 import com.example.appdocbao.R;
 import com.example.appdocbao.databinding.ActivityMainBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -50,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragement(new TrendFragment());
             } else if (itemId == R.id.profile) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+                if (user != null || googleSignInAccount != null) {
                     replaceFragement(new UserFragment());
                 }else{
                     replaceFragement(new ProfileFragment());

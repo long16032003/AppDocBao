@@ -1,6 +1,7 @@
 package com.example.appdocbao.Fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,10 @@ import com.example.appdocbao.Activity.RecentlyReadActivity;
 import com.example.appdocbao.Activity.SavedArticlesActivity;
 import com.example.appdocbao.Activity.UserActivity;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,30 +62,32 @@ public class UserFragment extends Fragment {
         profilePicture = view.findViewById(R.id.profilePicture);
 
         FirebaseUser user = mAuth.getCurrentUser();
-        String idUser = user.getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        if(user!=null){
+            String idUser = user.getUid();
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(idUser);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                if (dataSnapshot.exists()) {
-                // Lấy dữ liệu người dùng từ dataSnapshot
-                String name = dataSnapshot.child("name").getValue(String.class);
-                String emailSnapshot = dataSnapshot.child("email").getValue(String.class);
-                String imageSnapshot = dataSnapshot.child("img").getValue(String.class);
+                    // Lấy dữ liệu người dùng từ dataSnapshot
+                    String name = dataSnapshot.child("name").getValue(String.class);
+                    String emailSnapshot = dataSnapshot.child("email").getValue(String.class);
+                    String imageSnapshot = dataSnapshot.child("img").getValue(String.class);
 
-                if (isAdded()) {
-                    Glide.with(requireContext()).load(imageSnapshot).into(profilePicture);
-                }
-                userName.setText(name);
-                email.setText(emailSnapshot);
+                    if (isAdded()) {
+                        Glide.with(requireContext()).load(imageSnapshot).into(profilePicture);
+                    }
+                    userName.setText(name);
+                    email.setText(emailSnapshot);
 //                }
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //Xử lí lỗi
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    //Xử lí lỗi
+                }
+            });
+        }
         btnActivityPostArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,13 +116,32 @@ public class UserFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().build();
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getContext(),googleSignInOptions);
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+        if(googleSignInAccount != null){
+            final String getFullname = googleSignInAccount.getDisplayName();
+            final String getEmail = googleSignInAccount.getEmail();
+            final Uri getPhotoUrl = googleSignInAccount.getPhotoUrl();
+            userName.setText(getFullname);
+            email.setText(getEmail);
+            if (isAdded()) {
+                Glide.with(getContext()).load(getPhotoUrl).into(profilePicture);
+            }
+        }
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                GoogleSignIn.getClient(getContext(), GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
                 FirebaseAuth.getInstance().signOut(); // Đăng xuất, sau sẽ chuyển vào sự kiện của nút đăng xuất
                 Toast.makeText(getContext(), "Đã đăng xuất", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
+
+
             }
         });
     }

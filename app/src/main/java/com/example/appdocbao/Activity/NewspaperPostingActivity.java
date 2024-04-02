@@ -29,6 +29,8 @@ import java.text.SimpleDateFormat;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.Model.Category;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -190,8 +192,15 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("articles");
 
         String id = myRef.push().getKey();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String idUserPost = user.getUid();
+        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        String idUserPost ="";
+        if(mAuth != null){
+            idUserPost = mAuth.getUid();
+        }
+        else if(googleSignInAccount!=null){
+            idUserPost = googleSignInAccount.getId();
+        }
         Article article = new Article(id, title,content,id_category,author,imageUrl, timestamp, idUserPost);
 
         FirebaseDatabase.getInstance().getReference("articles").child(id)
