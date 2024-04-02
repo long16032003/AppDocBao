@@ -188,7 +188,7 @@ public class NewsFragment extends Fragment {
                     drawerLayout.closeDrawer(GravityCompat.START);
                     replaceFragement(new ContactFragment());
                 } else if(item.getItemId()==R.id.share) {
-                    Toast.makeText(getActivity(), "Chia sẻ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Donate us", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     replaceFragement(new ShareFragment());
                 }

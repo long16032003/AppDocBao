@@ -1,6 +1,11 @@
 package com.example.appdocbao.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,22 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.example.appdocbao.Activity.UserActivity;
 import com.example.appdocbao.Activity.ViewPagerPhoto;
-import com.example.appdocbao.Adapter.RecentlyReadAdapter;
 import com.example.appdocbao.Adapter.ViewPagerPhotoAdapter;
 import com.example.appdocbao.Adapter.VoucherAdapter;
-import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -111,9 +104,13 @@ public class GifFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     // Lấy dữ liệu người dùng từ dataSnapshot
-                    int point = dataSnapshot.child("points").getValue(Integer.class);
-
-                    pointUser.setText("Điểm tích lũy: " + point);
+                    Integer point = dataSnapshot.child("points").getValue(Integer.class);
+                    if (point != null) {
+                        pointUser.setText("Điểm tích lũy: " + point);
+                    } else {
+                        // Xử lý khi giá trị `point` là null
+                        pointUser.setText("Điểm tích lũy không khả dụng");
+                    }
                 }
 
                 @Override
