@@ -3,10 +3,6 @@ package com.example.appdocbao.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.Activity.MainActivity;
 import com.example.appdocbao.Activity.ManageArticleActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
 import com.example.appdocbao.Activity.RecentlyReadActivity;
 import com.example.appdocbao.Activity.SavedArticlesActivity;
-import com.example.appdocbao.Activity.UserActivity;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -38,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserFragment extends Fragment {
     Button btnActivityPostArticle, btnLogOut;
-    TextView userName, email, manageArticle, tinganday, tindaluu;
+    TextView userName, email, manageArticle, tinganday, tindaluu, userVoucher;
     CircleImageView profilePicture;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -60,6 +58,15 @@ public class UserFragment extends Fragment {
         tinganday = view.findViewById(R.id.tinganday);
         tindaluu = view.findViewById(R.id.tindaluu);
         profilePicture = view.findViewById(R.id.profilePicture);
+        userVoucher = view.findViewById(R.id.userVoucher);
+        userVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VoucherChangeFragment voucherChangeFragment = new VoucherChangeFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout,voucherChangeFragment).commit();
+            }
+        });
 
         FirebaseUser user = mAuth.getCurrentUser();
         if(user!=null){
