@@ -43,7 +43,7 @@ public class SignupActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     Uri uri;
     String imageUrl;
-    ImageView imageUserUpload;
+    ImageView imageUserUpload, backButton;
     boolean isUploadImage = true;
 
     @Override
@@ -59,6 +59,7 @@ public class SignupActivity extends AppCompatActivity {
         signupPassword = (EditText) findViewById(R.id.signupPassword);
         btnregis = (Button) findViewById(R.id.signupBtn);
         txtlogin = (TextView) findViewById(R.id.textSignUp);
+        backButton = (ImageView) findViewById(R.id.backButton);
         txtlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +100,13 @@ public class SignupActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 activityResultLauncher.launch(intent);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
@@ -145,7 +153,9 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(this, "Không thể tạo đối tượng StorageReference với giá trị URI null", Toast.LENGTH_SHORT).show();
+            String defaultImageUri = "https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9";
+            imageUrl = defaultImageUri;
+            uploadData();
         }
     }
 

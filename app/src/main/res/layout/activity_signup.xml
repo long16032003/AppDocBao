@@ -2,12 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgound_app">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="2dp">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            app:srcCompat="@drawable/back_arrow_black" />
+    </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgound_app">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,7 +37,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="40dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -28,7 +48,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="User"
                     android:textColor="@color/blue_grey"
-                    android:textSize="45dp"
+                    android:textSize="35dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -36,24 +56,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="register"
-                    android:textSize="45dp" />
+                    android:textSize="35dp" />
 
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/imageUserUpload"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:layout_height="150dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 app:srcCompat="@drawable/user_profile_icon" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Upload Picture"
-                android:textSize="25dp"
                 android:textAlignment="center"
-                android:textColor="@color/orange"/>
+                android:textColor="@color/orange"
+                android:textSize="25dp" />
+
             <EditText
                 android:id="@+id/signupName"
                 android:layout_width="match_parent"
@@ -112,15 +135,15 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signupBtn"
+                style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:textSize="16dp"
-                android:textColor="@color/white"
                 android:layout_margin="32dp"
                 android:background="@drawable/button_red"
-                style="@android:style/Widget.Button"
-                android:textStyle="bold"/>
+                android:text="Sign Up"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,17 +155,17 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Are you a member? "
                     android:textColor="@color/blue_grey"
-                    android:textSize="18dp"
-                    android:text="Are you a member? " />
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/textSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Login"
                     android:textColor="@color/orange"
-                    android:textSize="18dp"
-                    android:text="Login" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
         </LinearLayout>

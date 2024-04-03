@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtEmail, txtPassword;
     AppCompatButton btnLogin;
     Button loginBtn;
-    ImageView imgIconGoogle;
+    ImageView imgIconGoogle, backButton;
     TextView lableSignUp, forgotPassword;
     FirebaseAuth mAuth;
     @Override
@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         lableSignUp = (TextView) findViewById(R.id.textSignUp);
 
         imgIconGoogle = (ImageView) findViewById(R.id.imgIconGoogle);
+        backButton = (ImageView) findViewById(R.id.backButton);
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +108,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signinIntent = googleSignInClient.getSignInIntent();
                 activityResultLauncher.launch(signinIntent);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
