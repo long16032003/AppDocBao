@@ -10,18 +10,7 @@
     android:layout_gravity="start"
     tools:openDrawer="end"
     tools:context=".Activity.MainActivity">
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/navigation_view"
-        android:background="@color/white"
-        android:layout_gravity="start"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu">
 
-    </com.google.android.material.navigation.NavigationView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -113,7 +102,6 @@
                         android:layout_marginEnd="5dp"
                         android:text="Thể thao"
                         android:textSize="12sp" />
-
                     <Button
                         android:id="@+id/btn4"
                         android:layout_width="wrap_content"
@@ -121,7 +109,6 @@
                         android:layout_marginEnd="5dp"
                         android:text="Du lịch"
                         android:textSize="12sp" />
-
                     <Button
                         android:id="@+id/btn5"
                         android:layout_width="wrap_content"
@@ -129,7 +116,6 @@
                         android:layout_marginEnd="5dp"
                         android:text="Công nghệ"
                         android:textSize="12sp" />
-
                     <Button
                         android:id="@+id/btn6"
                         android:layout_width="wrap_content"
@@ -138,7 +124,6 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </HorizontalScrollView>
-
         </FrameLayout>
         <FrameLayout
             android:id="@+id/frame_layout_new"
@@ -150,13 +135,11 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:id="@+id/progress_bar"/>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cons1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="80dp">
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_items"
                     android:layout_width="match_parent"
@@ -165,13 +148,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </FrameLayout>
-
-
     </RelativeLayout>
-
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navigation_view"
+        android:background="@color/white"
+        android:layout_gravity="start"
+        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/black"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu">
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
