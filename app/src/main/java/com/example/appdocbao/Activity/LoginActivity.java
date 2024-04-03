@@ -35,8 +35,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -171,10 +174,24 @@ public class LoginActivity extends AppCompatActivity {
             final String getFullname = account.getDisplayName();
             final String getEmail = account.getEmail();
             final Uri getPhotoUrl = account.getPhotoUrl();
-            uploadData(account);
+            final String getId = account.getId();
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+            usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChild(getId)) {
+                        // Nút "users" chứa ID cụ thể
+                    } else {
+                        // Thưc hiện việc thêm người dùng mới khi đăng nhập Google vào realtime
+                        uploadData(account);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
             Intent it = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(it);
-
             finish();
         }catch (ApiException e){
             e.printStackTrace();

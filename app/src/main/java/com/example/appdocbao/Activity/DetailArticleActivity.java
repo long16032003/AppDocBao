@@ -97,7 +97,7 @@ public class DetailArticleActivity extends AppCompatActivity {
 //            }
             String id_Article = bundle.getString("Id");
 
-            Article article = new Article(id_Article,titleArticle,contentArticle,idCategoryArticle,authorArticle,bundle.getString("Image"),timestampArticle,idUserPost);
+//            Article article = new Article(id_Article,titleArticle,contentArticle,idCategoryArticle,authorArticle,bundle.getString("Image"),timestampArticle,idUserPost);
             getLikebuttonStatus(id_Article);
             getDislikebuttonStatus(id_Article);
             getSavebuttonStatus(id_Article);
@@ -160,7 +160,7 @@ public class DetailArticleActivity extends AppCompatActivity {
                                         saveReference.child(getIdUserCurrent()).child(id_Article).removeValue();
                                         isSave = false;
                                     }else{
-                                        saveReference.child(getIdUserCurrent()).child(id_Article).setValue(article);
+                                        saveReference.child(getIdUserCurrent()).child(id_Article).setValue(true);
                                         isSave = false;
                                     }
                                 }
@@ -192,9 +192,6 @@ public class DetailArticleActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
     private void getLikebuttonStatus(String id_Article){
         likeReference.addValueEventListener(new ValueEventListener() {
             @Override
