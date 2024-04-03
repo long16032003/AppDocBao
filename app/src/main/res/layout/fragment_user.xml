@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ProfileFragment">
+    tools:context=".Fragment.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
@@ -56,7 +56,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="5dp"
-                android:textSize="26dp"
+                android:textSize="24dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:background="@drawable/button_blue"
@@ -79,7 +79,7 @@
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:text="Quản lý bài đăng"
-                android:textSize="24dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:drawableLeft="@drawable/sale_icon"
@@ -97,7 +97,7 @@
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 android:text="Voucher của bạn"
-                android:textSize="24dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:drawableLeft="@drawable/clock_icon"
@@ -114,8 +114,8 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                android:text="Tin gần đây"
-                android:textSize="24dp" />
+                android:text="Đọc gần đây"
+                android:textSize="20dp" />
 
             <TextView
                 android:textColor="@color/black"
@@ -133,7 +133,7 @@
                 android:paddingLeft="20dp"
                 android:background="@drawable/border_rectangle_blue"
                 android:text="Tin đã lưu"
-                android:textSize="24dp" />
+                android:textSize="20dp" />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLogOut"
                 android:layout_gravity="center"

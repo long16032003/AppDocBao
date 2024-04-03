@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.UserActivity">
+    tools:context=".Fragment.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,6 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -55,14 +57,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_margin="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:drawableLeft="@drawable/management_icon"
-                    android:id="@+id/pointUser"
+                    android:id="@+id/manageArticle"
                     android:background="@drawable/border_rectangle_orange"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,7 +77,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:text="Quản lý bài đăng"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:drawableLeft="@drawable/sale_icon"
@@ -94,7 +95,7 @@
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
                     android:text="Voucher của bạn"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:drawableLeft="@drawable/clock_icon"
@@ -111,8 +112,8 @@
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
-                    android:text="Tin gần đây"
-                    android:textSize="24dp" />
+                    android:text="Đọc gần đây"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:textColor="@color/black"
@@ -130,7 +131,7 @@
                     android:paddingLeft="20dp"
                     android:background="@drawable/border_rectangle_blue"
                     android:text="Tin đã lưu"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
         </LinearLayout>

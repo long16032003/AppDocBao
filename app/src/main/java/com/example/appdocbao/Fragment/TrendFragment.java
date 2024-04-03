@@ -25,13 +25,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class TrendFragment extends Fragment {
-    private RecyclerView rcvArticle;
+    private RecyclerView rcvLikestArticle;
     private RecyclerArticleAdapter articleAdapter;
     private ArrayList<Article> listArticle;
-    DatabaseReference databaseReference;
     ValueEventListener eventListener;
     private boolean isListLoaded = false;
     ProgressBar progressbar;
@@ -47,52 +49,60 @@ public class TrendFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         progressbar = view.findViewById(R.id.progressbar);
-        rcvArticle = view.findViewById(R.id.recyclerView);
-        databaseReference = FirebaseDatabase.getInstance().getReference("articles");
+        rcvLikestArticle = view.findViewById(R.id.recyclerView);
+        DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("likes");
 
         listArticle = new ArrayList<>();
-        articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle);
-        rcvArticle.setAdapter(articleAdapter);
-        rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
+        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle);
+        rcvLikestArticle.setAdapter(articleAdapter);
+        rcvLikestArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+        likesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listArticle.clear();
-                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-                    Article article = itemSnapShot.getValue(Article.class);
-                    listArticle.add(article);
+                HashMap<String, Integer> likeCounts = new HashMap<>();
+
+                for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
+                    String articleId = likeSnapshot.getKey();
+                    int likeCount = (int) likeSnapshot.getChildrenCount();
+                    likeCounts.put(articleId, likeCount);
                 }
-//                ArrayList<Article> sortedArticles = getSortedArticlesByLikes(listArticle);
-//
-//                // Kiểm tra nếu danh sách không rỗng và bài viết đầu tiên có tỉ lệ like nhỏ hơn bài viết cuối cùng
-//                if (!sortedArticles.isEmpty() && sortedArticles.get(0).getLikes() < sortedArticles.get(sortedArticles.size() - 1).getLikes()) {
-//                    Collections.reverse(sortedArticles); // Đảo ngược danh sách nếu cần
-//                }
 
-//                articleAdapter.setData(sortedArticles);
-                articleAdapter.notifyDataSetChanged();
-                isListLoaded = true;
+                List<Map.Entry<String, Integer>> sortedArticles = new ArrayList<>(likeCounts.entrySet());
+                Collections.sort(sortedArticles, (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+                for (Map.Entry<String, Integer> entry : sortedArticles) {
+                    String articleId = entry.getKey();
+                    Integer likeCount = entry.getValue();
+
+                    DatabaseReference articleRef = FirebaseDatabase.getInstance().getReference("articles").child(articleId);
+                    articleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Article article = snapshot.getValue(Article.class);
+                            if (article != null) {
+                                listArticle.add(article);
+                            }
+                            articleAdapter.notifyDataSetChanged();
+                            isListLoaded = true;
+
+                            articleAdapter.notifyDataSetChanged();
+                            if (isListLoaded) {
+                                progressbar.setVisibility(View.GONE);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Xử lý lỗi nếu có
+                        }
+                    });
+                }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Xử lý lỗi nếu có
             }
         });
-        if (isListLoaded) {
-            progressbar.setVisibility(View.GONE);
-        }
-    }
-//    private ArrayList<Article> getSortedArticlesByLikes(ArrayList<Article> articles) {
-//        // Sắp xếp danh sách bài viết theo tỉ lệ like
-//        Collections.sort(articles, new Comparator<Article>() {
-//            @Override
-//            public int compare(Article a1, Article a2) {
-//                return Integer.compare(a2.getLikes(), a1.getLikes());
-//            }
-//        });
 
-//        return articles;
-//    }
+    }
 }

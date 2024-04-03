@@ -61,12 +61,7 @@ public class RecentlyReadActivity extends AppCompatActivity {
 
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        String id_User= "";
-        if(mAuth!=null){
-            id_User = mAuth.getUid();
-        }else if(googleSignInAccount!=null){
-            id_User = googleSignInAccount.getId().toString();
-        }
+        final String id_User = mAuth!=null ? mAuth.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
 //        dialog.show();
@@ -99,8 +94,6 @@ public class RecentlyReadActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Xử lý logic xóa danh sách Recently Read
-                        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-                        String id_User = mAuth.getUid();
 
                         Task<Void> databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read")
                                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {

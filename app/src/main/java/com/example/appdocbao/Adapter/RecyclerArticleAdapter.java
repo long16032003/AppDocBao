@@ -106,6 +106,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
 
                 FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
                 GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
+//                final String id_User = mAuth!=null ? mAuth.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
                 if(mAuth != null){
                     String id_User = mAuth.getUid();
                     //======== Chức năng thêm bài báo đọc gần đây ==========
