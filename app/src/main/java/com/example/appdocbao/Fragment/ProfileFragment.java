@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.appdocbao.Activity.LoginActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
@@ -20,6 +22,8 @@ import com.example.appdocbao.R;
 
 public class ProfileFragment extends Fragment {
     Button btnLogin, btnRegister;
+    TextView manageArticle, userVoucher, tinganday, tindaluu;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,5 +60,42 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        manageArticle = view.findViewById(R.id.manageArticle);
+        userVoucher = view.findViewById(R.id.userVoucher);
+        tinganday = view.findViewById(R.id.tinganday);
+        tindaluu = view.findViewById(R.id.tindaluu);
+
+        manageArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Bạn cần đăng nhập để có thể sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        userVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Bạn cần đăng nhập để có thể sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        tinganday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Bạn cần đăng nhập để có thể sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+         tindaluu.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Toast.makeText(getContext(), "Bạn cần đăng nhập để có thể sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                 startActivity(intent);
+             }
+         });
     }
 }
