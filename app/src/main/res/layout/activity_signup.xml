@@ -100,7 +100,7 @@
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
-                android:hint="Phone number"
+                android:hint="Số điện thoại"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -114,7 +114,7 @@
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
-                android:hint="Email address"
+                android:hint="Địa chỉ Email"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -128,7 +128,7 @@
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:inputType="textPassword"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
                 android:background="@drawable/button_red"
-                android:text="Sign Up"
+                android:text="Đăng ký"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -155,7 +155,7 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Are you a member? "
+                    android:text="Bạn đã có tài khoản? "
                     android:textColor="@color/blue_grey"
                     android:textSize="18dp" />
 
@@ -163,7 +163,8 @@
                     android:id="@+id/textSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login"
+                    android:text="Đăng nhập"
+                    android:textStyle="bold"
                     android:textColor="@color/orange"
                     android:textSize="18dp" />
             </LinearLayout>

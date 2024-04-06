@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,16 +27,21 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RecentlyReadActivity extends AppCompatActivity {
     private RecyclerView rcvRecentlyRead;
     private RecentlyReadAdapter recentlyReadAdapter;
     private ArrayList<Article> listArticle;
-    DatabaseReference databaseReference;
+    DatabaseReference recentlyReadRef;
     ValueEventListener eventListener;
     ImageView deleteRecentlyRead;
     ImageView backMain;
@@ -63,20 +69,66 @@ public class RecentlyReadActivity extends AppCompatActivity {
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         final String id_User = mAuth!=null ? mAuth.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
+        recentlyReadRef = FirebaseDatabase.getInstance().getReference("recently_read/"+id_User);
 //        dialog.show();
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+        recentlyReadRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listArticle.clear();
-                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-                    Article article = itemSnapShot.getValue(Article.class);
-                    listArticle.add(article);
+                List<String> articleIds = new ArrayList<>();
+                Map<String, Long> articleTimeMap = new HashMap<>(); // Lưu trữ thời gian đọc của mỗi bài báo
+
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    String articleId = childSnapshot.getKey();
+                    long timestamp = childSnapshot.getValue(Long.class);
+                    articleIds.add(articleId);
+                    articleTimeMap.put(articleId, timestamp);
                 }
-                Collections.reverse(listArticle);
-                recentlyReadAdapter.notifyDataSetChanged();
-//                changeInProgress(false);
-                dialog.dismiss();
+
+                // Truy cập vào nút "articles" và lấy thông tin của từng bài báo
+                DatabaseReference articlesRef = FirebaseDatabase.getInstance().getReference("articles");
+                articlesRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                            String articleId = childSnapshot.getKey();
+                            if (articleIds.contains(articleId)) {
+                                Article article = childSnapshot.getValue(Article.class);
+                                if (article != null) {
+                                    listArticle.add(article);
+                                }
+                            }
+                        }
+
+                        // Sắp xếp danh sách bài báo theo thứ tự giảm dần của thời gian đọc
+                        Collections.sort(listArticle, new Comparator<Article>() {
+                            @Override
+                            public int compare(Article article1, Article article2) {
+                                Long timestamp1 = articleTimeMap.get(article1.getId());
+                                Long timestamp2 = articleTimeMap.get(article2.getId());
+                                if (timestamp1 != null && timestamp2 != null) {
+                                    return Long.compare(timestamp2, timestamp1);
+                                } else if (timestamp1 != null) {
+                                    return -1; // timestamp2 is null, consider timestamp1 smaller
+                                } else if (timestamp2 != null) {
+                                    return 1; // timestamp1 is null, consider timestamp2 smaller
+                                } else {
+                                    return 0; // both timestamps are null, consider them equal
+                                }
+                            }
+                        });
+
+                        // TODO: Hiển thị danh sách bài báo đã đọc gần đây theo thứ tự giảm dần của thời gian đọc
+
+                        recentlyReadAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Xử lý lỗi nếu có
+                    }
+                });
             }
 
             @Override
@@ -84,6 +136,27 @@ public class RecentlyReadActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+//        recentlyReadRef = FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
+////        dialog.show();
+//        eventListener = recentlyReadRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                listArticle.clear();
+//                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
+//                    Article article = itemSnapShot.getValue(Article.class);
+//                    listArticle.add(article);
+//                }
+//                Collections.reverse(listArticle);
+//                recentlyReadAdapter.notifyDataSetChanged();
+////                changeInProgress(false);
+//                dialog.dismiss();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                dialog.dismiss();
+//            }
+//        });
         deleteRecentlyRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,13 +168,14 @@ public class RecentlyReadActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Xử lý logic xóa danh sách Recently Read
 
-                        Task<Void> databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read")
+                        Task<Void> recentlyReadRef =  FirebaseDatabase.getInstance().getReference("recently_read/"+id_User)
                                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             // Xóa dữ liệu thành công
                                             Toast.makeText(RecentlyReadActivity.this, "Đã xóa bài báo đọc gần đây", Toast.LENGTH_SHORT).show();
+                                            recreate();
                                         } else {
                                             // Xóa dữ liệu thất bại
                                             Toast.makeText(RecentlyReadActivity.this, "Lỗi khi xóa dữ liệu", Toast.LENGTH_SHORT).show();

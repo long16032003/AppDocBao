@@ -1,6 +1,8 @@
 package com.example.appdocbao.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appdocbao.Activity.LoginActivity;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -69,7 +73,11 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         holder.btnRedeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redeemVoucher(voucher,v);
+                if(checkLogined(v)){
+                    redeemVoucher(voucher,v);
+                }else{
+                    Toast.makeText(v.getContext(), "Bạn cần đăng nhập để sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -149,6 +157,15 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
             });
         }
     }
-
+    public boolean checkLogined(View v){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
+        if(user != null || googleSignInAccount != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 

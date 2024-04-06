@@ -20,6 +20,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -82,11 +84,11 @@ public class TrendFragment extends Fragment {
                             Article article = snapshot.getValue(Article.class);
                             if (article != null) {
                                 listArticle.add(article);
+
                             }
                             articleAdapter.notifyDataSetChanged();
                             isListLoaded = true;
 
-                            articleAdapter.notifyDataSetChanged();
                             if (isListLoaded) {
                                 progressbar.setVisibility(View.GONE);
                             }
@@ -105,4 +107,5 @@ public class TrendFragment extends Fragment {
         });
 
     }
+
 }

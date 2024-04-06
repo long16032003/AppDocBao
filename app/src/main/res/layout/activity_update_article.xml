@@ -73,22 +73,25 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="20dp"
                     android:background="@drawable/border_blue_litte_radius">
-
-                    <TextView
-                        android:id="@+id/editImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Upload Picture"
-                        android:textSize="25dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/blue_green"/>
                     <ImageView
                         android:id="@+id/imageUpload"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="170dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
                         app:srcCompat="@drawable/image_upload_icon" />
+
+                    <Button
+                        android:id="@+id/editImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="Upload Picture"
+                        android:textSize="20dp"
+                        android:textAlignment="center"/>
+
                     <EditText
                         android:id="@+id/titleUpload"
                         android:layout_width="match_parent"
@@ -100,6 +103,7 @@
                         android:hint="Tiêu đề"
                         android:background="@drawable/border_blue_litte_radius"
                         android:inputType="text"
+                        android:textSize="16dp"
                         android:text="" />
 
                     <EditText
@@ -113,6 +117,7 @@
                         android:paddingBottom="10dp"
                         android:paddingEnd="10dp"
                         android:layout_marginBottom="20dp"
+                        android:textSize="16dp"
                         android:background="@drawable/border_blue_litte_radius"
                         android:hint="Nội dung"
                         android:text="" />
@@ -125,6 +130,7 @@
                         android:hint="Tác giả"
                         android:paddingStart="20dp"
                         android:paddingEnd="10dp"
+                        android:textSize="16dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_blue_litte_radius"
                         android:text="" />

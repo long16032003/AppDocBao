@@ -84,7 +84,7 @@
                     <ImageView
                         android:id="@+id/imageUpload"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="170dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
                         app:srcCompat="@drawable/image_upload_icon" />
@@ -94,6 +94,7 @@
                         android:layout_height="50dp"
                         android:ems="10"
                         android:paddingStart="20dp"
+                        android:textSize="16dp"
                         android:paddingEnd="10dp"
                         android:layout_marginBottom="20dp"
                         android:hint="Tiêu đề"
@@ -110,6 +111,7 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="10dp"
                         android:paddingTop="10dp"
+                        android:textSize="16dp"
                         android:paddingBottom="10dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_blue_litte_radius"
@@ -131,6 +133,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:ems="10"
+                        android:textSize="16dp"
                         android:inputType="text"
                         android:hint="Tác giả"
                         android:paddingStart="20dp"

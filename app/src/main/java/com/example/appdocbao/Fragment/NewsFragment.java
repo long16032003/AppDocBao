@@ -202,6 +202,13 @@ public class NewsFragment extends Fragment {
                             listArticle.add(article);
                         }
                     }
+                    Collections.sort(listArticle, new Comparator<Article>() {
+                        @Override
+                        public int compare(Article article1, Article article2) {
+                            // So sánh thời gian giữa hai bài báo
+                            return Long.compare(article2.getTimestamp(), article1.getTimestamp());
+                        }
+                    });
                     articleAdapter.notifyDataSetChanged();
                 }
                 @Override
