@@ -52,7 +52,7 @@ public class TrendFragment extends Fragment {
         DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("likes");
 
         listArticle = new ArrayList<>();
-        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle, 5);
+        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle, 3);
         rcvLikestArticle.setAdapter(articleAdapter);
         rcvLikestArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -119,7 +119,7 @@ public class TrendFragment extends Fragment {
                     }
                 });
                 rcv= view.findViewById(R.id.rcvView);
-                RecyclerArticleAdapter topViewedAritclesAdapter = new RecyclerArticleAdapter(getContext(),topViews,5);
+                RecyclerArticleAdapter topViewedAritclesAdapter = new RecyclerArticleAdapter(getContext(),topViews,3);
                 rcv.setAdapter(topViewedAritclesAdapter);
 //                rcv.setLayoutManager(new LinearLayoutManager(getContext()));
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
