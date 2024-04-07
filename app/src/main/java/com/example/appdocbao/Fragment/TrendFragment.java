@@ -23,13 +23,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 public class TrendFragment extends Fragment {
-    private RecyclerView rcvLikestArticle;
+    private RecyclerView rcvLikestArticle, rcv;
     private RecyclerArticleAdapter articleAdapter;
     private ArrayList<Article> listArticle;
     ValueEventListener eventListener;
@@ -51,7 +52,7 @@ public class TrendFragment extends Fragment {
         DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("likes");
 
         listArticle = new ArrayList<>();
-        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle, 3);
+        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle, 5);
         rcvLikestArticle.setAdapter(articleAdapter);
         rcvLikestArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -99,6 +100,36 @@ public class TrendFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Xử lý lỗi nếu có
+            }
+        });
+
+        DatabaseReference arc = FirebaseDatabase.getInstance().getReference("articles");
+        arc.orderByChild("view").limitToLast(10).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Article> topViews = new ArrayList<>();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Article article = dataSnapshot.getValue(Article.class);
+                    topViews.add(article);
+                }
+                Collections.sort(topViews, new Comparator<Article>() {
+                    @Override
+                    public int compare(Article article1, Article article2) {
+                        return Integer.compare(article2.getView(), article1.getView());
+                    }
+                });
+                rcv= view.findViewById(R.id.rcvView);
+                RecyclerArticleAdapter topViewedAritclesAdapter = new RecyclerArticleAdapter(getContext(),topViews,5);
+                rcv.setAdapter(topViewedAritclesAdapter);
+//                rcv.setLayoutManager(new LinearLayoutManager(getContext()));
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                rcv.setLayoutManager(linearLayoutManager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 

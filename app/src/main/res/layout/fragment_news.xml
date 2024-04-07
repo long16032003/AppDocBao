@@ -59,16 +59,13 @@
         android:orientation="horizontal"
         android:layout_below="@id/frame1">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadeScrollbars="false">
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabMode="scrollable"
                 app:tabMinWidth="0dp"
-                app:tabMaxWidth="140dp">
+                app:tabMaxWidth="170dp">
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/itemall"
                     android:layout_width="wrap_content"
@@ -110,7 +107,6 @@
                     android:layout_height="wrap_content"
                     android:text="Sức khỏe" />
             </com.google.android.material.tabs.TabLayout>
-        </HorizontalScrollView>
 
     </LinearLayout>
         <FrameLayout
