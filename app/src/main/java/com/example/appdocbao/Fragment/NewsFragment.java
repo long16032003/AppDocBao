@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.appdocbao.Activity.MainActivity;
 import com.example.appdocbao.Adapter.RecyclerArticleAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
@@ -146,14 +147,29 @@ public class NewsFragment extends Fragment {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.hideBottomNavigationView();
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity != null) {
+                        mainActivity.hideBottomNavigationView();
+                    }
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity != null) {
+                        mainActivity.showBottomNavigationView();
+                    }
+                }
                 filterList(s.toString());
             }
         });

@@ -1,18 +1,16 @@
 package com.example.appdocbao.Activity;
 
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.example.appdocbao.BroadcastReceiver.Internet;
 import com.example.appdocbao.Fragment.GifFragment;
 import com.example.appdocbao.Fragment.NewsFragment;
@@ -63,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+    public void hideBottomNavigationView() {
+        binding.bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomNavigationView() {
+        binding.bottomNavigationView.setVisibility(View.VISIBLE);
     }
     @Override
     protected void onResume() {
