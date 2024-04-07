@@ -153,9 +153,10 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            String defaultImageUri = "https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9";
-            imageUrl = defaultImageUri;
-            uploadData();
+            Toast.makeText(this, "Không thể tạo đối tượng StorageReference với giá trị URI null", Toast.LENGTH_SHORT).show();
+//            String defaultImageUri = "https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9";
+//            imageUrl = defaultImageUri;
+//            uploadData();
         }
     }
 

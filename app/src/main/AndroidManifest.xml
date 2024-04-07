@@ -19,6 +19,7 @@
         tools:targetApi="31">
         <activity
             android:name=".Activity.UpdateArticleActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
         <activity
             android:name=".Activity.ManageArticleActivity"
@@ -43,15 +44,19 @@
             android:exported="false" />
         <activity
             android:name=".Activity.NewspaperPostingActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
         <activity
             android:name=".Activity.MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
         <activity
             android:name=".Activity.SignupActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
     </application>
 

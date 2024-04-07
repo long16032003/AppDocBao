@@ -106,7 +106,7 @@ public class NewsFragment extends Fragment {
 //        dialog.show();
 
         listArticle = new ArrayList<>();
-        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle);
+        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle, 30);
         rcvArticle.setAdapter(articleAdapter);
 
         getAllArticle();
@@ -200,7 +200,7 @@ public class NewsFragment extends Fragment {
     void setupRecycleView(){
         rcvArticle.setLayoutManager(new LinearLayoutManager(getContext()));
         rcvArticle.setHasFixedSize(true);
-        articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle);
+        articleAdapter = new RecyclerArticleAdapter(getContext(),listArticle, 30);
         rcvArticle.setAdapter(articleAdapter);
     }
     private void filterArticles(int categoryId) {
