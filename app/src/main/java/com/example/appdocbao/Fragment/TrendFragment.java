@@ -51,7 +51,7 @@ public class TrendFragment extends Fragment {
         DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("likes");
 
         listArticle = new ArrayList<>();
-        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle);
+        articleAdapter = new RecyclerArticleAdapter(getContext(), listArticle, 3);
         rcvLikestArticle.setAdapter(articleAdapter);
         rcvLikestArticle.setLayoutManager(new LinearLayoutManager(getContext()));
 
