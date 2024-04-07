@@ -29,6 +29,8 @@ import java.text.SimpleDateFormat;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.Model.Category;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,6 +43,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.FirebaseDatabaseKtxRegistrar;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -121,6 +125,36 @@ public class NewspaperPostingActivity extends AppCompatActivity {
             }
         });
     }
+    private void TichDiem(String id_User){
+        DatabaseReference pointReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/points");
+        pointReference.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                // Lấy giá trị hiện tại của points
+                Integer currentPoints = mutableData.getValue(Integer.class);
+
+                if (currentPoints != null) {
+                    // Tăng giá trị points lên 5
+                    mutableData.setValue(currentPoints + 5);
+                }
+
+                // Trả về giá trị mới của points
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot dataSnapshot) {
+                if (committed) {
+                    // Tăng giá trị points thành công
+                    // Thực hiện các hành động phụ thuộc vào việc tăng points ở đây
+                } else {
+                    // Tăng giá trị points thất bại
+                    // Xử lý lỗi nếu cần
+                }
+            }
+        });
+    }
 
     private void Showdata(){
         spinnerRef.addValueEventListener(new ValueEventListener() {
@@ -190,9 +224,17 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("articles");
 
         String id = myRef.push().getKey();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String idUserPost = user.getUid();
+        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        String idUserPost ="";
+        if(mAuth != null){
+            idUserPost = mAuth.getUid();
+        }
+        else if(googleSignInAccount!=null){
+            idUserPost = googleSignInAccount.getId();
+        }
         Article article = new Article(id, title,content,id_category,author,imageUrl, timestamp, idUserPost);
+        TichDiem(idUserPost);
 
         FirebaseDatabase.getInstance().getReference("articles").child(id)
                 .setValue(article).addOnCompleteListener(new OnCompleteListener<Void>() {

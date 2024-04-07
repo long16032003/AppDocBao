@@ -1,6 +1,8 @@
 package com.example.appdocbao.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appdocbao.Activity.LoginActivity;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -67,7 +73,11 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         holder.btnRedeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redeemVoucher(voucher);
+                if(checkLogined(v)){
+                    redeemVoucher(voucher,v);
+                }else{
+                    Toast.makeText(v.getContext(), "Bạn cần đăng nhập để sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -90,11 +100,11 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
             btnRedeem = itemView.findViewById(R.id.btnRedeem);
         }
     }
-    private void redeemVoucher(Voucher voucher) {
+    private void redeemVoucher(Voucher voucher, View v) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
         if (user != null) {
             String userId = user.getUid();
-
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -119,6 +129,42 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
                     // Xử lý lỗi
                 }
             });
+        }else if(googleSignInAccount!=null){ // Trường hợp đăng nhập bằng Google
+            String userId = googleSignInAccount.getId();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    int currentPoints = dataSnapshot.child("points").getValue(Integer.class);
+                    int newPoints = currentPoints;
+
+                    if (currentPoints >= voucher.getAchievePoints()) {
+                        newPoints -= voucher.getAchievePoints();
+
+                        Toast.makeText(mContext, "Đổi voucher thành công cho mốc " + voucher.getAchievePoints() + " điểm! Số điểm tích lũy của bạn là: " + newPoints, Toast.LENGTH_SHORT).show();
+                        String voucherId = voucher.getId(); // Lấy ID của voucher
+                        userRef.child("voucher").child(voucherId).setValue(voucher);
+                    } else {
+                        Toast.makeText(mContext, "Bạn không đủ điểm để đổi voucher!", Toast.LENGTH_SHORT).show();
+                    }
+                    userRef.child("points").setValue(newPoints);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Xử lý lỗi
+                }
+            });
+        }
+    }
+    public boolean checkLogined(View v){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
+        if(user != null || googleSignInAccount != null){
+            return true;
+        }else{
+            return false;
         }
     }
 }

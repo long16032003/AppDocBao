@@ -36,7 +36,7 @@
                 android:layout_gravity="bottom"
                 app:labelVisibilityMode="labeled"
                 android:background="@android:color/transparent"
-                app:itemBackground="@color/blue_cy"
+                app:itemBackground="@color/blue_green"
                 app:itemTextColor="@color/custom_color"
                 app:itemIconTint="@color/custom_color" />
 

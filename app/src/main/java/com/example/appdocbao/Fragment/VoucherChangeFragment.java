@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appdocbao.Adapter.VoucherChangeAdapter;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,7 +64,13 @@ public class VoucherChangeFragment extends Fragment {
         rcvVoucherFragment.setAdapter(voucherChangeAdapter);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String id_User = user.getUid();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(view.getContext());
+        String id_User = "";
+        if(user != null){
+            id_User = user.getUid();
+        }else if(googleSignInAccount!=null){
+            id_User = googleSignInAccount.getId();
+        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users/"+id_User+"/voucher");
         valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {

@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.appdocbao.Activity.MainActivity;
 import com.example.appdocbao.Adapter.RecyclerArticleAdapter;
@@ -30,6 +31,8 @@ import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +53,8 @@ public class NewsFragment extends Fragment {
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
     EditText search_edit;
-    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6;
+    TabItem item0,item1,item2,item3,item4,item5,item6;
+    TabLayout tabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,63 +67,33 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btn0=view.findViewById(R.id.btn0);
-        btn1=view.findViewById(R.id.btn1);
-        btn2=view.findViewById(R.id.btn2);
-        btn3=view.findViewById(R.id.btn3);
-        btn4=view.findViewById(R.id.btn4);
-        btn5=view.findViewById(R.id.btn5);
-        btn6=view.findViewById(R.id.btn6);
-        btn0.setOnClickListener(new View.OnClickListener() {
+        item0=view.findViewById(R.id.item0);
+        item1=view.findViewById(R.id.item1);
+        item2=view.findViewById(R.id.item2);
+        item3=view.findViewById(R.id.item3);
+        item4=view.findViewById(R.id.item4);
+        item5=view.findViewById(R.id.item5);
+        item6=view.findViewById(R.id.item6);
+        tabLayout = view.findViewById(R.id.tabLayout);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                filterArticles(0);
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Xử lý khi một tab được chọn
+                int position = tab.getPosition();
+                filterArticles(position - 1);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // Xử lý khi một tab không còn được chọn
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // Xử lý khi một tab đã được chọn lại
             }
         });
-
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterArticles(1);
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterArticles(2);
-            }
-        });
-
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterArticles(3);
-            }
-        });
-
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterArticles(4);
-            }
-        });
-
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterArticles(5);
-            }
-        });
-
-        btn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterArticles(6);
-            }
-        });
-
-
 
         rcvArticle = view.findViewById(R.id.recycleview_items);
         progressIndicator = view.findViewById(R.id.progress_bar);
@@ -129,40 +103,13 @@ public class NewsFragment extends Fragment {
         builder.setCancelable(false);
 //        builder.setView(R.layout.progress_layout);
         AlertDialog dialog = builder.create();
-        dialog.show();
+//        dialog.show();
 
         listArticle = new ArrayList<>();
         articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle);
         rcvArticle.setAdapter(articleAdapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("articles");
-//        dialog.show();
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listArticle.clear();
-                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-                    Article article = itemSnapShot.getValue(Article.class);
-                    listArticle.add(article);
-                }
-                Collections.sort(listArticle, new Comparator<Article>() {
-                    @Override
-                    public int compare(Article article1, Article article2) {
-                        // So sánh thời gian giữa hai bài báo
-                        return Long.compare(article2.getTimestamp(), article1.getTimestamp());
-                    }
-                });
-                articleAdapter.notifyDataSetChanged();
-                changeInProgress(false);
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                dialog.dismiss();
-            }
-        });
-
+        getAllArticle();
 
         Toolbar toolbar =(Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -257,13 +204,63 @@ public class NewsFragment extends Fragment {
         rcvArticle.setAdapter(articleAdapter);
     }
     private void filterArticles(int categoryId) {
-        ArrayList<Article> filteredList = new ArrayList<>();
-        for (Article item : listArticle) {
-            if (item.getCategoryId() == categoryId) {
-                filteredList.add(item);
-            }
+        if(categoryId == - 1){
+            getAllArticle();
+        }else{
+            DatabaseReference articlesRef = FirebaseDatabase.getInstance().getReference("articles");
+            articlesRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    listArticle.clear();
+                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                        Article article = childSnapshot.getValue(Article.class);
+                        if (article != null && article.getCategoryId() == categoryId ){
+                            listArticle.add(article);
+                        }
+                    }
+                    Collections.sort(listArticle, new Comparator<Article>() {
+                        @Override
+                        public int compare(Article article1, Article article2) {
+                            // So sánh thời gian giữa hai bài báo
+                            return Long.compare(article2.getTimestamp(), article1.getTimestamp());
+                        }
+                    });
+                    articleAdapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Xử lý lỗi nếu có
+                }
+            });
         }
-        articleAdapter.setData(filteredList);
     }
+    private void getAllArticle(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("articles");
+//        dialog.show();
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listArticle.clear();
+                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
+                    Article article = itemSnapShot.getValue(Article.class);
+                    listArticle.add(article);
+                }
+                Collections.sort(listArticle, new Comparator<Article>() {
+                    @Override
+                    public int compare(Article article1, Article article2) {
+                        // So sánh thời gian giữa hai bài báo
+                        return Long.compare(article2.getTimestamp(), article1.getTimestamp());
+                    }
+                });
+                articleAdapter.notifyDataSetChanged();
+                changeInProgress(false);
+//                dialog.dismiss();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+//                dialog.dismiss();
+            }
+        });
+    }
 }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.appdocbao.Adapter.RecentlyReadAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,13 +30,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class SavedArticlesActivity extends AppCompatActivity {
 
     private RecyclerView rcvRecentlyRead;
     private RecentlyReadAdapter recentlyReadAdapter;
     private ArrayList<Article> listArticle;
-    DatabaseReference databaseReference;
+    DatabaseReference savedArticleRef;
     ValueEventListener eventListener;
     ImageView deleteRecentlyRead;
     ImageView backMain;
@@ -59,30 +62,49 @@ public class SavedArticlesActivity extends AppCompatActivity {
         rcvRecentlyRead.setAdapter(recentlyReadAdapter);
 
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-        String id_User = mAuth.getUid();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        final String id_User = mAuth!=null ? mAuth.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("saved_articles/"+id_User);
-//        dialog.show();
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+        savedArticleRef = FirebaseDatabase.getInstance().getReference("saved_articles/"+id_User);
+        eventListener = savedArticleRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listArticle.clear();
-                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-                    Article article = itemSnapShot.getValue(Article.class);
-                    listArticle.add(article);
+                List<String> savedArticleIds = new ArrayList<>();
+
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    String articleId = childSnapshot.getKey();
+                    savedArticleIds.add(articleId);
                 }
-                Collections.sort(listArticle, new Comparator<Article>() {
+                // Truy cập vào nút "articles" và lấy thông tin của từng bài báo
+                DatabaseReference articlesRef = FirebaseDatabase.getInstance().getReference("articles");
+                articlesRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public int compare(Article article1, Article article2) {
-                        // So sánh thời gian giữa hai bài báo
-                        return Long.compare(article2.getTimestamp(), article1.getTimestamp());
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                            String articleId = childSnapshot.getKey();
+                            if (savedArticleIds.contains(articleId)) {
+                                Article article = childSnapshot.getValue(Article.class);
+                                if (article != null) {
+                                    listArticle.add(article);
+                                }
+                            }
+                        }
+                        Collections.sort(listArticle, new Comparator<Article>() {
+                            @Override
+                            public int compare(Article article1, Article article2) {
+                                // So sánh thời gian giữa hai bài báo
+                                return Long.compare(article2.getTimestamp(), article1.getTimestamp());
+                            }
+                        });
+                        recentlyReadAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Xử lý lỗi nếu có
                     }
                 });
-                recentlyReadAdapter.notifyDataSetChanged();
-//                changeInProgress(false);
-                dialog.dismiss();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 dialog.dismiss();
@@ -98,10 +120,8 @@ public class SavedArticlesActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Xử lý logic xóa danh sách saved_article
-                        FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-                        String id_User = mAuth.getUid();
 
-                        Task<Void> databaseReference =  FirebaseDatabase.getInstance().getReference("saved_articles/"+id_User)
+                        Task<Void> savedArticleRef =  FirebaseDatabase.getInstance().getReference("saved_articles/"+id_User)
                                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

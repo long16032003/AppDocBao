@@ -28,7 +28,6 @@
                 android:background="@color/blue_cy"
                 app:popupTheme="@style/Theme.DrawerCheck.PopupOverlay" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,82 +52,67 @@
             </LinearLayout>
         </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/frame2"
+        <LinearLayout
+        android:id="@+id/frame2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/frame1">
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_below="@id/frame1">
-
-            <HorizontalScrollView
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp">
+                android:layout_height="wrap_content"
+                app:tabMinWidth="0dp"
+                app:tabMaxWidth="140dp">
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/itemall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pháp luật" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kinh tế" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xã hội" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thể thao" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Du lịch" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Công nghệ" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sức khỏe" />
+            </com.google.android.material.tabs.TabLayout>
+        </HorizontalScrollView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="2dp">
-
-                    <Button
-                        android:id="@+id/btn0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:text="Pháp luật"
-
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/btn1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Kịnh tế"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/btn2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Xã hội"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/btn3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Thể thao"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/btn4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Du lịch"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/btn5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="Công nghệ"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/btn6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sức khoẻ"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </HorizontalScrollView>
-
-        </FrameLayout>
+    </LinearLayout>
         <FrameLayout
             android:id="@+id/frame_layout_new"
             android:layout_width="match_parent"
@@ -139,13 +123,11 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:id="@+id/progress_bar"/>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cons1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="80dp">
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_items"
                     android:layout_width="match_parent"
@@ -154,13 +136,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </FrameLayout>
-
-
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"
@@ -172,7 +149,7 @@
         app:itemIconTint="@color/black"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu">
-
     </com.google.android.material.navigation.NavigationView>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

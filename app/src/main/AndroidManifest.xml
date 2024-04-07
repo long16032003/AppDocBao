@@ -45,9 +45,6 @@
             android:name=".Activity.NewspaperPostingActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.UserActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity

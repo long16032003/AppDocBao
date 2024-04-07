@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.example.appdocbao.Adapter.ManageArticleAdapter;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,10 +52,17 @@ public class ManageArticleActivity extends AppCompatActivity {
         rcvManageArticle.setAdapter(manageArticleAdapter);
 
         FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
-        String id_User = mAuth.getUid();
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+         String userId = "";
+        if(mAuth != null){
+            userId = mAuth.getUid();
+        }
+        else if(googleSignInAccount!=null){
+            userId = googleSignInAccount.getId();
+        }
+        final String id_User = userId;
 
         articleReference = FirebaseDatabase.getInstance().getReference("articles");
-        savedArticleReference = FirebaseDatabase.getInstance().getReference("saved_articles/"+id_User);
 //        dialog.show();
         eventListener = articleReference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,13 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appdocbao.Activity.DetailArticleActivity;
-import com.example.appdocbao.Activity.SignupActivity;
 import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,8 +29,14 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticleAdapter.ArticleViewHolder> {
@@ -72,20 +74,55 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
         holder.authorArticle.setText(article.getAuthor());
         long timestamp = article.getTimestamp();
         Date dateTime = new Date(timestamp);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String formattedDateTime = dateFormat.format(dateTime);
+        String formattedDateTime;
+
+        // Thời gian hiện tại
+        Date now = new Date();
+        //Tính toán xem thời gian đăng báo cách thời gian hiện tại bao lâu
+        long diffInMillis = now.getTime() - timestamp;
+
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+        long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
+        long days = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+
+        if (days < 1) {
+            if (hours < 1) {
+                // Hiển thị số phút
+                formattedDateTime = minutes + " phút trước";
+            } else {
+                // Hiển thị số giờ
+                formattedDateTime = hours + " giờ trước";
+            }
+        } else {
+            // Hiển thị ngày, tháng, năm
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            formattedDateTime = dateFormat.format(dateTime);
+        }
         holder.dateArticle.setText(formattedDateTime);
         holder.cardViewArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 FirebaseUser mAuth = FirebaseAuth.getInstance().getCurrentUser();
+                GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
+//                final String id_User = mAuth!=null ? mAuth.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
                 if(mAuth != null){
                     String id_User = mAuth.getUid();
                     //======== Chức năng thêm bài báo đọc gần đây ==========
                     RecentlyReadArticle(id_User,holder);
-                    // ======================= Tích điểm ====================
+                    // ============Tích điểm ====================
                     TichDiem(id_User);
+                    //==========Tăng view bài báo=================
+                    IncreaseViewArticle(article.getId());
+                }
+                else if(googleSignInAccount!=null){
+                    String id_User = googleSignInAccount.getId();
+                    //======== Chức năng thêm bài báo đọc gần đây ==========
+                    RecentlyReadArticle(id_User,holder);
+                    // =========Tích điểm ====================
+                    TichDiem(id_User);
+                    //==========Tăng view bài báo=================
+                    IncreaseViewArticle(article.getId());
                 }
                 //======================================================
                 Intent intent = new Intent(mContext, DetailArticleActivity.class);
@@ -123,6 +160,36 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
             dateArticle = itemView.findViewById(R.id.dateArticle);
         }
     }
+    private void IncreaseViewArticle(String id_Article){
+        DatabaseReference viewReference =  FirebaseDatabase.getInstance().getReference("articles/" + id_Article + "/view");
+        viewReference.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                // Lấy giá trị hiện tại của view
+                Integer currentView = mutableData.getValue(Integer.class);
+
+                if (currentView != null) {
+                    // Tăng giá trị view lên 1
+                    mutableData.setValue(currentView + 1);
+                }
+
+                // Trả về giá trị mới của points
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot dataSnapshot) {
+                if (committed) {
+                    // Tăng giá trị points thành công
+                    // Thực hiện các hành động phụ thuộc vào việc tăng points ở đây
+                } else {
+                    // Tăng giá trị points thất bại
+                    // Xử lý lỗi nếu cần
+                }
+            }
+        });
+    }
     private void TichDiem(String id_User){
         DatabaseReference pointReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/points");
         pointReference.runTransaction(new Transaction.Handler() {
@@ -156,42 +223,80 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     private void RecentlyReadArticle(String id_User, ArticleViewHolder holder){
 
         articleRecently = mListArticle.get(holder.getAdapterPosition());
-
-        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
+        Date timeRead = new Date();
+        long timestamp = timeRead.getTime();
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("recently_read/"+id_User);
+//        databaseReference.child(articleRecently.getId()).child("timestamp").setValue(timestamp);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Lấy dữ liệu hiện có từ Firebase
-                ArrayList<Article> recently_read = (ArrayList<Article>) dataSnapshot.getValue();
 
-                if (recently_read == null) {
-                    recently_read = new ArrayList<>();
-                }else if (recently_read.size() >= 6) {
-                    // Xóa bài báo đầu tiên
-                    recently_read.remove(0);
+//                 Kiểm tra số lượng phần tử
+                if (dataSnapshot.getChildrenCount() >= 6) {
+                    // Tạo một danh sách để lưu trữ các phần tử
+                    List<DataSnapshot> snapshotList = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        snapshotList.add(snapshot);
+                    }
+
+                    // Sắp xếp danh sách theo timestamp tăng dần
+                    Collections.sort(snapshotList, new Comparator<DataSnapshot>() {
+                        @Override
+                        public int compare(DataSnapshot snapshot1, DataSnapshot snapshot2) {
+                            long timestamp1 = snapshot1.getValue(Long.class);
+                            long timestamp2 = snapshot2.getValue(Long.class);
+                            return Long.compare(timestamp1, timestamp2);
+                        }
+                    });
+
+                    // Xóa phần tử có timestamp ít nhất
+                    String firstKey = snapshotList.get(0).getKey();
+                    databaseReference.child(firstKey).removeValue();
                 }
-                // Thêm article mới vào recently_read
-                recently_read.add(articleRecently);
 
-                // Đẩy recently_read lên Firebase
-                databaseReference.setValue(recently_read)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                // Đã đẩy thành công Map vào database
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Xảy ra lỗi khi đẩy Map vào database
-                            }
-                        });
+                // Thêm mới phần tử hiện tại
+                databaseReference.child(articleRecently.getId()).setValue(timestamp);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xảy ra lỗi khi truy cập Firebase
             }
         });
+//        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                // Lấy dữ liệu hiện có từ Firebase
+//                ArrayList<Article> recently_read = (ArrayList<Article>) dataSnapshot.getValue();
+//
+//                if (recently_read == null) {
+//                    recently_read = new ArrayList<>();
+//                }else if (recently_read.size() >= 6) {
+//                    // Xóa bài báo đầu tiên
+//                    recently_read.remove(0);
+//                }
+//                // Thêm article mới vào recently_read
+//                recently_read.add(articleRecently);
+//
+//                // Đẩy recently_read lên Firebase
+//                databaseReference.setValue(recently_read)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                // Đã đẩy thành công Map vào database
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                // Xảy ra lỗi khi đẩy Map vào database
+//                            }
+//                        });
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // Xảy ra lỗi khi truy cập Firebase
+//            }
+//        });
     }
 }

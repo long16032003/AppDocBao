@@ -16,13 +16,13 @@
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/online_research_icon"
+        android:icon="@drawable/trending_icon"
         android:id="@+id/trend"
         android:title="Xu hướng" />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/person_244"
+        android:icon="@drawable/user_profile_icon"
         android:id="@+id/profile"
         android:title="Cá nhân" />
 </menu>
