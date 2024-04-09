@@ -167,9 +167,9 @@ public class GifFragment extends Fragment {
 
     private List<ViewPagerPhoto> getListPhoto() {
         List<ViewPagerPhoto> list = new ArrayList<>();
-        list.add(new ViewPagerPhoto(R.drawable.tron_japan));
-        list.add(new ViewPagerPhoto(R.drawable.tron_viet_name));
-
+        list.add(new ViewPagerPhoto(R.drawable.banner1));
+        list.add(new ViewPagerPhoto(R.drawable.banner2));
+        list.add(new ViewPagerPhoto(R.drawable.banner3));
         return list;
     }
     private void ShowDiemTichLuy(String idUser){

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerlayout"
+    style="@style/SCREEN"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -23,9 +24,9 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                style="@style/TOOLBAR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_green"
                 app:popupTheme="@style/Theme.DrawerCheck.PopupOverlay" />
 
             <LinearLayout
@@ -39,6 +40,7 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="7dp"
+                    style="@style/TEXT"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/edittext"
@@ -68,41 +70,49 @@
                 app:tabMaxWidth="170dp">
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/itemall"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tất cả" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item0"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pháp luật" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item1"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Kinh tế" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item2"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xã hội" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item3"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thể thao" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item4"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Du lịch" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item5"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Công nghệ" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/item6"
+                    style="@style/TEXT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sức khỏe" />

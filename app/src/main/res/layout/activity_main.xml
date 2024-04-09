@@ -28,18 +28,24 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                android:id="@+id/bottomNavigationView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="70dp"-->
+<!--                app:menu="@menu/bottom_nav_menu"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                app:itemBackground="@color/blue_green"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                app:labelVisibilityMode="labeled"-->
+<!--                app:itemTextColor="@color/custom_color"-->
+<!--                app:itemIconTint="@color/custom_color" />-->
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:menu="@menu/bottom_nav_menu"
                 android:layout_gravity="bottom"
-                app:labelVisibilityMode="labeled"
-                android:background="@android:color/transparent"
-                app:itemBackground="@color/blue_green"
-                app:itemTextColor="@color/custom_color"
-                app:itemIconTint="@color/custom_color" />
-
+                app:labelVisibilityMode="labeled" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </RelativeLayout>

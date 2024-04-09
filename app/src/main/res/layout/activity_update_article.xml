@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/SCREEN"
     android:layout_height="match_parent"
     tools:context=".Activity.NewspaperPostingActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="?attr/colorPrimary"
+        style="@style/TOOLBAR"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -97,6 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:ems="10"
+                        style="@style/TEXT"
                         android:paddingStart="20dp"
                         android:paddingEnd="10dp"
                         android:layout_marginBottom="20dp"
@@ -116,6 +118,7 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:paddingEnd="10dp"
+                        style="@style/TEXT"
                         android:layout_marginBottom="20dp"
                         android:textSize="16dp"
                         android:background="@drawable/border_blue_litte_radius"
@@ -131,6 +134,7 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="10dp"
                         android:textSize="16dp"
+                        style="@style/TEXT"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_blue_litte_radius"
                         android:text="" />
@@ -140,6 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Cập nhật"
+                        android:textSize="16dp"
                         android:layout_gravity="center"/>
                 </LinearLayout>
 

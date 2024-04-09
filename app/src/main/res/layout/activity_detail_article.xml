@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".Activity.DetailArticleActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?attr/colorPrimary"
+        android:layout_height="40dp"
+        style="@style/TOOLBAR"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -33,9 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text=" Báo Net"
+                android:text="Báo Net"
                 android:textColor="@color/white"
-                android:textSize="24dp"
+                android:textSize="22dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,9 +66,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="Title"
+                style="@style/TEXT_TITLE_ARTICLE"
                 android:textAlignment="center"
-                android:textColor="@color/red"
-                android:textSize="24dp"
+                android:textSize="22dp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -90,12 +91,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:textSize="15dp"
-                    android:textAlignment="center"
+                    style="@style/TEXT"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/detailDate"
                     android:layout_width="0dp"
+                    style="@style/TEXT"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:textSize="15dp"
@@ -109,8 +111,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="40dp"
                 android:padding="20dp"
+                style="@style/TEXT"
                 android:text="Content Article"
-                android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
@@ -122,8 +124,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/grey"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -132,7 +134,7 @@
             android:id="@+id/likeArticle"
             android:layout_width="10dp"
             android:padding="8dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:src="@drawable/thumbs_up_line_icon" />
 
@@ -142,13 +144,14 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="100"
+            android:textColor="@color/blue_grey"
             android:textSize="18dp"/>
 
         <ImageView
             android:id="@+id/dislikeArticle"
             android:layout_width="10dp"
             android:padding="8dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:src="@drawable/thumbs_down_line_icon" />
 
@@ -163,7 +166,7 @@
             android:id="@+id/saveArticle"
             android:layout_width="10dp"
             android:padding="8dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:src="@drawable/saved_bookmark_icon" />
 
@@ -171,7 +174,7 @@
             android:id="@+id/shareArticle"
             android:layout_width="10dp"
             android:padding="8dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:src="@drawable/curved_arrow_right_icon" />
 

@@ -15,7 +15,8 @@
         android:layout_margin="5dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="4dp">
+        android:padding="4dp"
+        style="@style/RECYCLEVIEW">
 
         <ImageView
             android:id="@+id/imgArticle"
@@ -37,6 +38,7 @@
                 android:maxLines="3"
                 android:text="This is the Title"
                 android:textSize="16dp"
+                style="@style/TEXT"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    style="@style/TEXT"
                     android:text="Author"
                     android:textSize="12dp" />
 
@@ -64,6 +67,7 @@
                     android:id="@+id/dateArticle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/TEXT"
                     android:text="20/10/2003"
                     android:textSize="12dp" />
             </LinearLayout>

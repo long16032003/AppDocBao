@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/BACKGROUND_USER"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ProfileFragment"
-    android:background="#ececec">
+    tools:context=".Fragment.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
             <ImageView
                 android:layout_margin="20dp"
-                android:id="@+id/imageView5"
+                android:id="@+id/avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -67,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quản lý bài đăng"
+                    android:textColor="@color/black"
                     android:textAlignment="viewStart"
                     android:layout_marginEnd="32dp"
                     android:layout_marginStart="32dp"
@@ -98,6 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Voucher của bạn"
+                    android:textColor="@color/black"
                     android:textAlignment="viewStart"
                     android:layout_marginEnd="32dp"
                     android:layout_marginStart="32dp"
@@ -129,6 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Đọc gần đây"
+                    android:textColor="@color/black"
                     android:textAlignment="viewStart"
                     android:layout_marginEnd="32dp"
                     android:layout_marginStart="32dp"
@@ -160,6 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tin đã lưu"
+                    android:textColor="@color/black"
                     android:textAlignment="viewStart"
                     android:layout_marginEnd="32dp"
                     android:layout_marginStart="32dp"
@@ -170,7 +174,6 @@
                     android:drawablePadding="20dp"
                     android:paddingStart="20dp"/>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
