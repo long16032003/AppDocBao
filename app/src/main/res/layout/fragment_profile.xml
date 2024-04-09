@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/SCREEN"
     android:layout_height="match_parent"
     tools:context=".Fragment.ProfileFragment">
 
@@ -69,12 +70,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="30dp"
+                    style="@style/TEXT"
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="5dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
-                    android:textColor="@color/black"
                     android:gravity="center"
                     android:text="Quản lý bài đăng"
                     android:textSize="20dp" />
@@ -89,8 +90,8 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    style="@style/TEXT"
                     android:background="@drawable/border_rectangle_yellow"
-                    android:textColor="@color/black"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
@@ -107,8 +108,8 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    style="@style/TEXT"
                     android:background="@drawable/border_rectangle_red"
-                    android:textColor="@color/black"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:paddingLeft="20dp"
@@ -116,13 +117,13 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:textColor="@color/black"
                     android:drawableLeft="@drawable/blue_green_saved_bookmark"
                     android:id="@+id/tindaluu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="30dp"
+                    style="@style/TEXT"
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"

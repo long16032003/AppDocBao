@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".Fragment.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,18 +17,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profilePicture"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:src="@drawable/user_profile_icon"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/blue_green"/>
-            <TextView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/setting_icon"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/user_profile_icon"
+            app:civ_border_color="@color/blue_green"
+            app:civ_border_width="2dp" />
+
+        <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,7 +48,7 @@
                 android:text="Username"
                 android:layout_margin="8dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                style="@style/TEXT"
                 android:textSize="26sp" />
 
             <TextView
@@ -43,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:layout_margin="8dp"
-                android:textColor="@color/black"
+                style="@style/TEXT"
                 android:textSize="20sp"
                 android:textStyle="italic"
                 android:layout_gravity="center"/>
@@ -76,7 +90,7 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                android:textColor="@color/black"
+                style="@style/TEXT"
                 android:gravity="center"
                 android:text="Quản lý bài đăng"
                 android:textSize="20dp" />
@@ -92,7 +106,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:background="@drawable/border_rectangle_yellow"
-                android:textColor="@color/black"
+                style="@style/TEXT"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
@@ -110,7 +124,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:background="@drawable/border_rectangle_red"
-                android:textColor="@color/black"
+                style="@style/TEXT"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
@@ -118,7 +132,7 @@
                 android:textSize="20dp" />
 
             <TextView
-                android:textColor="@color/black"
+                style="@style/TEXT"
                 android:drawableLeft="@drawable/blue_green_saved_bookmark"
                 android:id="@+id/tindaluu"
                 android:layout_width="match_parent"

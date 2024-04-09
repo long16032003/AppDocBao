@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
+    style="@style/SCREEN"
     android:layout_marginBottom="70dp"
     tools:context=".Fragment.GifFragment">
 
@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="?attr/colorPrimary"
+        style="@style/TOOLBAR"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -79,9 +79,9 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
+                style="@style/TEXT"
                 android:paddingBottom="10dp"
                 android:text="Điểm tích lũy"
-                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="20sp" />
 
@@ -93,7 +93,8 @@
                 android:layout_marginTop="8dp"
                 android:paddingStart="15dp"
                 android:paddingBottom="15dp"
-                android:paddingEnd="15dp" />
+                android:paddingEnd="15dp"
+                style="@style/RECYCLEVIEW"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

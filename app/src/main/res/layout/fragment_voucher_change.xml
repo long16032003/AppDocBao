@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".Fragment.ContactFragment">
 
     <LinearLayout
@@ -15,7 +16,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_cy"/>
+                style="@style/TOOLBAR"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -43,7 +44,7 @@
             android:id="@+id/voucherChange"
             android:padding="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
 
 

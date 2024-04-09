@@ -16,4 +16,30 @@
     <style name="Theme.DrawerCheck.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DrawerCheck.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Light mode -->
+    <!-- Screen background if light mode on -->
+    <style name="SCREEN">
+        <item name="android:background">#FFF</item>
+    </style>
+
+    <!-- Text background if light mode on -->
+    <style name="TEXT">
+        <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="TOOLBAR" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">#41B1C2</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="RECYCLEVIEW" >
+        <item name="android:background">#FFF</item>
+        <item name="android:textColor">#000</item>
+    </style>
+    <style name="BOTTOMNAV" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">#41B1C2</item>
+        <item name="itemIconTint">#000000</item>
+        <item name="itemTextColor">#000000</item>
+    </style>
 </resources>

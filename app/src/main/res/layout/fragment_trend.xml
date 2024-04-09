@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.TrendFragment">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        style="@style/TOOLBAR"
         android:layout_height="40dp"
-        android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -60,6 +61,7 @@
                     android:drawablePadding="10dp"
                     android:text="ĐƯỢC YÊU THÍCH NHẤT"
                     android:textColor="@color/blue_green"
+                    style="@style/TEXT"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -87,7 +89,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/RECYCLEVIEW"/>
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,6 +103,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:text="ĐANG ĐƯỢC QUAN TÂM"
+                    style="@style/TEXT"
                     android:textSize="17sp"
                     android:drawableStart="@drawable/increase_up_profit_icon"
                     android:textColor="@color/blue_green"
@@ -128,7 +132,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/RECYCLEVIEW"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
