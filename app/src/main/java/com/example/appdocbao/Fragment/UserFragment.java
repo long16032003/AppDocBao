@@ -63,13 +63,13 @@ public class UserFragment extends Fragment {
         tindaluu = view.findViewById(R.id.tindaluu);
         profilePicture = view.findViewById(R.id.profilePicture);
         userVoucher = view.findViewById(R.id.userVoucher);
-        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent itn = new Intent(getContext(), UpdateInforActivity.class);
-                startActivity(itn);
-            }
-        });
+//        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent itn = new Intent(getContext(), UpdateInforActivity.class);
+//                startActivity(itn);
+//            }
+//        });
         userVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

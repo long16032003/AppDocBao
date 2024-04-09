@@ -56,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="register"
+                    android:textColor="@color/black"
                     android:textSize="35dp" />
 
             </LinearLayout>
@@ -87,6 +88,7 @@
                 android:background="@drawable/border_red"
                 android:ems="10"
                 android:hint="Họ và Tên"
+                android:textColorHint="#A69D9D"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -101,6 +103,7 @@
                 android:background="@drawable/border_red"
                 android:ems="10"
                 android:hint="Số điện thoại"
+                android:textColorHint="#A69D9D"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -115,6 +118,7 @@
                 android:background="@drawable/border_red"
                 android:ems="10"
                 android:hint="Địa chỉ Email"
+                android:textColorHint="#A69D9D"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -130,6 +134,7 @@
                 android:ems="10"
                 android:hint="Mật khẩu"
                 android:inputType="textPassword"
+                android:textColorHint="#A69D9D"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 

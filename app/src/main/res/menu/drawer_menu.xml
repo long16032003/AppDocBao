@@ -13,17 +13,18 @@
             android:title="Trang chủ" />
         <item
             android:id="@+id/setting"
+            style="@style/SCREEN"
             android:icon="@drawable/baseline_settings_24"
             android:title="Cài đặt"/>
         <item
             android:id="@+id/contact"
+            style="@style/SCREEN"
             android:icon="@drawable/baseline_call_24"
             android:title="Liên hệ"/>
         <item
             android:id="@+id/share"
+            style="@style/SCREEN"
             android:icon="@drawable/baseline_attach_money_24"
             android:title="Ủng hộ chúng tôi"/>
-
     </group>
-
 </menu>
