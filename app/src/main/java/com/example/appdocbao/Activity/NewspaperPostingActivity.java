@@ -51,7 +51,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class NewspaperPostingActivity extends AppCompatActivity {
-    Button btnDangBao;
+    Button btnDangBao, btnUploadPicture;
     Spinner spinnerCategory;
     EditText titleUpload, contentUpload, authorUpload;
     ImageView imageUpload, backMain;
@@ -74,6 +74,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         authorUpload = (EditText) findViewById(R.id.authorUpload);
 
         btnDangBao = (Button) findViewById(R.id.btnDangBao);
+        btnUploadPicture = (Button) findViewById(R.id.btnUploadPicture);
         backMain = (ImageView) findViewById(R.id.backMain);
 
         spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
@@ -107,7 +108,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
                 finish();
             }
         });
-        imageUpload.setOnClickListener(new View.OnClickListener() {
+        btnUploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);

@@ -106,7 +106,7 @@ public class NewsFragment extends Fragment {
 //        dialog.show();
 
         listArticle = new ArrayList<>();
-        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle, 30);
+        articleAdapter= new RecyclerArticleAdapter(getContext(),listArticle, 50);
         rcvArticle.setAdapter(articleAdapter);
 
         getAllArticle();
