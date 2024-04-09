@@ -11,7 +11,7 @@
 
     <style name="Theme.AppDocBao" parent="Base.Theme.AppDocBao" />
     <style name="ThemeOverlay.AppCompat.navTheme">
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">#ececec</item>
     </style>
     <style name="Theme.DrawerCheck.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -23,9 +23,20 @@
         <item name="android:background">#FFF</item>
     </style>
 
+    <style name="BACKGROUND_USER">
+        <item name="android:background">#ececec</item>
+    </style>
+    <style name="BACKGROUND_BUTTON_USER">
+        <item name="android:background">#FFF</item>
+    </style>
+
     <!-- Text background if light mode on -->
     <style name="TEXT">
         <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="TEXT_TITLE_ARTICLE">
+        <item name="android:textColor">@color/blue_grey</item>
     </style>
 
     <style name="TOOLBAR" parent="Widget.AppCompat.Toolbar">
@@ -36,8 +47,5 @@
     <style name="RECYCLEVIEW" >
         <item name="android:background">#FFF</item>
         <item name="android:textColor">#000</item>
-    </style>
-    <style name="BOTTOMNAV" parent="Widget.Design.BottomNavigationView">
-        <item name="android:background">#41B1C2</item>
     </style>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/SCREEN"
+    style="@style/BACKGROUND_USER"
     tools:context=".Fragment.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -36,8 +36,8 @@
                 android:layout_height="110dp"
                 android:layout_gravity="center"
                 android:src="@drawable/user_profile_icon"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="5dp"
+                app:civ_border_color="@color/blue_green"
+                app:civ_border_width="3dp"
                 app:layout_constraintBottom_toBottomOf="@id/top_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/top_background"
@@ -53,7 +53,6 @@
                 android:text="Username"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
-                style="@style/TEXT"
                 android:textSize="26sp" />
 
             <TextView
@@ -62,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:layout_margin="8dp"
-                style="@style/TEXT"
                 android:textSize="20sp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="8dp"
@@ -89,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Chỉnh sửa thông tin"
+                android:textColor="@color/black"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
@@ -97,6 +96,7 @@
                 android:drawableStart="@drawable/baseline_settings_24"
                 android:background="@drawable/btn_background_1"
                 android:drawablePadding="20dp"
+                style="@style/BACKGROUND_BUTTON_USER"
                 android:paddingStart="20dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/manageArticle"
@@ -105,8 +105,8 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                style="@style/TEXT"
                 android:text="Quản lý bài đăng"
+                android:textColor="@color/black"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
@@ -115,6 +115,7 @@
                 android:drawableStart="@drawable/management_icon"
                 android:background="@drawable/btn_background_1"
                 android:drawablePadding="20dp"
+                style="@style/BACKGROUND_BUTTON_USER"
                 android:paddingStart="20dp"/>
 <!--            <TextView-->
 <!--                android:drawableLeft="@drawable/management_icon"-->
@@ -137,11 +138,11 @@
                 android:id="@+id/userVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TEXT"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 android:text="Voucher của bạn"
+                android:textColor="@color/black"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
@@ -150,6 +151,7 @@
                 android:drawableStart="@drawable/sale_icon"
                 android:background="@drawable/btn_background_1"
                 android:drawablePadding="20dp"
+                style="@style/BACKGROUND_BUTTON_USER"
                 android:paddingStart="20dp"/>
 <!--            <TextView-->
 <!--                android:drawableLeft="@drawable/sale_icon"-->
@@ -172,8 +174,8 @@
                 android:id="@+id/tinganday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TEXT"
                 android:text="Đọc gần đây"
+                android:textColor="@color/black"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
@@ -182,6 +184,7 @@
                 android:drawableStart="@drawable/clock_icon"
                 android:background="@drawable/btn_background_1"
                 android:drawablePadding="20dp"
+                style="@style/BACKGROUND_BUTTON_USER"
                 android:paddingStart="20dp"/>
 <!--            <TextView-->
 <!--                android:drawableLeft="@drawable/clock_icon"-->
@@ -205,6 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tin đã lưu"
+                android:textColor="@color/black"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
@@ -213,6 +217,7 @@
                 android:drawableStart="@drawable/blue_green_saved_bookmark"
                 android:background="@drawable/btn_background_1"
                 android:drawablePadding="20dp"
+                style="@style/BACKGROUND_BUTTON_USER"
                 android:paddingStart="20dp"/>
 <!--            <TextView-->
 <!--                android:textColor="@color/black"-->

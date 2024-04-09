@@ -44,7 +44,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:menu="@menu/bottom_nav_menu"
-                style="@style/BOTTOMNAV"
                 android:layout_gravity="bottom"
                 app:labelVisibilityMode="labeled" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

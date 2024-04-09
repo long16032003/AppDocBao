@@ -1,6 +1,7 @@
 package com.example.appdocbao.Fragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.example.appdocbao.R;
 
 public class ProfileFragment extends Fragment {
     Button btnLogin, btnRegister;
+    ImageView avatar;
     TextView manageArticle, userVoucher, tinganday, tindaluu;
 
     @Override
@@ -33,6 +36,18 @@ public class ProfileFragment extends Fragment {
 
         btnLogin = view.findViewById(R.id.btnLogin_user);
         btnRegister = view.findViewById(R.id.btnRegister_user);
+        avatar = view.findViewById(R.id.avatar);
+
+        // Kiểm tra chế độ Dark Mode
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            // Đang ở chế độ Dark Mode
+            avatar.setImageResource(R.drawable.user_icon_white);
+        } else {
+            // Không ở chế độ Dark Mode
+            avatar.setImageResource(R.drawable.user_profile_icon);
+        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
