@@ -39,7 +39,5 @@
     </style>
     <style name="BOTTOMNAV" parent="Widget.Design.BottomNavigationView">
         <item name="android:background">#41B1C2</item>
-        <item name="itemIconTint">#000000</item>
-        <item name="itemTextColor">#000000</item>
     </style>
 </resources>

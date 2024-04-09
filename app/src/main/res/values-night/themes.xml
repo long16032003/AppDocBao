@@ -23,9 +23,7 @@
         <item name="android:background">#2B2A2A</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
-    <style name="BOTTOMNAV" parent="Widget.Design.BottomNavigationView">
+    <style name="BOTTOMNAV">
         <item name="android:background">#000000</item>
-        <item name="itemIconTint">#FFF</item>
-        <item name="itemTextColor">#FFF</item>
     </style>
 </resources>

@@ -11,42 +11,47 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginBottom="70dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_update"
+                android:id="@+id/top_background"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/setting_icon"
-                android:layout_alignParentEnd="true"/>
-        </RelativeLayout>
+                android:layout_height="130dp"
+                android:src="@drawable/top_background"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/user_profile_icon"
-            app:civ_border_color="@color/blue_green"
-            app:civ_border_width="2dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:src="@drawable/user_profile_icon"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/top_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/top_background"
+                app:layout_constraintTop_toBottomOf="@id/top_background" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+
+            <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Username"
-                android:layout_margin="8dp"
+                android:layout_margin="5dp"
                 android:textStyle="bold"
                 style="@style/TEXT"
                 android:textSize="26sp" />
@@ -59,6 +64,8 @@
                 android:layout_margin="8dp"
                 style="@style/TEXT"
                 android:textSize="20sp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="8dp"
                 android:textStyle="italic"
                 android:layout_gravity="center"/>
 
@@ -69,97 +76,173 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="24dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
+                android:background="@drawable/gradient_1"
                 android:textColor="@color/white"
-                android:background="@drawable/button_blue"
                 style="@android:style/Widget.Button"
                 android:text="Tạo bài viết" />
 
-            <TextView
-                android:drawableLeft="@drawable/management_icon"
-                android:id="@+id/manageArticle"
-                android:background="@drawable/border_rectangle_orange"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSettingAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
+                android:text="Chỉnh sửa thông tin"
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:drawableStart="@drawable/baseline_settings_24"
+                android:background="@drawable/btn_background_1"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/manageArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 style="@style/TEXT"
-                android:gravity="center"
                 android:text="Quản lý bài đăng"
-                android:textSize="20dp" />
-
-            <TextView
-                android:drawableLeft="@drawable/sale_icon"
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:drawableStart="@drawable/management_icon"
+                android:background="@drawable/btn_background_1"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"/>
+<!--            <TextView-->
+<!--                android:drawableLeft="@drawable/management_icon"-->
+<!--                android:id="@+id/manageArticle"-->
+<!--                android:background="@drawable/border_rectangle_orange"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginEnd="32dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Quản lý bài đăng"-->
+<!--                android:textSize="20dp" />-->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/userVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:background="@drawable/border_rectangle_yellow"
                 style="@style/TEXT"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 android:text="Voucher của bạn"
-                android:textSize="20dp" />
-
-            <TextView
-                android:drawableLeft="@drawable/clock_icon"
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:drawableStart="@drawable/sale_icon"
+                android:background="@drawable/btn_background_1"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"/>
+<!--            <TextView-->
+<!--                android:drawableLeft="@drawable/sale_icon"-->
+<!--                android:id="@+id/userVoucher"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginStart="30dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@drawable/border_rectangle_yellow"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:text="Voucher của bạn"-->
+<!--                android:textSize="20dp" />-->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tinganday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:background="@drawable/border_rectangle_red"
                 style="@style/TEXT"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingLeft="20dp"
                 android:text="Đọc gần đây"
-                android:textSize="20dp" />
-
-            <TextView
-                style="@style/TEXT"
-                android:drawableLeft="@drawable/blue_green_saved_bookmark"
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:drawableStart="@drawable/clock_icon"
+                android:background="@drawable/btn_background_1"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"/>
+<!--            <TextView-->
+<!--                android:drawableLeft="@drawable/clock_icon"-->
+<!--                android:id="@+id/tinganday"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginStart="30dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@drawable/border_rectangle_red"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:text="Đọc gần đây"-->
+<!--                android:textSize="20dp" />-->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tindaluu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingLeft="20dp"
-                android:background="@drawable/border_rectangle_blue"
                 android:text="Tin đã lưu"
-                android:textSize="20dp" />
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:drawableStart="@drawable/blue_green_saved_bookmark"
+                android:background="@drawable/btn_background_1"
+                android:drawablePadding="20dp"
+                android:paddingStart="20dp"/>
+<!--            <TextView-->
+<!--                android:textColor="@color/black"-->
+<!--                android:drawableLeft="@drawable/blue_green_saved_bookmark"-->
+<!--                android:id="@+id/tindaluu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginStart="30dp"-->
+<!--                android:layout_marginEnd="30dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:background="@drawable/border_rectangle_blue"-->
+<!--                android:text="Tin đã lưu"-->
+<!--                android:textSize="20dp" />-->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLogOut"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="5dp"
-                android:textSize="24dp"
+                android:textSize="20dp"
                 android:textColor="@color/white"
-                android:background="@drawable/button_blue"
+                android:background="@drawable/gradient_1"
                 style="@android:style/Widget.Button"
                 android:text="Đăng xuất" />
         </LinearLayout>

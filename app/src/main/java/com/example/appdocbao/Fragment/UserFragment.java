@@ -38,8 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserFragment extends Fragment {
-    ImageView imgUpdate;
-    Button btnActivityPostArticle, btnLogOut;
+    Button btnActivityPostArticle, btnLogOut, btnSettingAccount;
     TextView userName, email, manageArticle, tinganday, tindaluu, userVoucher;
     CircleImageView profilePicture;
     DatabaseReference databaseReference;
@@ -54,7 +53,7 @@ public class UserFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imgUpdate = view.findViewById(R.id.img_update);
+        btnSettingAccount = view.findViewById(R.id.btnSettingAccount);
         userName = view.findViewById(R.id.userName);
         email = view.findViewById(R.id.email);
         manageArticle = view.findViewById(R.id.manageArticle);
@@ -64,7 +63,7 @@ public class UserFragment extends Fragment {
         tindaluu = view.findViewById(R.id.tindaluu);
         profilePicture = view.findViewById(R.id.profilePicture);
         userVoucher = view.findViewById(R.id.userVoucher);
-        imgUpdate.setOnClickListener(new View.OnClickListener() {
+        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent itn = new Intent(getContext(), UpdateInforActivity.class);
