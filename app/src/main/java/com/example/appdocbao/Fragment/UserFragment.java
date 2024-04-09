@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.example.appdocbao.Activity.ManageArticleActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
 import com.example.appdocbao.Activity.RecentlyReadActivity;
 import com.example.appdocbao.Activity.SavedArticlesActivity;
+import com.example.appdocbao.Activity.UpdateInforActivity;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserFragment extends Fragment {
-    Button btnActivityPostArticle, btnLogOut;
+    Button btnActivityPostArticle, btnLogOut, btnSettingAccount;
     TextView userName, email, manageArticle, tinganday, tindaluu, userVoucher;
     CircleImageView profilePicture;
     DatabaseReference databaseReference;
@@ -50,6 +53,7 @@ public class UserFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        btnSettingAccount = view.findViewById(R.id.btnSettingAccount);
         userName = view.findViewById(R.id.userName);
         email = view.findViewById(R.id.email);
         manageArticle = view.findViewById(R.id.manageArticle);
@@ -59,6 +63,13 @@ public class UserFragment extends Fragment {
         tindaluu = view.findViewById(R.id.tindaluu);
         profilePicture = view.findViewById(R.id.profilePicture);
         userVoucher = view.findViewById(R.id.userVoucher);
+        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent itn = new Intent(getContext(), UpdateInforActivity.class);
+                startActivity(itn);
+            }
+        });
         userVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

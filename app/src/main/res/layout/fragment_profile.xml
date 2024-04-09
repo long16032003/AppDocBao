@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/SCREEN"
     android:layout_height="match_parent"
     tools:context=".Fragment.ProfileFragment"
     android:background="#ececec">
@@ -66,6 +67,7 @@
                     android:id="@+id/manageArticle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/TEXT"
                     android:text="Quản lý bài đăng"
                     android:textAlignment="viewStart"
                     android:layout_marginEnd="32dp"
@@ -97,6 +99,7 @@
                     android:id="@+id/userVoucher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/TEXT"
                     android:text="Voucher của bạn"
                     android:textAlignment="viewStart"
                     android:layout_marginEnd="32dp"
@@ -170,7 +173,6 @@
                     android:drawablePadding="20dp"
                     android:paddingStart="20dp"/>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

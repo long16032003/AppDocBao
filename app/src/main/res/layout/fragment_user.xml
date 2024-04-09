@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.UserFragment"
-    android:background="#ececec">
+    style="@style/SCREEN"
+    tools:context=".Fragment.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -29,7 +28,7 @@
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profilePicture"
@@ -54,18 +53,19 @@
                 android:text="Username"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                style="@style/TEXT"
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email"
+                android:layout_margin="8dp"
+                style="@style/TEXT"
+                android:textSize="20sp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
                 android:textStyle="italic"
                 android:layout_gravity="center"/>
 
@@ -102,6 +102,10 @@
                 android:id="@+id/manageArticle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                style="@style/TEXT"
                 android:text="Quản lý bài đăng"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
@@ -133,6 +137,10 @@
                 android:id="@+id/userVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
                 android:text="Voucher của bạn"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"
@@ -164,6 +172,7 @@
                 android:id="@+id/tinganday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TEXT"
                 android:text="Đọc gần đây"
                 android:textAlignment="viewStart"
                 android:layout_marginEnd="32dp"

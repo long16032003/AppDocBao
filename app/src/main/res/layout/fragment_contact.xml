@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".Fragment.ContactFragment">
 
     <LinearLayout
@@ -15,7 +16,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_cy"/>
+                style="@style/TOOLBAR"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -70,6 +71,7 @@
                         android:layout_marginBottom="12dp"
                         android:text="Trương Minh Đức"
                         android:textSize="18dp"
+                        style="@style/TEXT"
                         android:maxLines="3"
                         android:textStyle="bold" />
 
@@ -82,12 +84,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Email:"
+                            style="@style/TEXT"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            style="@style/TEXT"
                             android:text="minhduc4444@gmail.com
 " />
                     </LinearLayout>
@@ -123,6 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:text="Dương Huy Hoàng"
+                        style="@style/TEXT"
                         android:textSize="18dp"
                         android:maxLines="3"
                         android:textStyle="bold" />
@@ -136,11 +141,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Email:"
+                            style="@style/TEXT"
                             android:textStyle="bold"/>
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            style="@style/TEXT"
                             android:layout_weight="1"
                             android:text="duonghoangripper25@gmail.com" />
                     </LinearLayout>
@@ -176,6 +183,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:text="Nguyễn Gia Long"
+                        style="@style/TEXT"
                         android:textSize="18dp"
                         android:maxLines="3"
                         android:textStyle="bold" />
@@ -188,12 +196,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/TEXT"
                             android:text="Email:"
                             android:textStyle="bold"/>
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            style="@style/TEXT"
                             android:text="nguyengialong163@gmail.com" />
                     </LinearLayout>
                 </LinearLayout>

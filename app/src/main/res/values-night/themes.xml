@@ -4,4 +4,26 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+    <!-- Dark mode -->
+    <!-- Screen background if dark mode on -->
+    <style name="SCREEN">
+        <item name="android:background">#2B2A2A</item>
+    </style>
+
+    <!-- Screen background if dark mode on -->
+    <style name="TEXT">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="TOOLBAR" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">#000000</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="RECYCLEVIEW">
+        <item name="android:background">#2B2A2A</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="BOTTOMNAV">
+        <item name="android:background">#000000</item>
+    </style>
 </resources>
