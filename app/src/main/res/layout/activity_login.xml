@@ -65,6 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="App"
+                    android:textColor="@color/black"
                     android:textSize="45dp" />
 
             </LinearLayout>
@@ -74,11 +75,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
                 android:hint="Địa chỉ Email"
+                android:textColorHint="#A69D9D"
                 android:inputType="text"
                 android:textColor="@color/black"
                 android:textAlignment="center"
@@ -95,6 +97,7 @@
                 android:ems="10"
                 android:textColor="@color/black"
                 android:hint="Mật khẩu"
+                android:textColorHint="#A69D9D"
                 android:inputType="textPassword"
                 android:textAlignment="center"
                 android:textSize="16dp" />
@@ -105,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/orange"
                 android:textSize="17dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="25dp"
                 android:layout_gravity="center"
                 android:text="Quên mật khẩu ?" />
             <View
@@ -123,7 +126,10 @@
                 android:text="Đăng nhập"
                 android:textSize="16dp"
                 android:textColor="@color/white"
-                android:layout_margin="32dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="32dp"
                 android:background="@drawable/button_red"
                 style="@android:style/Widget.Button"
                 android:textStyle="bold"/>
@@ -150,6 +156,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:text="Hoặc"
+                    android:textColor="@color/black"
                     android:textSize="15dp"
                     android:textAlignment="center" />
 
@@ -165,7 +172,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 

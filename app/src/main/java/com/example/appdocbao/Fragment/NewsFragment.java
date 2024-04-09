@@ -124,19 +124,15 @@ public class NewsFragment extends Fragment {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.news){
-                    Toast.makeText(getActivity(),"Cài đặt",Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     replaceFragement(new NewsFragment());
                 }else if(item.getItemId()==R.id.setting) {
-                    Toast.makeText(getActivity(),"Cài đặt",Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     replaceFragement(new SettingFragment());
                 }else if(item.getItemId()==R.id.contact) {
-                    Toast.makeText(getActivity(), "Liên hệ", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     replaceFragement(new ContactFragment());
                 } else if(item.getItemId()==R.id.share) {
-                    Toast.makeText(getActivity(), "Donate us", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     replaceFragement(new ShareFragment());
                 }

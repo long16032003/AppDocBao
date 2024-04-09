@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AppDocBao" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.AppDocBao" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:textColorPrimary">@color/white</item>
+         <item name="colorPrimary">@color/blue_green</item>
     </style>
     <!-- Dark mode -->
     <!-- Screen background if dark mode on -->
@@ -15,15 +16,27 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="TABLELAYOUT">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#2B2A2A</item>
+    </style>
+
+    <style name="BACKGROUND_USER">
+        <item name="android:background">#2B2A2A</item>
+    </style>
+    <style name="BACKGROUND_BUTTON_USER">
+        <item name="android:background">#ececec</item>
+    </style>
+    <style name="TEXT_TITLE_ARTICLE">
+        <item name="android:textColor">#DDC0C0</item>
+    </style>
+
     <style name="TOOLBAR" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">#000000</item>
+        <item name="android:background">#252424</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
     <style name="RECYCLEVIEW">
         <item name="android:background">#2B2A2A</item>
         <item name="android:textColor">#FFFFFF</item>
-    </style>
-    <style name="BOTTOMNAV">
-        <item name="android:background">#000000</item>
     </style>
 </resources>

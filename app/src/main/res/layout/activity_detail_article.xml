@@ -66,9 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="Title"
-                style="@style/TEXT"
+                style="@style/TEXT_TITLE_ARTICLE"
                 android:textAlignment="center"
-                android:textColor="@color/blue_grey"
                 android:textSize="22dp"
                 android:textStyle="bold" />
 
@@ -93,7 +92,6 @@
                     android:layout_weight="0.6"
                     android:textSize="15dp"
                     style="@style/TEXT"
-                    android:textAlignment="center"
                     android:text="TextView" />
 
                 <TextView
@@ -146,6 +144,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="100"
+            android:textColor="@color/blue_grey"
             android:textSize="18dp"/>
 
         <ImageView

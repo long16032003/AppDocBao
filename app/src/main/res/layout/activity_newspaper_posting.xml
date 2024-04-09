@@ -85,7 +85,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Upload Picture"
-                        android:textSize="18dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
                         android:layout_marginBottom="20dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
@@ -99,6 +100,7 @@
                         android:layout_height="50dp"
                         android:ems="10"
                         android:paddingStart="20dp"
+                        style="@style/TEXT"
                         android:textSize="16dp"
                         android:paddingEnd="10dp"
                         android:layout_marginBottom="20dp"
@@ -116,6 +118,7 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="10dp"
                         android:paddingTop="10dp"
+                        style="@style/TEXT"
                         android:textSize="16dp"
                         android:paddingBottom="10dp"
                         android:layout_marginBottom="20dp"
@@ -130,6 +133,7 @@
                         android:background="@drawable/border_blue_litte_radius"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
+                        style="@style/TEXT"
                         android:layout_marginBottom="20dp"
                         />
 
@@ -143,6 +147,7 @@
                         android:hint="Tác giả"
                         android:paddingStart="20dp"
                         android:paddingEnd="10dp"
+                        style="@style/TEXT"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/border_blue_litte_radius"
                         android:text="" />
