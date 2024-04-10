@@ -57,6 +57,32 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        >
+
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/file_black_icon"
+            android:drawablePadding="10dp"
+            android:text="Không có bài đọc gần đây"
+            android:textColor="#C3B6B6"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"

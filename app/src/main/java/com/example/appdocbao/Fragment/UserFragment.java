@@ -65,8 +65,13 @@ public class UserFragment extends Fragment {
         btnSettingAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent itn = new Intent(getContext(), UpdateInforActivity.class);
-                startActivity(itn);
+                GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(v.getContext());
+                if(googleSignInAccount != null){
+                    Toast.makeText(v.getContext(),"Tài khoản đăng nhập bằng Google không thể chỉnh sửa",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent itn = new Intent(getContext(), UpdateInforActivity.class);
+                    startActivity(itn);
+                }
             }
         });
         userVoucher.setOnClickListener(new View.OnClickListener() {

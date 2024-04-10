@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.appdocbao.Adapter.RecentlyReadAdapter;
@@ -41,6 +42,7 @@ public class SavedArticlesActivity extends AppCompatActivity {
     ValueEventListener eventListener;
     ImageView deleteRecentlyRead;
     ImageView backMain;
+    LinearLayout empty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,7 @@ public class SavedArticlesActivity extends AppCompatActivity {
         rcvRecentlyRead = findViewById(R.id.rcvRecentlyRead);
         deleteRecentlyRead = findViewById(R.id.deleteRecentlyRead);
         backMain = findViewById(R.id.backMain);
+        empty = findViewById(R.id.empty);
 //        progressIndicator = findViewById(R.id.progress_bar);
         setupRecycleView();
 
@@ -110,6 +113,12 @@ public class SavedArticlesActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+        //
+        if(listArticle.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+        }{
+            empty.setVisibility(View.GONE);
+        }
         deleteRecentlyRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +137,7 @@ public class SavedArticlesActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             // Xóa dữ liệu thành công
                                             Toast.makeText(SavedArticlesActivity.this, "Đã xóa tất cả tin đã lưu", Toast.LENGTH_SHORT).show();
+                                            recreate();
                                         } else {
                                             // Xóa dữ liệu thất bại
                                             Toast.makeText(SavedArticlesActivity.this, "Lỗi khi xóa dữ liệu", Toast.LENGTH_SHORT).show();

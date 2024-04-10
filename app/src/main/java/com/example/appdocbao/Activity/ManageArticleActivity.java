@@ -99,9 +99,9 @@ public class ManageArticleActivity extends AppCompatActivity {
             }
         });
         if(listArticle.isEmpty()){
-            empty.setVisibility(View.GONE);
-        }{
             empty.setVisibility(View.VISIBLE);
+        }{
+            empty.setVisibility(View.GONE);
         }
     }
     void setupRecycleView(){
