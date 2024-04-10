@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.VoucherChangeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.UpdateInforActivity"
             android:exported="false" />
         <activity
