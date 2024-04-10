@@ -3,6 +3,9 @@ package com.example.appdocbao.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdocbao.Adapter.VoucherChangeAdapter;
+import com.example.appdocbao.Model.Article;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,12 +35,18 @@ public class VoucherChangeActivity extends AppCompatActivity {
     private ArrayList<Voucher> listVoucher;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
+    LinearLayout empty;
+    ScrollView mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voucher_change);
         backarrow = findViewById(R.id.backarrow);
+
+        empty = findViewById(R.id.empty);
+        mainView = findViewById(R.id.mainView);
+
         backarrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,9 +80,8 @@ public class VoucherChangeActivity extends AppCompatActivity {
                     Voucher voucher = itemSnapShot.getValue(Voucher.class);
                     listVoucher.add(voucher);
                 }
-
                 voucherChangeAdapter.notifyDataSetChanged();
-
+                changeView(listVoucher);
             }
 
             @Override
@@ -81,5 +90,13 @@ public class VoucherChangeActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void changeView (ArrayList<Voucher> listVoucher){
+        if(listVoucher.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+            mainView.setVisibility(View.GONE);
+        }else{
+            empty.setVisibility(View.GONE);
+            mainView.setVisibility(View.VISIBLE);
+        }
+    }
 }

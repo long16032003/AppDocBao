@@ -84,6 +84,7 @@ public class ManageArticleActivity extends AppCompatActivity {
                 }
                 manageArticleAdapter.notifyDataSetChanged();
 //                changeInProgress(false);
+                changeView(listArticle);
                 dialog.dismiss();
             }
 
@@ -98,16 +99,22 @@ public class ManageArticleActivity extends AppCompatActivity {
                 finish();
             }
         });
-        if(listArticle.isEmpty()){
-            empty.setVisibility(View.VISIBLE);
-        }{
-            empty.setVisibility(View.GONE);
-        }
+
     }
     void setupRecycleView(){
         rcvManageArticle.setLayoutManager(new LinearLayoutManager(this));
         rcvManageArticle.setHasFixedSize(true);
         manageArticleAdapter = new ManageArticleAdapter(this,listArticle);
         rcvManageArticle.setAdapter(manageArticleAdapter);
+    }
+
+    private void changeView (ArrayList<Article> listArticle){
+        if(listArticle.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+            mainView.setVisibility(View.GONE);
+        }else{
+            empty.setVisibility(View.GONE);
+            mainView.setVisibility(View.VISIBLE);
+        }
     }
 }

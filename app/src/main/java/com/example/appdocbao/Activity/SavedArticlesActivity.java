@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.appdocbao.Adapter.RecentlyReadAdapter;
@@ -43,6 +44,7 @@ public class SavedArticlesActivity extends AppCompatActivity {
     ImageView deleteRecentlyRead;
     ImageView backMain;
     LinearLayout empty;
+    ScrollView mainView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class SavedArticlesActivity extends AppCompatActivity {
         deleteRecentlyRead = findViewById(R.id.deleteRecentlyRead);
         backMain = findViewById(R.id.backMain);
         empty = findViewById(R.id.empty);
+        mainView = findViewById(R.id.mainView);
 //        progressIndicator = findViewById(R.id.progress_bar);
         setupRecycleView();
 
@@ -100,6 +103,7 @@ public class SavedArticlesActivity extends AppCompatActivity {
                             }
                         });
                         recentlyReadAdapter.notifyDataSetChanged();
+                        changeView(listArticle);
                         dialog.dismiss();
                     }
                     @Override
@@ -170,5 +174,14 @@ public class SavedArticlesActivity extends AppCompatActivity {
         rcvRecentlyRead.setHasFixedSize(true);
         recentlyReadAdapter = new RecentlyReadAdapter(this,listArticle);
         rcvRecentlyRead.setAdapter(recentlyReadAdapter);
+    }
+    private void changeView (ArrayList<Article> listArticle){
+        if(listArticle.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+            mainView.setVisibility(View.GONE);
+        }else{
+            empty.setVisibility(View.GONE);
+            mainView.setVisibility(View.VISIBLE);
+        }
     }
 }
