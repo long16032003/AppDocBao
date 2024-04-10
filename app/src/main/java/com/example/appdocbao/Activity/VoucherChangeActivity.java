@@ -1,18 +1,16 @@
-package com.example.appdocbao.Fragment;
+package com.example.appdocbao.Activity;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdocbao.Adapter.VoucherChangeAdapter;
+import com.example.appdocbao.Fragment.UserFragment;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class VoucherChangeFragment extends Fragment {
+public class VoucherChangeActivity extends AppCompatActivity {
     ImageView backarrow;
     private RecyclerView rcvVoucherFragment;
     private VoucherChangeAdapter voucherChangeAdapter;
@@ -36,35 +34,29 @@ public class VoucherChangeFragment extends Fragment {
     ValueEventListener valueEventListener;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_voucher_change, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        backarrow = view.findViewById(R.id.backarrow);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_voucher_change);
+        backarrow = findViewById(R.id.backarrow);
         backarrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserFragment userFragment = new UserFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_layout,userFragment).commit();
             }
         });
-        rcvVoucherFragment = view.findViewById(R.id.voucherChange);
+        rcvVoucherFragment = findViewById(R.id.voucherChange);
         databaseReference = FirebaseDatabase.getInstance().getReference("voucher");
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rcvVoucherFragment.setLayoutManager(layoutManager);
 
         listVoucher = new ArrayList<>();
-        voucherChangeAdapter = new VoucherChangeAdapter(getContext(), listVoucher);
+        voucherChangeAdapter = new VoucherChangeAdapter(this, listVoucher);
         rcvVoucherFragment.setAdapter(voucherChangeAdapter);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(view.getContext());
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         String id_User = "";
         if(user != null){
             id_User = user.getUid();
@@ -92,6 +84,5 @@ public class VoucherChangeFragment extends Fragment {
             }
         });
     }
-
 
 }

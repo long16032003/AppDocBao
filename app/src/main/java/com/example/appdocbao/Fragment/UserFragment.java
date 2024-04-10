@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +19,7 @@ import com.example.appdocbao.Activity.ManageArticleActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
 import com.example.appdocbao.Activity.RecentlyReadActivity;
 import com.example.appdocbao.Activity.SavedArticlesActivity;
-import com.example.appdocbao.Activity.UpdateInforActivity;
+import com.example.appdocbao.Activity.VoucherChangeActivity;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -73,9 +71,9 @@ public class UserFragment extends Fragment {
         userVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VoucherChangeFragment voucherChangeFragment = new VoucherChangeFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout,voucherChangeFragment).commit();
+                VoucherChangeActivity voucherChangeActivity = new VoucherChangeActivity();
+                Intent it = new Intent(getContext(),voucherChangeActivity.getClass());
+                startActivity(it);
             }
         });
 
