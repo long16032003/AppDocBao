@@ -13,6 +13,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.appdocbao.Adapter.RecentlyReadAdapter;
@@ -43,10 +44,10 @@ public class RecentlyReadActivity extends AppCompatActivity {
     private RecentlyReadAdapter recentlyReadAdapter;
     private ArrayList<Article> listArticle;
     DatabaseReference recentlyReadRef;
-    ValueEventListener eventListener;
     ImageView deleteRecentlyRead;
     ImageView backMain;
     LinearLayout empty;
+    ScrollView mainView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,7 @@ public class RecentlyReadActivity extends AppCompatActivity {
         deleteRecentlyRead = findViewById(R.id.deleteRecentlyRead);
         backMain = findViewById(R.id.backMain);
         empty = findViewById(R.id.empty);
+        mainView = findViewById(R.id.mainView);
 //        progressIndicator = findViewById(R.id.progress_bar);
         setupRecycleView();
 
@@ -103,7 +105,6 @@ public class RecentlyReadActivity extends AppCompatActivity {
                             }
                         }
 
-
                         // Sắp xếp danh sách bài báo theo thứ tự giảm dần của thời gian đọc
                         Collections.sort(listArticle, new Comparator<Article>() {
                             @Override
@@ -121,9 +122,9 @@ public class RecentlyReadActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
-
+                        //thông báo cho Adapter biết rằng dữ liệu đầu vào đã thay đổi và cần cập nhật giao diện tương ứng
                         recentlyReadAdapter.notifyDataSetChanged();
+                        changeView(listArticle);
                         dialog.dismiss();
                     }
 
@@ -132,40 +133,12 @@ public class RecentlyReadActivity extends AppCompatActivity {
                         // Xử lý lỗi nếu có
                     }
                 });
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 dialog.dismiss();
             }
         });
-//        recentlyReadRef = FirebaseDatabase.getInstance().getReference("users/"+id_User+"/recently_read");
-////        dialog.show();
-//        eventListener = recentlyReadRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                listArticle.clear();
-//                for(DataSnapshot itemSnapShot : snapshot.getChildren()){
-//                    Article article = itemSnapShot.getValue(Article.class);
-//                    listArticle.add(article);
-//                }
-//                Collections.reverse(listArticle);
-//                recentlyReadAdapter.notifyDataSetChanged();
-////                changeInProgress(false);
-//                dialog.dismiss();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                dialog.dismiss();
-//            }
-//        });
-        if(listArticle.isEmpty()){
-            empty.setVisibility(View.VISIBLE);
-        }{
-            empty.setVisibility(View.GONE);
-        }
         deleteRecentlyRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,5 +190,14 @@ public class RecentlyReadActivity extends AppCompatActivity {
         rcvRecentlyRead.setHasFixedSize(true);
         recentlyReadAdapter = new RecentlyReadAdapter(this,listArticle);
         rcvRecentlyRead.setAdapter(recentlyReadAdapter);
+    }
+    private void changeView (ArrayList<Article> listArticle){
+        if(listArticle.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+            mainView.setVisibility(View.GONE);
+        }else{
+            empty.setVisibility(View.GONE);
+            mainView.setVisibility(View.VISIBLE);
+        }
     }
 }
