@@ -39,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 
 public class DetailArticleActivity extends AppCompatActivity {
@@ -84,9 +85,31 @@ public class DetailArticleActivity extends AppCompatActivity {
             detailContent.setText(contentArticle);
             detailAuthor.setText("Nguồn: "+authorArticle);
 
-            Date date = new Date(timestampArticle);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
-            String formattedDateTime = dateFormat.format(date);
+            Date dateTime = new Date(timestampArticle);
+            String formattedDateTime;
+
+            // Thời gian hiện tại
+            Date now = new Date();
+            //Tính toán xem thời gian đăng báo cách thời gian hiện tại bao lâu
+            long diffInMillis = now.getTime() - timestampArticle;
+
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis);
+            long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
+            long days = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+
+            if (days < 1) {
+                if (hours < 1) {
+                    // Hiển thị số phút
+                    formattedDateTime = minutes + " phút trước";
+                } else {
+                    // Hiển thị số giờ
+                    formattedDateTime = hours + " giờ trước";
+                }
+            } else {
+                // Hiển thị ngày, tháng, năm
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                formattedDateTime = dateFormat.format(dateTime);
+            }
             detailDate.setText(formattedDateTime);
 
             // Sử dụng Glide để tải hình ảnh

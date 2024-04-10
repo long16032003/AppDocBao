@@ -43,12 +43,12 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     private Context mContext;
     private ArrayList<Article> mListArticle;
     Article articleRecently;
-    private int acountArticleShow;
+    private int amountArticleShow;
 
-    public RecyclerArticleAdapter(Context mContext, ArrayList<Article> mListArticle, int acountArticleShow) {
+    public RecyclerArticleAdapter(Context mContext, ArrayList<Article> mListArticle, int amountArticleShow) {
         this.mContext = mContext;
         this.mListArticle = mListArticle;
-        this.acountArticleShow = acountArticleShow;
+        this.amountArticleShow = amountArticleShow;
     }
     public void setData(ArrayList<Article> list){
         this.mListArticle = list;
@@ -143,10 +143,10 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
 
     @Override
     public int getItemCount() {
-        if(acountArticleShow >= mListArticle.size()){
+        if(amountArticleShow >= mListArticle.size()){
             return mListArticle.size();
         }else{
-            return acountArticleShow;
+            return amountArticleShow;
         }
     }
 

@@ -33,8 +33,6 @@ public class SettingFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        ActionBar actionBar = getActivity().getActionBar();
-
         switcher = view.findViewById(R.id.settingswitcher);
 
         //sử dụng sharedPreferences để lưu chế độ nếu thoát app và vào lại

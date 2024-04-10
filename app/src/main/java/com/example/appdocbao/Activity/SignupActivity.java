@@ -44,7 +44,7 @@ public class SignupActivity extends AppCompatActivity {
     Uri uri;
     String imageUrl;
     ImageView imageUserUpload, backButton;
-    boolean isUploadImage = true;
+    boolean isUploadImage = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,17 +83,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }
         );
-        btnregis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isUploadImage) {
-                    onClickPushData();
-                    register();
-                }else{
-                    Toast.makeText(SignupActivity.this,"Vui lòng chọn ảnh !",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
         imageUserUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,17 +92,28 @@ public class SignupActivity extends AppCompatActivity {
                 activityResultLauncher.launch(intent);
             }
         });
+        btnregis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isUploadImage && validateInforUser()) {
+                    onClickPushData();
+                    register();
+                }else{
+                    Toast.makeText(SignupActivity.this,"Vui lòng chọn ảnh !",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                finish();
             }
         });
     }
 
     private void onClickPushData() {
-        if (uri != null) {
+//        if (uri != null) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                     .child("Image User")
                     .child(uri.getLastPathSegment());
@@ -123,41 +124,29 @@ public class SignupActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
 
-            storageReference.putFile(uri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.getDownloadUrl()
-                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            imageUrl = uri.toString();
-                                            uploadData();
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            dialog.dismiss();
-                                            // Xử lý lỗi khi không thể lấy URL tải xuống
-                                        }
-                                    });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            dialog.dismiss();
-                            // Xử lý lỗi khi không thể tải lên hình ảnh
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "Không thể tạo đối tượng StorageReference với giá trị URI null", Toast.LENGTH_SHORT).show();
-//            String defaultImageUri = "https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9";
-//            imageUrl = defaultImageUri;
-//            uploadData();
-        }
+            storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uriTask.isComplete());
+                    Uri urlImage = uriTask.getResult();
+                    imageUrl = urlImage.toString();
+                    uploadData();
+                    dialog.dismiss();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    dialog.dismiss();
+
+                }
+            });
+//        } else {
+//            Toast.makeText(this, "Không thể tạo đối tượng StorageReference với giá trị URI null", Toast.LENGTH_SHORT).show();
+////            String defaultImageUri = "https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9";
+////            imageUrl = defaultImageUri;
+////            uploadData();
+//        }
     }
 
     private void uploadData(){
@@ -170,13 +159,7 @@ public class SignupActivity extends AppCompatActivity {
 
         FirebaseUser userFirebase = firebaseAuth.getCurrentUser();
         String id = userFirebase.getUid();
-        User user;
-        if(imageUrl == null){
-            user = new User(id, name,email,0,phone,"https://firebasestorage.googleapis.com/v0/b/appdocbao-75d78.appspot.com/o/user-profile-icon.png?alt=media&token=c41f08e0-0f6f-413d-bc33-4a1f3f638dd9");
-        }else{
-            user = new User(id, name,email,0,phone,imageUrl);
-        }
-
+        User user = new User(id, name,email,0,phone,imageUrl);
         FirebaseDatabase.getInstance().getReference("users").child(id)
                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -198,16 +181,6 @@ public class SignupActivity extends AppCompatActivity {
         String email, password;
         email = signupUsername.getText().toString();
         password = signupPassword.getText().toString();
-
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Vui lòng nhập email.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Vui lòng nhập password.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -220,5 +193,46 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean validateInforUser(){
+        String email, password, name, phone;
+        name = signupName.getText().toString();
+        phone = signupPhoneNumber.getText().toString();
+        email = signupUsername.getText().toString();
+        password = signupPassword.getText().toString();
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Vui lòng nhập họ và tên.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(TextUtils.isEmpty(phone)){
+            Toast.makeText(this,"Vui lòng nhập số điện thoại.", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (!isValidPhoneNumber(phone)) {
+            Toast.makeText(this, "Số điện thoại không hợp lệ.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Vui lòng nhập email.", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (!isValidEmail(email)) {
+            Toast.makeText(this, "Email không hợp lệ.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Vui lòng nhập password.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // Định dạng số điện thoại: bắt đầu bằng số 84|03|05|07|08|09 và sau đó là 8 cs
+        String regex = "^(84|0[35789])\\d{8}$";
+        return phoneNumber.matches(regex);
+    }
+    private boolean isValidEmail(String email) {
+        // Định dạng email hợp lệ
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return email.matches(regex);
     }
 }

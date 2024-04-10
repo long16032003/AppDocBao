@@ -90,7 +90,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     style="@style/TEXT"
                     android:text="TextView" />
 
@@ -100,7 +100,8 @@
                     style="@style/TEXT"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
+                    android:textAlignment="center"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -113,7 +114,7 @@
                 android:padding="20dp"
                 style="@style/TEXT"
                 android:text="Content Article"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
