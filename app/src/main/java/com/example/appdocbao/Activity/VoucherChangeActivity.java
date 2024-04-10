@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appdocbao.Adapter.VoucherChangeAdapter;
-import com.example.appdocbao.Fragment.UserFragment;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -41,9 +40,7 @@ public class VoucherChangeActivity extends AppCompatActivity {
         backarrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserFragment userFragment = new UserFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout,userFragment).commit();
+                finish();
             }
         });
         rcvVoucherFragment = findViewById(R.id.voucherChange);
