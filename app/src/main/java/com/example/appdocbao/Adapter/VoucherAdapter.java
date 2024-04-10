@@ -1,8 +1,6 @@
 package com.example.appdocbao.Adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.appdocbao.Activity.LoginActivity;
 import com.example.appdocbao.Model.Voucher;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -117,7 +113,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
 
                         Toast.makeText(mContext, "Đổi voucher thành công cho mốc " + voucher.getAchievePoints() + " điểm! Số điểm tích lũy của bạn là: " + newPoints, Toast.LENGTH_SHORT).show();
                         String voucherId = voucher.getId(); // Lấy ID của voucher
-                        userRef.child("voucher").child(voucherId).setValue(voucher);
+                        userRef.child("voucher").push().setValue(voucher);
                     } else {
                         Toast.makeText(mContext, "Bạn không đủ điểm để đổi voucher!", Toast.LENGTH_SHORT).show();
                     }
@@ -143,7 +139,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
 
                         Toast.makeText(mContext, "Đổi voucher thành công cho mốc " + voucher.getAchievePoints() + " điểm! Số điểm tích lũy của bạn là: " + newPoints, Toast.LENGTH_SHORT).show();
                         String voucherId = voucher.getId(); // Lấy ID của voucher
-                        userRef.child("voucher").child(voucherId).setValue(voucher);
+                        userRef.child("voucher").push().setValue(voucher);
                     } else {
                         Toast.makeText(mContext, "Bạn không đủ điểm để đổi voucher!", Toast.LENGTH_SHORT).show();
                     }

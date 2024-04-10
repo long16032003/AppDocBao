@@ -51,7 +51,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/imgUserUpload"
+                android:id="@+id/imgUserUpdate"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
@@ -109,13 +109,15 @@
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/border_red"
                 android:ems="10"
+                android:text="hehehehehehehe"
+                android:textColor="#959494"
                 android:hint="Địa chỉ Email"
                 android:inputType="text"
                 android:textAlignment="center"
                 android:textSize="16dp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/signupBtn"
+                android:id="@+id/updateBtn1"
                 style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
