@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.appdocbao.Adapter.RecentlyReadAdapter;
@@ -45,6 +46,7 @@ public class RecentlyReadActivity extends AppCompatActivity {
     ValueEventListener eventListener;
     ImageView deleteRecentlyRead;
     ImageView backMain;
+    LinearLayout empty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,7 @@ public class RecentlyReadActivity extends AppCompatActivity {
         rcvRecentlyRead = findViewById(R.id.rcvRecentlyRead);
         deleteRecentlyRead = findViewById(R.id.deleteRecentlyRead);
         backMain = findViewById(R.id.backMain);
+        empty = findViewById(R.id.empty);
 //        progressIndicator = findViewById(R.id.progress_bar);
         setupRecycleView();
 
@@ -100,6 +103,7 @@ public class RecentlyReadActivity extends AppCompatActivity {
                             }
                         }
 
+
                         // Sắp xếp danh sách bài báo theo thứ tự giảm dần của thời gian đọc
                         Collections.sort(listArticle, new Comparator<Article>() {
                             @Override
@@ -118,7 +122,6 @@ public class RecentlyReadActivity extends AppCompatActivity {
                             }
                         });
 
-                        // TODO: Hiển thị danh sách bài báo đã đọc gần đây theo thứ tự giảm dần của thời gian đọc
 
                         recentlyReadAdapter.notifyDataSetChanged();
                         dialog.dismiss();
@@ -129,6 +132,7 @@ public class RecentlyReadActivity extends AppCompatActivity {
                         // Xử lý lỗi nếu có
                     }
                 });
+
             }
 
             @Override
@@ -157,6 +161,11 @@ public class RecentlyReadActivity extends AppCompatActivity {
 //                dialog.dismiss();
 //            }
 //        });
+        if(listArticle.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+        }{
+            empty.setVisibility(View.GONE);
+        }
         deleteRecentlyRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
