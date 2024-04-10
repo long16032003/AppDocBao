@@ -19,6 +19,7 @@ import com.example.appdocbao.Activity.ManageArticleActivity;
 import com.example.appdocbao.Activity.NewspaperPostingActivity;
 import com.example.appdocbao.Activity.RecentlyReadActivity;
 import com.example.appdocbao.Activity.SavedArticlesActivity;
+import com.example.appdocbao.Activity.UpdateInforActivity;
 import com.example.appdocbao.Activity.VoucherChangeActivity;
 import com.example.appdocbao.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -61,13 +62,13 @@ public class UserFragment extends Fragment {
         tindaluu = view.findViewById(R.id.tindaluu);
         profilePicture = view.findViewById(R.id.profilePicture);
         userVoucher = view.findViewById(R.id.userVoucher);
-//        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent itn = new Intent(getContext(), UpdateInforActivity.class);
-//                startActivity(itn);
-//            }
-//        });
+        btnSettingAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent itn = new Intent(getContext(), UpdateInforActivity.class);
+                startActivity(itn);
+            }
+        });
         userVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

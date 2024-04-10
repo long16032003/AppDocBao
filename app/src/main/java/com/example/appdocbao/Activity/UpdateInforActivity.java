@@ -42,13 +42,12 @@ public class UpdateInforActivity extends AppCompatActivity {
     ImageView imgUpdate, imgback;
     EditText usernameUpdate, emailUpdate, phoneUpdate;
     Button btnUpdate, btnPicture;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     DatabaseReference databaseReference;
     String imageURL;
     Uri URI;
 
-    boolean isUploadImage = true;
+    boolean isUploadImage = false;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class UpdateInforActivity extends AppCompatActivity {
         usernameUpdate = (EditText) findViewById(R.id.updateName);
         phoneUpdate = (EditText) findViewById(R.id.updatePhoneNumber);
         emailUpdate = (EditText) findViewById(R.id.updateEmail);
-        mAuth = FirebaseAuth.getInstance();
 
         btnPicture = (Button) findViewById(R.id.update_Picture);
         btnUpdate = (Button) findViewById(R.id.updateBtn1);
@@ -66,7 +64,7 @@ public class UpdateInforActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        final String id_User = mAuth!=null ? mAuth.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
+        final String id_User = user!=null ? user.getUid() : (googleSignInAccount != null ? googleSignInAccount.getId() : "" );
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(id_User);

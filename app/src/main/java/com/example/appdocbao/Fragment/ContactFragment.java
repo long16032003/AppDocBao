@@ -52,14 +52,14 @@ public class ContactFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // Quyền gọi điện thoại chưa được cấp
                     if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
                             != PackageManager.PERMISSION_GRANTED) {
-                        // Quyền gọi điện thoại chưa được cấp
                         // Yêu cầu quyền gọi điện thoại
-                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE},
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{android.Manifest.permission.CALL_PHONE},
                                 CALL_PHONE_PERMISSION_REQUEST_CODE);
-                    } else {
-                        // Quyền gọi điện thoại đã được cấp
+                    } else {    // Quyền gọi điện thoại đã được cấp
                         // Tiến hành thực hiện cuộc gọi điện thoại
                         Toast.makeText(requireContext(), btn1.getText().toString(), Toast.LENGTH_SHORT).show();
                         makePhoneCall(btn1.getText().toString());
@@ -72,14 +72,14 @@ public class ContactFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // Quyền gọi điện thoại chưa được cấp
                     if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
                             != PackageManager.PERMISSION_GRANTED) {
-                        // Quyền gọi điện thoại chưa được cấp
                         // Yêu cầu quyền gọi điện thoại
-                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE},
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{android.Manifest.permission.CALL_PHONE},
                                 CALL_PHONE_PERMISSION_REQUEST_CODE);
-                    } else {
-                        // Quyền gọi điện thoại đã được cấp
+                    } else {    // Quyền gọi điện thoại đã được cấp
                         // Tiến hành thực hiện cuộc gọi điện thoại
                         Toast.makeText(requireContext(), btn2.getText().toString(), Toast.LENGTH_SHORT).show();
                         makePhoneCall(btn2.getText().toString());
@@ -96,7 +96,8 @@ public class ContactFragment extends Fragment {
                             != PackageManager.PERMISSION_GRANTED) {
                         // Quyền gọi điện thoại chưa được cấp
                         // Yêu cầu quyền gọi điện thoại
-                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE},
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{android.Manifest.permission.CALL_PHONE},
                                 CALL_PHONE_PERMISSION_REQUEST_CODE);
                     } else {
                         // Quyền gọi điện thoại đã được cấp
@@ -121,19 +122,5 @@ public class ContactFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CALL_PHONE_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Quyền gọi điện thoại đã được cấp
-                // Tiến hành thực hiện cuộc gọi điện thoại
-                Toast.makeText(requireContext(), btn1.getText().toString(),Toast.LENGTH_SHORT).show();
-                makePhoneCall(btn1.getText().toString());
-            } else {
-                // Quyền gọi điện thoại bị từ chối
-                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
 }
