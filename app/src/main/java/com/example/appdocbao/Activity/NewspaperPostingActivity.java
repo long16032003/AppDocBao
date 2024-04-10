@@ -84,7 +84,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(NewspaperPostingActivity.this, android.R.layout.simple_spinner_item, spinnerList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
-        Showdata();
+        ShowdataSpinner();
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -157,7 +157,7 @@ public class NewspaperPostingActivity extends AppCompatActivity {
         });
     }
 
-    private void Showdata(){
+    private void ShowdataSpinner(){
         spinnerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

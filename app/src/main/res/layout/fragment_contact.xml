@@ -33,8 +33,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Liên hệ"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:textColor="@color/white"/>
 
             </RelativeLayout>
@@ -92,9 +93,17 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             style="@style/TEXT"
-                            android:text="minhduc4444@gmail.com
-" />
+                            android:text="minhduc4444@gmail.com" />
+
                     </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="0321234232"
+                        android:layout_gravity="start"
+                        android:drawableStart="@drawable/baseline_call_24" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -151,6 +160,14 @@
                             android:layout_weight="1"
                             android:text="duonghoangripper25@gmail.com" />
                     </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0559715140"
+                        android:layout_gravity="start"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/baseline_call_24" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -206,6 +223,14 @@
                             style="@style/TEXT"
                             android:text="nguyengialong163@gmail.com" />
                     </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0961636085"
+                        android:layout_gravity="start"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/baseline_call_24" />
                 </LinearLayout>
 
             </LinearLayout>

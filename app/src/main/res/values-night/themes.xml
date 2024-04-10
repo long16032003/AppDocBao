@@ -35,6 +35,10 @@
         <item name="android:background">#252424</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="NAV_VIEW" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">#2B2A2A</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     <style name="RECYCLEVIEW">
         <item name="android:background">#2B2A2A</item>
         <item name="android:textColor">#FFFFFF</item>
