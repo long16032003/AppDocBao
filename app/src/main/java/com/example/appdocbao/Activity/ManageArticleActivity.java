@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.example.appdocbao.Adapter.ManageArticleAdapter;
 import com.example.appdocbao.Model.Article;
@@ -33,6 +35,8 @@ public class ManageArticleActivity extends AppCompatActivity {
     DatabaseReference articleReference, savedArticleReference;
     ValueEventListener eventListener;
     ImageView backMain;
+    ScrollView mainView;
+    LinearLayout empty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,10 @@ public class ManageArticleActivity extends AppCompatActivity {
 
         rcvManageArticle = findViewById(R.id.rcvManageArticle);
         backMain = findViewById(R.id.backMain);
+
+        mainView = findViewById(R.id.mainView);
+        empty = findViewById(R.id.empty);
+
         setupRecycleView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
@@ -90,6 +98,11 @@ public class ManageArticleActivity extends AppCompatActivity {
                 finish();
             }
         });
+        if(listArticle.isEmpty()){
+            empty.setVisibility(View.GONE);
+        }{
+            empty.setVisibility(View.VISIBLE);
+        }
     }
     void setupRecycleView(){
         rcvManageArticle.setLayoutManager(new LinearLayoutManager(this));
